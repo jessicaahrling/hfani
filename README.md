@@ -3,7 +3,7 @@
 Animationer till videon om Hugging Face-incidenten. Två projekt med samma motor:
 
 - `portrait/`  – Instagram/Reels, 1080×1920. **Klar.** Referens.
-- `landscape/` – Youtube, 1920×1080. Grund + 3 utkastscener + rubrikkort. **Ska byggas färdigt** – se `CLAUDE.md`.
+- `landscape/` – Youtube, 1920×1080. **Klar.** 21 scener i `src/yt1.js`–`yt5.js`, MP4 per scen i `out/` samt `out/alla_scener_forhandsvisning.mp4`. Se `CLAUDE.md` för scenplan och regler.
 - `fonts/`     – Big Shoulders + Geist Mono (OFL), bäddas in vid bygge.
 - `manus_youtube.md` – manuset som scenerna följer.
 

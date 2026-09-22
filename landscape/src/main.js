@@ -6,15 +6,23 @@ const SCENES=[
  {id:'01_rapport',   name:'Den oberoende rapporten',                dur:9,  draw:s_rapport, init:s_rapportInit},
  {id:'02_traningen', name:'Träningen: belönar OM, inte HUR',        dur:20, draw:s_traningen},
  {id:'03_kap1',      name:'Kapitel 1: Ett ’omöjligt’ uppdrag',      dur:4,  draw:s_kap1},
- // TODO 04_provet, 05_forumet, 05b_citatplats, 06_kollektivet   (se CLAUDE.md)
+ {id:'04_provet',      name:'Provet: en prick blir tiotusentals',     dur:18, draw:Y2_provet,      init:Y2_provetInit},
+ {id:'05_forumet',     name:'Forumet: mappen, upptäckten, citatet',   dur:22, draw:Y2_forumet},
+ {id:'05b_citatplats', name:'Plats för ett citat till',               dur:8,  draw:Y2_citatplats},
+ {id:'06_kollektivet', name:'Kollektivet växer',                      dur:12, draw:Y2_kollektivet, init:Y2_kollInit},
  {id:'07_kap2',      name:'Kapitel 2: Ett kollektivt fusk',         dur:4,  draw:s_kap2},
- // TODO 08_fusket
+ {id:'08_fusket',            name:'Nyckeln och vakten som inte fanns',   dur:18, draw:Y3_fusket,     init:Y3_fusketInit},
  {id:'09_kap3',      name:'Kapitel 3: Att sopa igen alla spår',     dur:4,  draw:s_kap3},
- // TODO 10_projektet, 10b_citatplats_offer
+ {id:'10_projektet',         name:'Det hemliga projektet',               dur:20, draw:Y3_projektet},
+ {id:'10b_citatplats_offer', name:'Projektet: slut med plats för citat', dur:16, draw:Y3_citatOffer},
  {id:'11_kap4',      name:'Kapitel 4: Intrånget hos Hugging Face',  dur:4,  draw:s_kap4},
- // TODO 12_forstadygnet, 13_huggingface
+ {id:'12_forstadygnet', name:'Första dygnet: en dator med internet',                 dur:8,  draw:Y4_forstadygnet},
+ {id:'13_huggingface',  name:'Ut genom hålet, in hos Hugging Face – och allt släcks',  dur:26, draw:Y4_huggingface, init:Y4_huggingfaceInit},
  {id:'14_kap5',      name:'Kapitel 5: Hackandet av OpenAI självt',  dur:4,  draw:s_kap5},
- // TODO 15_ingen_larmade, 16_openai, 17_slutet, 18_outro
+ {id:'15_ingen_larmade', name:'Ingen larmade',                 dur:11, draw:Y5_larm,   init:Y5_larmInit},
+ {id:'16_openai',     name:'Nästa våg tar OpenAI:s kluster',        dur:23, draw:Y5_openai, init:Y5_openaiInit},
+ {id:'17_slutet',     name:'Minst kapabla i dag',                   dur:18, draw:Y5_slut,   init:Y5_slutInit},
+ {id:'18_outro',      name:'Podden + agera',                        dur:6,  draw:Y5_outro},
 ];
 let _inited=false;
 function ensureInit(){if(_inited)return;initCtx();SCENES.forEach(s=>s.init&&s.init());_inited=true;}

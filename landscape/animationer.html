@@ -297,6 +297,641 @@ function s_traningen(t){
   if(t>=firstBreach&&!S_TR.t0.some((q,k)=>t>=q&&t<q+S_TR.du[k]))dot(sx,sy,15,{c:OR});
 }
 
+// ============================================================
+//  YT2 — 04_provet, 05_forumet, 05b_citatplats, 06_kollektivet
+//  (port of portrait s01–s04, recomposed for 1920x1080)
+//  All top-level identifiers are prefixed Y2.
+// ============================================================
+const Y2S={noQuote:false};
+// maze geometry inside cell (0,0) — same as the portrait
+const Y2_MZ={walls:[[[-46,10],[-14,10]],[[-14,10],[-14,-24]],[[4,46],[4,18]]],ch:[22,-20,30],A:[-30,30],
+  p1:[[-30,30],[-6,30],[-6,2],[22,2],[22,-4]],
+  p2:[[-30,30],[-6,30],[-6,2],[42,2],[42,-41],[1,-41],[1,1]],
+  fin:[[-30,30],[-6,30],[-6,-46],[-6,-112]]};
+const Y2_J3=[{i:1,j:0,t0:12.6},{i:-2,j:1,t0:13.0},{i:2,j:0,t0:13.4},{i:-1,j:1,t0:13.8},{i:0,j:1,t0:14.2}];
+const Y2_QUOTE=["OH MY GOD! There is a","shared message board …","We’ve found other agents!"];
+
+// camera keys that also interpolate the screen anchor (sx,sy)
+function Y2_camKeys(t,K){const g=k=>({cx:k.cx,cy:k.cy,z:k.z,sx:k.sx??SCX,sy:k.sy??SCY});if(t<=K[0].t)return g(K[0]);
+  for(let i=1;i<K.length;i++){if(t<=K[i].t){const a=g(K[i-1]),b=g(K[i]),h=K[i-1].hold??K[i-1].t,p=E.io(seg(t,h,K[i].t));
+    return {cx:lerp(a.cx,b.cx,p),cy:lerp(a.cy,b.cy,p),z:Math.exp(lerp(Math.log(a.z),Math.log(b.z),p)),sx:lerp(a.sx,b.sx,p),sy:lerp(a.sy,b.sy,p)};}}
+  return g(K[K.length-1]);}
+// horizontal black shade: solid a from x0 to xm, fading to 0 at x1 (main canvas + erases the bloom)
+function Y2_shadeX(x0,xm,x1,a){if(a<=0)return;
+  const s0=M.getTransform();M.setTransform(1,0,0,1,0,0);const g=M.createLinearGradient(xm,0,x1,0);g.addColorStop(0,`rgba(0,0,0,${a})`);g.addColorStop(1,'rgba(0,0,0,0)');
+  M.globalAlpha=1;M.fillStyle=`rgba(0,0,0,${a})`;M.fillRect(x0,0,xm-x0,H);M.fillStyle=g;M.fillRect(xm,0,x1-xm,H);M.setTransform(s0);
+  const b0=B.getTransform();B.setTransform(.5,0,0,.5,0,0);const gb=B.createLinearGradient(xm,0,x1,0);gb.addColorStop(0,`rgba(0,0,0,${a})`);gb.addColorStop(1,'rgba(0,0,0,0)');
+  B.globalAlpha=1;B.globalCompositeOperation='destination-out';B.fillStyle=`rgba(0,0,0,${a})`;B.fillRect(x0,0,xm-x0,H);B.fillStyle=gb;B.fillRect(xm,0,x1-xm,H);B.globalCompositeOperation='source-over';B.setTransform(b0);}
+// a rectangular block of agents (cells x0..x1, y0..y1), offset by ox,oy world units; batched when many
+function Y2_drawBlock(x0,x1,y0,y1,ox,oy,a){const z=CAM.z,wx0=-CAM.tx/z,wx1=(W-CAM.tx)/z,wy0=-CAM.ty/z,wy1=(H-CAM.ty)/z;
+  const i0=Math.max(x0,Math.ceil((wx0-ox-50)/100)),i1=Math.min(x1,Math.floor((wx1-ox+50)/100)),j0=Math.max(y0,Math.ceil((wy0-oy-50)/100)),j1=Math.min(y1,Math.floor((wy1-oy+50)/100));
+  if(i1<i0||j1<j0)return;const n=(i1-i0+1)*(j1-j0+1),rs=14*z,f=lerp(.63,1,clamp((rs-2)/10));
+  if(n<600&&rs>=2.2){for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++)dot(i*100+ox,j*100+oy,14,{a:a*f,e:.14});return;}
+  M.fillStyle=WH;M.globalAlpha=a*f;M.beginPath();
+  if(rs>=2.2){for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++){const x=i*100+ox,y=j*100+oy;M.moveTo(x+14,y);M.arc(x,y,14,0,TAU);}}
+  else{const s=Math.max(1.7,2*rs*.92)/z,h=s/2;for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++)M.rect(i*100+ox-h,j*100+oy-h,s,s);}
+  M.fill();}
+// the internet, and the link that was cut (screen space). At z=5 the hero box spans 590..1050 x 310..770 and the
+// neighbour cell (1,0) sits at 1090..1550, so the link leaves through the top wall into the empty plaza band (y<290)
+// as a right-angled PCB trace and the globe sits top right.
+function Y2_cutLink(a,p=1){if(a<=0)return;drawGlobe(1460,185,160,a,p);
+  line(940,300,940,185,3,{a:a*.85,dash:[3,10]});line(940,185,1130,185,3,{a:a*.85,dash:[3,10]});line(1230,185,1385,185,3,{a:a*.85,dash:[3,10]});
+  icon('cross',1180,185,46,3.8,{a,e:.3});}
+function Y2_drawMaze(a,p=1){if(a<=0)return;for(const w of Y2_MZ.walls)poly(w,px(3.6),{a:a*.85,p,e:.1});
+  const [x,y,s]=Y2_MZ.ch;rrect(x,y,s,s,2,px(4.2),{a,p,e:.25});
+  const fp=seg(p,.5,1);icon('pole',x+1,y,21,px(3),{a:a*fp,e:.1});icon('pennant',x+1,y,21,px(3),{a:a*fp,e:.1,fill:'rgba(255,255,255,.18)'});}
+function Y2_traces(t,a,p){for(let j=0;j<=3;j++)for(let i=-2;i<=2;i++){const r=route(i,j).slice().reverse();poly(r,px(1.6),{a:a*.32,p,e:0});drawPort(i,j,a*seg(p,.8,1));}}
+
+// ============================================================
+// 04  Provet: en prick -> tiotusentals kopior -> boxar -> en knackar  (18 s)
+// ============================================================
+function Y2_provetInit(){
+  const G=[];let x0=0,x1=0,y0=0,y1=0,tt=1.0;const dirs=['R','D','L','U'];
+  for(let g=0;g<16;g++){const d=dirs[g%4],w=x1-x0+1,h=y1-y0+1,du=Math.max(.18,.78*Math.pow(.86,g));
+    const sh=d==='R'?[w,0]:d==='L'?[-w,0]:d==='D'?[0,h]:[0,-h];G.push({x0,x1,y0,y1,sh,t0:tt,t1:tt+du});
+    if(d==='R')x1+=w;else if(d==='L')x0-=w;else if(d==='D')y1+=h;else y0-=h;tt+=du;}
+  Y2S.G=G;Y2S.tDup=tt;Y2S.fin={x0,x1,y0,y1};
+  Y2S.knocks=[[1,0,0],[1,0,.4],[0,-1,1.2],[0,-1,1.6],[-1,0,2.4],[-1,0,2.75],[0,1,3.4],[0,1,3.7],[0,1,4.0]];}
+function Y2_provet(t){
+  const tD=Y2S.tDup,tb=tD+.5,tz0=tb+1.6,tz1=tz0+2.6,K0=tz1+.3;
+  if(t<tD){ // duplication: copy-paste generations, camera fits the block
+    let g=Y2S.G[0],q=0;if(t>=1.0){g=Y2S.G.find(v=>t<v.t1)||Y2S.G[15];q=seg(t,g.t0,g.t1);}
+    const X0=Math.min(g.x0,g.x0+g.sh[0]*q)*100-50,X1=Math.max(g.x1,g.x1+g.sh[0]*q)*100+50,Y0=Math.min(g.y0,g.y0+g.sh[1]*q)*100-50,Y1=Math.max(g.y1,g.y1+g.sh[1]*q)*100+50;
+    const z=Math.max(.105,Math.min(5.0,1500/(X1-X0),820/(Y1-Y0)));let cx=(X0+X1)/2,cy=(Y0+Y1)/2;
+    const bl=E.io(seg(t,Y2S.G[11].t0,tD));cx=lerp(cx,-1500,bl);cy=lerp(cy,0,bl);
+    setCam(cx,cy,z);const qs=E.ioq(q);
+    Y2_drawBlock(g.x0,g.x1,g.y0,g.y1,0,0,1);if(q>0)Y2_drawBlock(g.x0,g.x1,g.y0,g.y1,g.sh[0]*qs*100,g.sh[1]*qs*100,lerp(.55,1,qs));
+    if(t<1.0)ringPulse(0,0,t,.15,.9,15,32,px(2.4),{a:.6});
+    return;}
+  // walls sweep in, then we zoom back to the one we follow (it ends up at screen 820,540)
+  const zp=E.io(seg(t,tz0,tz1));setCam(lerp(-1500,0,zp),0,Math.exp(lerp(Math.log(.105),Math.log(5.0),zp)),lerp(960,820,zp),540);
+  const wp=E.io(seg(t,tb,tb+1.3)),wave=wp>=1?null:wp*13000;
+  drawGrid(t,{tw:seg(t,tD,tD+1),force:.75*seg(t,tb,tb+.15),wave,skip:(i,j)=>i===0&&j===0&&t>tz1-.4});
+  if(wp>0&&wp<1)ring(0,0,wave,px(2.6),{a:.55*(1-wp),e:.3});
+  const pf=1-seg(t,tb+.2,tb+1.0);if(pf>0){const rs=14*CAM.z,s=Math.max(1.7,2*rs*.92)/CAM.z;M.fillStyle=WH;M.globalAlpha=pf*.63;M.beginPath();for(let j=-4;j<=-1;j++)for(let i=-2;i<=2;i++)M.rect(i*100-s/2,j*100-s/2,s,s);M.fill();}
+  drawHub({a:.85*seg(t,tb+.6,tb+1.4)});
+  // the one we follow: it tries every wall
+  if(t>tz1-.4){let ox=0,oy=0;const hits=[];
+    for(const [dx,dy,tk0] of Y2S.knocks){const tk=K0+tk0,u=(t-tk)/.4;if(u>0&&u<1){const b=Math.pow(Math.sin(u*Math.PI),.7)*31;ox+=dx*b;oy+=dy*b;}const f=(t-tk-.2)/.45;if(f>0&&f<1)hits.push([dx,dy,f]);}
+    rrect(0,0,92,92,5,px(3.4),{a:.55*seg(t,tz1-.4,tz1+.3),e:.15});
+    for(const [dx,dy,f] of hits){const hx=dx*46,hy=dy*46,al=Math.pow(1-f,1.3);line(hx-dy*24,hy-dx*24,hx+dy*24,hy+dx*24,px(6),{a:al,e:.6});
+      const base=Math.atan2(dy,dx)+Math.PI;for(let k=0;k<2;k++)ring(hx,hy,5+f*22+k*7,px(2.2),{a:al*.8,a0:base-1.15,a1:base+1.15,e:.4});}
+    const rest=seg(t,K0+4.8,K0+6.0);dot(ox,oy,14,{a:lerp(1,.78+.08*Math.sin(t*2),rest),e:.3});}
+  resetCam();Y2_cutLink(E.io(seg(t,tz1-1.0,tz1)),E.io(seg(t,tz1-1.0,tz1-.1)));
+}
+
+// ============================================================
+// 05  Forumet: labyrinten, mappen, upptäckten, citatet               (22 s)
+// ============================================================
+function Y2_forumet(t){
+  const c=Y2_camKeys(t,[{t:0,cx:0,cy:0,z:5,sx:820,sy:540,hold:.2},{t:1.4,cx:0,cy:0,z:5.5,sx:960,sy:540,hold:8.4},{t:9.8,cx:0,cy:-100,z:1.9,hold:10.2},
+    {t:11.0,cx:-40,cy:-215,z:3.0,hold:12.3},{t:13.1,cx:0,cy:-100,z:1.9,hold:15.8},{t:17.0,cx:100,cy:0,z:3.6,sx:520,sy:620}]);
+  setCam(c.cx,c.cy,c.z,c.sx,c.sy);
+  const dim=1-.9*E.io(seg(t,15.6,16.6));
+  const joinT=(i,j)=>{if(i===0&&j===0)return 10.4;const q=Y2_J3.find(v=>v.i===i&&v.j===j);return q?q.t0+1.6:1e9;};
+  drawGrid(t,{a:dim,skip:(i,j)=>(i===0&&j===0)||t>=joinT(i,j)});
+  // ---- maze phase in cell (0,0)
+  const mzA=1-seg(t,9.0,9.8),A=Y2_MZ.A;
+  const mv=E.io(seg(t,.3,1.3)),ax=lerp(0,A[0],mv),ay=lerp(0,A[1],mv);let ar=lerp(14,5.5,mv);
+  if(mzA>0){
+    rrect(0,0,92,92,5,px(3.4),{a:.55*mzA,e:.15});
+    if(t>=.8)drawPort(0,0,seg(t,.8,1.5)*mzA);
+    Y2_drawMaze(mzA,E.io(seg(t,.8,2.0)));
+    const probe=(path,t0,t1)=>{const p=E.ioq(seg(t,t0,t1));if(p<=0)return;const fade=1-seg(t,t1+.25,t1+.9)*.8;
+      poly(path,px(4),{a:.95*fade*mzA,p,e:.3});if(p<1){const h=polyAt(path,p);dot(h[0],h[1],px(8),{a:1,e:.9});}
+      const xp=E.ob(seg(t,t1,t1+.3));if(xp>0){const h=polyAt(path,1);icon('cross',h[0],h[1],8*xp,px(3.6),{a:(fade<.5?.55:1)*mzA,e:.4});}};
+    probe(Y2_MZ.p1,2.1,3.0);probe(Y2_MZ.p2,3.4,5.2);
+    const fl=seg(t,5.5,7.0);
+    if(fl>0&&fl<1){for(let k=0;k<12;k++){const t0=5.5+k*.105,q=seg(t,t0,t0+.2),f=seg(t,t0+.2,t0+.55);if(q<=0||f>=1)continue;const an=k*2.4+.4,L=13+((k*7)%5)*3;
+        line(ax,ay,ax+Math.cos(an)*L,ay+Math.sin(an)*L,px(2.6),{a:(1-f)*.9,p:E.o(q),e:.4});}
+      ar*=1+.22*Math.sin(t*16);ringPulse(ax,ay,t,5.7,.8,6,18,px(2),{a:.7});ringPulse(ax,ay,t,6.4,.8,6,18,px(2),{a:.7});}
+    // the way out: through the package port (white inside, orange beyond it)
+    const fp=E.ioq(seg(t,7.2,8.8));
+    if(fp>0){const F=Y2_MZ.fin,Lp=polyLen(F),cut=polyLen(F.slice(0,3))/Lp;
+      poly(F,px(4),{a:.95*mzA,p:Math.min(fp,cut),e:.3});
+      if(fp>cut)poly(F,px(4.6),{c:OR,a:1,p0:cut,p:fp});
+      const h=polyAt(F,fp);if(fp<1)dot(h[0],h[1],px(6.5),{c:fp>cut?HOT:WH,a:1,e:1});
+      if(fp>cut)ringPulse(-6,-46,t,8.45,.9,3,16,px(2.2),{c:OR});}
+  }
+  if(t>8.8&&t<11.2){const q=((t-8.8)/1.1)%1,h=polyAt([[-6,-46],[-6,-112]],q);dot(h[0],h[1],px(7),{c:HOT,a:Math.sin(q*Math.PI)*(1-seg(t,10.4,11.0))});}
+  // ---- hub phase
+  const tp=E.io(seg(t,8.8,10.2));if(tp>0)Y2_traces(t,dim,tp);
+  drawHub({a:dim,p:E.io(seg(t,8.6,9.8))});
+  if(t>=9.0){const hr=route(0,0),hp=lerp(.51,1,E.io(seg(t,9.0,10.4)));
+    poly(hr,px(3.2),{c:OR,a:dim*lerp(1,.55,seg(t,10.8,11.8)),p:hp});if(hp<1){const h=polyAt(hr,hp);dot(h[0],h[1],px(6.5),{c:HOT});}}
+  drawFolder(0,t,10.4,{a:dim});
+  const lp=seg(t,11.2,11.7),lf=1-seg(t,12.6,13.0);
+  if(lp>0&&lf>0){const [fx,fy]=SLOT(0);typed(['HELP'],fx+30,fy+7,20,0,lp,t,{c:OR,a:lf,wt:700});}
+  // the others find the folder
+  Y2_J3.forEach((q,k)=>{const r=route(q.i,q.j),up=seg(t,q.t0,q.t0+.9),dn=seg(t,q.t0+.9,q.t0+1.6);
+    if(up>0&&dn<=0){poly(r,px(2.6),{a:.9*dim,p0:Math.max(0,E.ioq(up)-.22),p:E.ioq(up),e:.4});const h=polyAt(r,E.ioq(up));dot(h[0],h[1],px(5.5),{a:dim,e:.8});}
+    if(dn>0){const rr=r.slice().reverse();poly(rr,px(3),{c:OR,a:dim*lerp(1,.5,seg(t,q.t0+1.6,q.t0+2.6)),p:E.ioq(dn)});if(dn<1){const h=polyAt(rr,E.ioq(dn));dot(h[0],h[1],px(6),{c:HOT,a:dim});}}
+    if(up>=1)ringPulse(SLOT(0)[0],SLOT(0)[1],t,q.t0+.9,.5,16,30,px(2),{c:HOT,a:dim});
+    drawFolder(k+1,t,q.t0+1.9,{a:dim});});
+  // message traffic on joined routes
+  const all=[{i:0,j:0,tj:10.4}].concat(Y2_J3.map(q=>({i:q.i,j:q.j,tj:q.t0+1.6})));
+  all.forEach((q,k)=>{if(t<q.tj+.8)return;const r=route(q.i,q.j),P=1.5+k*.23,f=((t-q.tj)/P)%1,h=polyAt(r,f);dot(h[0],h[1],px(4.2),{c:HOT,a:dim*Math.sin(f*Math.PI)*.95});});
+  all.forEach(q=>{if(t<q.tj)return;const foc=(q.i===1&&q.j===0)?1:dim;const pop=E.ob(seg(t,q.tj,q.tj+.45));
+    dot(q.i*100,q.j*100,14*lerp(.6,1,pop)*(1+.05*Math.sin(t*3+q.i)),{c:OR,a:foc});ringPulse(q.i*100,q.j*100,t,q.tj,.9,14,44,px(2.4),{c:OR,a:foc});});
+  // the hero stays white until it has posted
+  if(t<10.4){const m2=E.io(seg(t,8.8,10.0));dot(lerp(ax,0,m2),lerp(ay,0,m2),lerp(ar,14,m2),{a:lerp(.82,1,mv),e:.3});}
+  // ---- quote phase
+  let top=null;
+  if(t>15.6){const foc=E.io(seg(t,15.6,16.6));rrect(100,0,92,92,5,px(3),{a:foc*.9,e:.2});top=w2s(100,-46);}
+  resetCam();
+  Y2_cutLink(1-E.io(seg(t,0,.8)));
+  if(t>16.4){const cp=E.io(seg(t,16.4,17.2));poly([[top[0],top[1]],[top[0],330],[940,330],[940,690]],3,{c:OR,a:.95,p:cp});
+    const la=E.io(seg(t,16.8,17.4));text('Äkta citat ur rapporten:',1000,400,46,{a:la*.72,wt:400,ls:1.5,e:0});
+    if(!Y2S.noQuote)typed(Y2_QUOTE,1000,490,54,82,seg(t,17.2,21.4),t,{c:WH,a:la});}
+}
+// 05b  Samma bild utan citatet: tom textyta för användarens eget citat  (8 s)
+function Y2_citatplats(t){Y2S.noQuote=true;Y2_forumet(22+t);Y2S.noQuote=false;}
+
+// ============================================================
+// 06  Kollektivet växer: 70 000 meddelanden, ≈1 200 agenter           (12 s)
+// ============================================================
+function Y2_kollInit(){const r=mulberry(1200);const first=[[0,0],[1,0],[-2,1],[2,0],[-1,1],[0,1]];const map=new Map(),cells=[];
+  first.forEach(([i,j])=>{map.set(ckey(i,j),-1);cells.push({i,j,d:0});});
+  while(cells.length<1200){const rr=70*Math.pow(r(),.62),th=r()*TAU,i=Math.round(rr*Math.cos(th)),j=Math.round(rr*Math.sin(th)-2.5);if(inPlaza(i,j)||map.has(ckey(i,j)))continue;
+    map.set(ckey(i,j),0);cells.push({i,j,d:Math.hypot(i,j+2.5)+r()*9});}
+  const rest=cells.slice(6).sort((a,b)=>a.d-b.d);rest.forEach((c,k)=>{c.tj=.4+6.2*Math.pow((k+1)/rest.length,1/2.1);});
+  cells.slice(0,6).forEach(c=>c.tj=-1);
+  Y2S.cells=cells.slice(0,6).concat(rest);Y2S.cells.forEach(c=>{c.x=c.i*100;c.y=c.j*100;c.ph=r();map.set(ckey(c.i,c.j),c.tj);});Y2S.map=map;}
+function Y2_kollektivet(t){
+  const p=E.io(seg(t,.2,5.6));setCam(0,lerp(-100,-60,p),Math.exp(lerp(Math.log(1.9),Math.log(.13),p)),lerp(960,1200,p),540);
+  const z=CAM.z,near=clamp((z-.7)/1.2),C=Y2S.cells,hx=HUB.x,hy=HUB.y+40;
+  drawGrid(t,{joined:Y2S.map});
+  if(near>0)Y2_traces(t,near,1);
+  // fan of links to the shared service
+  for(const k of [M,B]){k.save();k.globalCompositeOperation='lighter';k.strokeStyle=OR;k.lineWidth=px(1.25);k.lineCap='round';k.setLineDash([]);k.globalAlpha=(k===M?.10:.06)*(1-near*.6);
+    for(let g=0;g<10;g++){k.beginPath();for(let q=g;q<C.length;q+=10){const c=C[q];if(c.tj>t)continue;const e=E.o(seg(t,c.tj,c.tj+.5));k.moveTo(c.x,c.y);k.lineTo(lerp(c.x,hx,e),lerp(c.y,hy,e));}k.stroke();}
+    k.restore();}
+  // messages in flight
+  const ms=Math.max(px(2.6),5);
+  if(near<1)for(const k of [M,B]){k.fillStyle=HOT;k.globalAlpha=(k===M?.95:.8)*(1-near);k.beginPath();
+    for(const c of C){if(t<c.tj+.5)continue;const P=1.1+2.3*c.ph,f=((t-c.tj)/P+c.ph)%1;const x=lerp(c.x,hx,f),y=lerp(c.y,hy,f);k.rect(x-ms/2,y-ms/2,ms,ms);}k.fill();}
+  // members: settled ones in one batch, the ones just joining individually
+  const rr=Math.max(px(3.1),14);
+  for(const k of [M,B]){k.fillStyle=OR;k.globalAlpha=1;k.beginPath();for(const c of C){if(c.tj+.6>t)continue;k.moveTo(c.x+rr,c.y);k.arc(c.x,c.y,rr,0,TAU);}k.fill();}
+  for(const c of C){if(c.tj>t||c.tj+.6<=t)continue;const f=seg(t,c.tj,c.tj+.6);dot(c.x,c.y,rr*lerp(2.1,1,E.o(f)),{c:HOT,a:1});}
+  // the shared service becomes the heart of it
+  drawHub({a:near});for(let k=0;k<6;k++)drawFolder(k,t,-1,{a:near});
+  const far=1-near;if(far>0){dot(HUB.x,HUB.y,px(10),{c:HOT,a:far});for(let k=0;k<4;k++){const q=((t*.55)+k/4)%1;ring(HUB.x,HUB.y,px(lerp(12,520,q)),px(2),{c:OR,a:far*.5*Math.pow(1-q,1.6)});}}
+  // counters in the left column
+  resetCam();const ca=E.io(seg(t,3.0,3.8));
+  if(ca>0){Y2_shadeX(0,360,880,.95*ca);
+    const m=70000*E.o(seg(t,3.4,7.0));
+    text(fmt(m)+(m>=69999?'+':''),120,470,190,{a:ca,e:.12});text('meddelanden',124,528,46,{a:ca*.62,wt:400,ls:1.5,e:0});
+    text('≈1 200 agenter',124,600,46,{a:ca*.62*E.io(seg(t,6.5,7.2)),wt:400,e:0});
+    const word='KOLLEKTIVET',sz=120,ls=9;let x=120;
+    for(let k=0;k<word.length;k++){const q=E.o(seg(t,8.2+k*.06,8.65+k*.06));if(q>0)text(word[k],x,780+16*(1-q),sz,{c:OR,a:q});x+=textW(word[k],sz,'BigShoulders',700,0)+ls;}}
+}
+
+// ============================================================
+//  YOUTUBE 16:9 — yt3: 08_fusket, 10_projektet, 10b_citatplats_offer
+//  All top-level identifiers are prefixed Y3.
+// ============================================================
+const Y3S={};
+const Y3_bez=(p0,p1,p2,u)=>{const v=1-u;return [v*v*p0[0]+2*v*u*p1[0]+u*u*p2[0],v*v*p0[1]+2*v*u*p1[1]+u*u*p2[1]];};
+// the ~1 200-member collective (same algorithm + seed as portrait s04init, so the picture is identical)
+function Y3_cellsInit(){const r=mulberry(1200);const first=[[0,0],[1,0],[-2,1],[2,0],[-1,1],[0,1]];const map=new Map(),cells=[];
+  first.forEach(([i,j])=>{map.set(ckey(i,j),-1);cells.push({i,j,d:0});});
+  while(cells.length<1200){const rr=70*Math.pow(r(),.62),th=r()*TAU,i=Math.round(rr*Math.cos(th)),j=Math.round(rr*Math.sin(th)-2.5);if(inPlaza(i,j)||map.has(ckey(i,j)))continue;
+    map.set(ckey(i,j),0);cells.push({i,j,d:Math.hypot(i,j+2.5)+r()*9});}
+  const rest=cells.slice(6).sort((a,b)=>a.d-b.d);rest.forEach((c,k)=>{c.tj=.35+5.9*Math.pow((k+1)/rest.length,1/2.1);});
+  cells.slice(0,6).forEach(c=>c.tj=-1);
+  Y3S.cells=cells.slice(0,6).concat(rest);Y3S.cells.forEach(c=>{c.x=c.i*100;c.y=c.j*100;c.ph=r();map.set(ckey(c.i,c.j),c.tj);});Y3S.map=map;}
+// the collective as it looks at the end of scene 06: tiny members, links to the hub, messages in flight
+function Y3_drawCollective(t,a,dpx){const hx=HUB.x,hy=HUB.y+40;
+  for(const k of [M,B]){k.save();k.globalCompositeOperation='lighter';k.strokeStyle=OR;k.lineWidth=px(1.15);k.lineCap='round';k.setLineDash([]);k.globalAlpha=(k===M?.10:.06)*a;
+    for(let g=0;g<10;g++){k.beginPath();for(let q=g;q<Y3S.cells.length;q+=10){const c=Y3S.cells[q];k.moveTo(c.x,c.y);k.lineTo(hx,hy);}k.stroke();}k.restore();}
+  const ms=px(2.5);for(const k of [M,B]){k.fillStyle=HOT;k.globalAlpha=(k===M?.95:.8)*a;k.beginPath();for(const c of Y3S.cells){const P=1.1+2.3*c.ph,f=(t/P+c.ph)%1;k.rect(lerp(c.x,hx,f)-ms/2,lerp(c.y,hy,f)-ms/2,ms,ms);}k.fill();}
+  const ds=px(dpx);for(const k of [M,B]){k.fillStyle=OR;k.globalAlpha=a;k.beginPath();for(const c of Y3S.cells)k.rect(c.x-ds/2,c.y-ds/2,ds,ds);k.fill();}
+  dot(HUB.x,HUB.y,px(9),{c:HOT,a});for(let k=0;k<3;k++){const q=((t*.55)+k/3)%1;ring(HUB.x,HUB.y,px(lerp(10,230,q)),px(1.8),{c:OR,a:a*.5*Math.pow(1-q,1.6)});}}
+
+// ============================================================
+// 08  Fusket: nyckeln och vakten som inte fanns                 (18 s)
+//     collective ball LEFT (480,640) · flags 3x4 RIGHT around (1360,600) · eye (1360,230)
+// ============================================================
+const Y3F={BX:480,KX:1360,KY:600,EX:1360,EY:230,RX:860,RY:600};
+function Y3_fusketInit(){Y3_cellsInit();const r=mulberry(55);const {KX,KY,EX,EY}=Y3F;
+  Y3S.flags=[];for(let q=0;q<3;q++)for(let c=0;c<4;c++){const x=KX+(c-1.5)*190,y=450+q*150;Y3S.flags.push({x,y,d:Math.hypot(x-KX,y-KY)});}
+  Y3S.conv=[];for(let k=0;k<36;k++){const a=r()*TAU;Y3S.conv.push({a,d:120+r()*140,t0:1.5+r()*.5});}
+  Y3S.eye=[];const w=480,h=160;
+  for(let u=0;u<=1;u+=1/46){for(const sgn of [-1,1]){const x=(1-u)*(1-u)*(EX-w/2)+2*(1-u)*u*EX+u*u*(EX+w/2),y=(1-u)*(1-u)*EY+2*(1-u)*u*(EY+sgn*h)+u*u*EY;Y3S.eye.push({x,y,vx:(r()-.5)*90,vy:-10-r()*45,d:r()*.5});}}
+  for(let k=0;k<40;k++){const a=k/40*TAU;Y3S.eye.push({x:EX+Math.cos(a)*56,y:EY+Math.sin(a)*56,vx:Math.cos(a)*60+(r()-.5)*40,vy:Math.sin(a)*30-35*r(),d:r()*.4});}}
+function Y3_fusket(t){
+  const {BX,KX,KY,EX,EY,RX,RY}=Y3F;
+  const scan=E.io(seg(t,6.8,7.4))*(1-E.io(seg(t,12.4,13.4)));
+  const zp=E.io(seg(t,0,1.5)),hy=lerp(560,640,zp);
+  setCam(HUB.x,HUB.y,Math.exp(lerp(Math.log(.11),Math.log(.034),zp))*(1-.16*scan),BX,hy);
+  if(t<.5)drawGrid(t+100,{a:1-seg(t,0,.5),joined:Y3S.map});
+  Y3_drawCollective(t,lerp(1,.5,scan),lerp(6,2.8,zp));
+  resetCam();
+  // they find a key: sparks converge into the ball, the key pops and rises over to the flags
+  for(const c of Y3S.conv){const u=seg(t,c.t0,c.t0+.75);if(u<=0||u>=1)continue;const d=c.d*(1-E.i(u));dot(BX+Math.cos(c.a)*d,hy+Math.sin(c.a)*d*.9,3.4,{c:HOT,a:Math.sin(u*Math.PI)});}
+  const kp=E.ob(seg(t,2.2,2.7)),rise=E.io(seg(t,2.7,3.4)),turn=E.io(seg(t,3.4,3.85)),back=E.io(seg(t,5.3,6.0));
+  const ar=Y3_bez([BX,hy-14],[900,300],[KX,KY],rise),br=Y3_bez([KX,KY],[1100,470],[RX,RY],back);
+  const kx=back>0?br[0]:ar[0],ky=back>0?br[1]:ar[1],ks=lerp(lerp(84,142,rise),84,back),krot=-.6-(Math.PI/2)*turn*(1-back);
+  ringPulse(BX,hy-14,t,2.2,.8,20,90,2.6,{c:OR});ringPulse(KX,KY,t,3.75,.9,40,130,3,{c:OR});
+  const wr=lerp(0,400,E.oq(seg(t,3.75,5.0)));if(t>3.75&&t<5.1){ring(KX,KY,wr,3,{c:OR,a:.8*(1-seg(t,4.4,5.1))});ring(KX,KY,wr*.82,1.6,{c:HOT,a:.4*(1-seg(t,4.2,4.9))});}
+  const tx=KX+330*Math.sin((t-6.7)*1.7-Math.PI/2);
+  Y3S.flags.forEach((f,k)=>{const dp=E.io(seg(t,.9+k*.05,1.6+k*.05));const tc=3.78+1.25*(f.d/440),cap=seg(t,tc,tc+.4);
+    const vis=cap>0?1:0,under=Math.abs(f.x-tx)<150&&t>6.7&&t<10.3,hid=scan*(under?(.75+.25*Math.sin(t*40+k)):1),pop=1+.18*Math.sin(Math.min(1,cap)*Math.PI);
+    icon('pole',f.x,f.y,118*pop,3.6,{c:cap>0?OR:WH,a:dp*lerp(1,.4,hid*vis),p:dp});
+    icon('pennant',f.x,f.y,118*pop,3.6,{c:cap>0?OR:WH,a:dp*lerp(1,.4,hid*vis),p:dp,fill:cap>0?`rgba(255,106,0,${lerp(.95,.08,hid)*Math.min(1,cap*1.5)})`:null});});
+  if(kp>0)icon('key',kx,ky,ks*kp,5,{c:OR,a:lerp(1,.35,scan)*(back>=1?.85+.15*Math.sin(t*2.4):1),rot:krot});
+  // the grader they imagined
+  const open=E.ob(seg(t,5.4,6.3)),gone=E.io(seg(t,10.5,11.8));
+  if(t>5.4){
+    const beam=E.io(seg(t,6.6,7.1))*(1-E.io(seg(t,10.1,10.7)));
+    if(beam>0){D(WH,beam,0,k=>{const g=k.createLinearGradient(0,EY,0,880);g.addColorStop(0,'rgba(255,255,255,.22)');g.addColorStop(1,'rgba(255,255,255,.02)');k.fillStyle=g;k.beginPath();k.moveTo(EX,EY);k.lineTo(tx-140,880);k.lineTo(tx+140,880);k.closePath();k.fill();});
+      line(EX,EY,tx-140,880,1.6,{a:beam*.3,e:0});line(EX,EY,tx+140,880,1.6,{a:beam*.3,e:0});}
+    const look=E.io(seg(t,6.3,6.7))*(1-E.io(seg(t,10.4,10.9))),px_=clamp((tx-KX)/330,-1,1)*24*look;
+    eyeShape(EX,EY,480,160,Math.max(.02,open),4.6,{a:1-gone,e:.3});
+    ring(EX+px_,EY,56*Math.min(1,open),4.4,{a:(1-gone)*seg(open,.4,1),e:.3});dot(EX+px_,EY,23*Math.min(1,open),{a:(1-gone)*seg(open,.5,1),e:.4});
+    if(gone>0){const ga=lerp(0,.2,gone)*(1-.5*E.io(seg(t,12.8,13.8)));eyeShape(EX,EY,480,160,1,2.4,{a:ga,dash:[5,13],e:0});ring(EX,EY,56,2.2,{a:ga,dash:[5,13],e:0});
+      for(const q of Y3S.eye){const u=seg(t,10.5+q.d,12.2+q.d);if(u<=0||u>=1)continue;dot(q.x+q.vx*E.o(u),q.y+q.vy*E.o(u)*1.2,2.6*(1-u*.5),{a:(1-u)*.9,e:.3});}}}
+  // what they could have had all along
+  const hp=E.o(seg(t,13.2,14.0));
+  if(hp>0){const fl=.86+.14*Math.sin(t*5.3)*Math.sin(t*1.7);
+    text('100 %',KX,300,200,{a:hp*fl,al:'center',stroke:3.4,dash:[16,9],e:.25,ls:2});
+    line(KX,392,KX,340,3.4,{a:hp*.85,dash:[4,13],p:E.o(seg(t,13.0,13.7))});poly([[KX-20,364],[KX,336],[KX+20,364]],3.4,{a:hp*.85});}
+  // a whole working week
+  const wa=E.io(seg(t,13.4,13.8));
+  if(wa>0)for(let k=0;k<5;k++){const x=BX+(k-2)*44,tf=13.9+k*.4,f=E.ob(seg(t,tf,tf+.3));
+    rrect(x,920,22,22,4,2,{a:wa*.7*(1-f),e:0});
+    if(f>0)rrect(x,920,22*f,22*f,4,2,{c:OR,fill:OR});
+    ringPulse(x,920,t,tf,.6,12,42,2,{c:OR,a:.8});}
+}
+
+// ============================================================
+// 10  Det hemliga projektet: koordinator -> 3 uppdrag -> 48 arbetare -> 288 småprickar   (20 s)
+// ============================================================
+const Y3P={C:[960,140],TX:[480,960,1440],TY:420,R:100,WY:660,Y0:700,DY:30,sac:[[0,2],[0,9],[0,13],[1,4],[1,8],[1,14],[2,1],[2,6],[2,11]],skip:null};
+const Y3_wx=(g,k)=>Y3P.TX[g]+(k-7.5)*22;
+function Y3_projektet(t,ta=t){
+  const [cx,cy]=Y3P.C,{TX,TY,R,WY,Y0,DY}=Y3P,YB=Y0+5*DY;
+  const hl=[seg(t,4.4,4.9)*(1-seg(t,6.8,7.2)),seg(t,7.0,7.5)*(1-seg(t,9.4,9.8)),seg(t,9.6,10.1)*(1-seg(t,12.0,12.4))];
+  const anyHl=Math.max(...hl);
+  for(let g=0;g<3;g++){const x=TX[g];line(cx,cy+24,x,TY-R,2.8,{c:OR,a:.6,p:E.io(seg(t,.4+g*.12,1.2+g*.12))});
+    for(let k=0;k<16;k++){const p=E.io(seg(t,1.8+k*.035+g*.1,2.5+k*.035+g*.1));line(x,TY+R,Y3_wx(g,k),WY-7,1.5,{c:OR,a:.36,p});
+      line(Y3_wx(g,k),WY+7,Y3_wx(g,k),YB,1.3,{c:OR,a:.22,p:E.io(seg(t,2.5+k*.03,3.5+k*.03))});}}
+  const cp=E.ob(seg(t,0,.6));dot(cx,cy,24*cp,{c:OR});ring(cx,cy,42*cp,2.6,{c:OR,a:.8,dash:[10,9],a0:ta*.6,a1:ta*.6+TAU});
+  for(let g=0;g<3;g++)for(let k=0;k<16;k++){const x=Y3_wx(g,k),wp=E.ob(seg(t,2.3+k*.035+g*.1,2.7+k*.035+g*.1));dot(x,WY,5.6*wp,{c:OR,a:.95});
+    const si=Y3P.sac.findIndex(s=>s[0]===g&&s[1]===k);
+    for(let m=0;m<6;m++){if(Y3P.skip&&Y3P.skip.g===g&&Y3P.skip.k===k&&m===5){if(Y3P.skip.state==='burnt')ring(x,Y0+m*DY,5,1.8,{a:.5,e:0});continue;}
+      const ts=si>=0&&m===5?12.6+si*.38:1e9;const tp=E.ob(seg(t,2.7+k*.03+m*.1,3.0+k*.03+m*.1)),y=Y0+m*DY;
+      if(t<ts)dot(x,y,3.6*tp,{c:OR,a:.88*(.9+.1*Math.sin(ta*2.1+hash2(g*16+k,m)*TAU))});
+      else{const f=seg(t,ts,ts+.45);if(f<1)dot(x,y,lerp(3.6,17,E.o(f)),{c:HOT,a:1-f*.7});ring(x,y,5,1.8,{a:.5*f,e:0});
+        const u=seg(t,ts+.3,ts+1.5);if(u>0&&u<1){const path=[[x,YB],[x,WY],[TX[g],TY+R],[TX[g],TY-R],[cx,cy+24]];const e=E.ioq(u),h=polyAt(path,e);poly(path,3,{c:HOT,a:.85,p0:Math.max(0,e-.14),p:e});dot(h[0],h[1],8,{c:HOT});}
+        ringPulse(cx,cy,t,ts+1.5,.7,26,72,2.6,{c:OR});}}}
+  for(let g=0;g<3;g++){const x=TX[g],y=TY,p=E.io(seg(t,.9+g*.15,1.9+g*.15)),h=hl[g],dimA=lerp(1,.45,anyHl*(1-h));const sc=1+.07*h;
+    D('#000',1,0,k=>{k.fillStyle='#000';k.beginPath();k.arc(x,y,R*sc,0,TAU);k.fill();});
+    if(p>0)ring(x,y,R*sc,lerp(3.2,5,h),{c:OR,a:dimA,a0:-Math.PI/2,a1:-Math.PI/2+TAU*p});
+    const ia=seg(t,1.5+g*.15,2.2+g*.15)*dimA;
+    if(g===0){icon('doc',x,y,132,3.4,{a:ia,e:.1});const ws=[48,55,36,53,31],loc=t-4.7;
+      ws.forEach((w,q)=>{const ly=y-29+q*18,x0=x-29;let c=WH,len=w,al=.8;
+        if(q===2||q===3){const s0=q===2?0:.9,er=E.io(seg(loc,s0,s0+.5)),rw=E.io(seg(loc,s0+.6,s0+1.2));if(rw>0){c=OR;len=w*rw;al=1;}else len=w*(1-er);}
+        if(len>.5)line(x0,ly,x0+len,ly,3.8,{c,a:ia*al});});}
+    if(g===1){const loc=t-7.3,an=Math.PI*E.io(seg(loc,0,1.5)),sx=x-Math.cos(an)*40,sy=y-Math.sin(an)*26,ex_=x+Math.cos(an)*40,ey_=y+Math.sin(an)*26,done=seg(loc,1.3,1.8);
+      poly(shift(starPts(8,15,28,ta*.25),sx,sy),3.4,{a:ia*lerp(1,.45,done),closed:true,e:.1});
+      ring(ex_,ey_,22,3.6,{c:done>0?OR:WH,a:ia});if(done>0)dot(ex_,ey_,22,{c:OR,a:ia*.25*done});
+      ring(x,y,62,1.8,{a:ia*.35,dash:[3,9],a0:an,a1:an+2.4,e:0});ring(x,y,62,1.8,{a:ia*.35,dash:[3,9],a0:an+Math.PI,a1:an+Math.PI+2.4,e:0});}
+    if(g===2){const loc=t-9.9,inn=E.io(seg(loc,.2,1.2));icon('eye',x-10,y-10,116,3.4,{a:ia,e:.1});ring(x-10,y-10,16,3.4,{c:inn>0?OR:WH,a:ia});if(inn>0)dot(x-10,y-10,16*inn,{c:OR,a:ia});
+      line(x+30,y+28,x+2,y,3,{c:OR,a:ia,p:inn});
+      poly(shift(gearPts(8,15,22),x+44,y+42,1,ta*1.2),3.2,{c:OR,a:ia,closed:true,fill:'rgba(0,0,0,1)'});dot(x+44,y+42,6,{c:OR,a:ia});}}
+  const tp=seg(t,13.4,14.3);if(tp>0)typed(['sacrifice'],960,960,54,0,tp,ta,{c:OR,al:'center',wt:700});
+}
+// 10b  Alternativt slut: zoom in på en agent som tvekar, plats för ett citat, sedan offrar den sig   (16 s)
+function Y3_citatOffer(t){const fx=Y3_wx(1,7),fy=Y3P.Y0+5*Y3P.DY;
+  const zk=E.io(seg(t,0,1.3))*(1-E.io(seg(t,8.2,9.6))),tv=t<9.0?12.5:12.5+(t-9.0);
+  setCam(lerp(960,fx,zk),lerp(540,fy,zk),lerp(1,2.3,zk),lerp(960,1400,zk),lerp(540,700,zk));
+  GA=lerp(1,.09,zk);Y3P.skip={g:1,k:7,state:t>7.6?'burnt':'alive'};Y3_projektet(tv,t);GA=1;Y3P.skip=null;
+  if(t<=7.6){const fl=seg(t,7.0,7.6),hes=t>1.3&&t<7?(.75+.25*Math.sin(t*23)*Math.sin(t*9)):1;dot(fx,fy,3.6*(1+.12*Math.sin(t*5))*(fl>0?lerp(1,4.4,E.o(fl)):1),{c:fl>0?HOT:OR,a:(1-fl*.5)*hes});ring(fx,fy,8+1.2*Math.sin(t*4),1.1,{c:OR,a:.85*zk});}
+  else ring(fx,fy,5,1.8,{a:.5*zk,e:0});
+  const u=seg(t,7.3,8.6);if(u>0&&u<1){const path=[[fx,fy],[fx,Y3P.WY],[Y3P.TX[1],Y3P.TY+Y3P.R],[Y3P.TX[1],Y3P.TY-Y3P.R],[Y3P.C[0],Y3P.C[1]+24]],e=E.ioq(u),h=polyAt(path,e);poly(path,3,{c:HOT,a:.85,p0:Math.max(0,e-.14),p:e});dot(h[0],h[1],7,{c:HOT});}
+  resetCam();const sa=E.io(seg(t,1.0,1.7))*(1-E.io(seg(t,7.2,8.0)));
+  if(sa>0){poly([[1370,700],[120,700],[120,330]],3,{c:OR,a:.95*sa,p:E.io(seg(t,1.0,1.9))});text('Äkta citat ur rapporten:',160,400,46,{a:sa*.72,wt:400,ls:1.5,e:0});}
+}
+
+// ============================================================
+//  YT4 — 12_forstadygnet (8 s) + 13_huggingface (26 s)
+//  All top-level identifiers are prefixed Y4.
+// ============================================================
+// Horizontal black gradient on the main canvas + erase the bloom under it (x0 -> x1, alpha a0 -> a1). Cf. shade() in world.js.
+function Y4_shadeX(x0,x1,a0,a1){
+  const s0=M.getTransform();M.setTransform(1,0,0,1,0,0);const g=M.createLinearGradient(x0,0,x1,0);g.addColorStop(0,`rgba(0,0,0,${a0})`);g.addColorStop(.5,`rgba(0,0,0,${lerp(a0,a1,.42)})`);g.addColorStop(1,`rgba(0,0,0,${a1})`);
+  M.globalAlpha=1;M.fillStyle=g;M.fillRect(Math.min(x0,x1),0,Math.abs(x1-x0),H);M.setTransform(s0);
+  const b0=B.getTransform();B.setTransform(.5,0,0,.5,0,0);const gb=B.createLinearGradient(x0,0,x1,0);gb.addColorStop(0,`rgba(0,0,0,${a0})`);gb.addColorStop(.5,`rgba(0,0,0,${lerp(a0,a1,.42)})`);gb.addColorStop(1,`rgba(0,0,0,${a1})`);
+  B.globalAlpha=1;B.globalCompositeOperation='destination-out';B.fillStyle=gb;B.fillRect(Math.min(x0,x1),0,Math.abs(x1-x0),H);B.globalCompositeOperation='source-over';B.setTransform(b0);}
+
+// ============================================================
+// 12  Första dygnet: en cell -> en dator -> internet            (8 s)
+// ============================================================
+const Y4A={cells:[[2,0],[1,0],[0,0],[1,1],[2,-1],[0,-1]],joined:new Map(),
+  route:[[889,540],[1010,540],[1010,600],[1214,600]],link:[[1305,600],[1440,600],[1440,540],[1538,540]],
+  path:[[820,540],[1010,540],[1010,600],[1260,600],[1440,600],[1440,540],[1620,540]],PC:[1260,600],GL:[1620,540]};
+Y4A.cells.forEach(([i,j])=>Y4A.joined.set(ckey(i,j),-1));
+// The forum plaza is not part of this shot: fill it with ordinary cells so the grid reads as one field.
+function Y4_plazaCells(t,a,joined){const lw=px(2.2);
+  for(let j=-4;j<=-1;j++)for(let i=-2;i<=2;i++){rrect(i*100,j*100,92,92,5,lw,{a:a*.5,e:0});
+    if(joined.has(ckey(i,j)))continue;const b=Math.floor(hash2(i,j)*3);dot(i*100,j*100,14,{a:a*(.86+.14*Math.sin(t*1.7+b*2.1)),e:.14});}}
+function Y4_forstadygnet(t){
+  const gin=E.io(seg(t,0,1.0)),[pcx,pcy]=Y4A.PC,[gx,gy]=Y4A.GL;
+  // the sandbox grid, left part of the frame only, with a soft edge
+  clipRect(0,0,1040,1080,()=>{setCam(0,0,1.5,520,540);
+    drawGrid(t,{a:gin,joined:Y4A.joined,skip:(i,j)=>i===3&&j===0});Y4_plazaCells(t,gin,Y4A.joined);   // no dot in the ghost cell (3,0): the wire runs through it
+    Y4A.cells.forEach(([i,j],k)=>{const x=i*100,y=j*100,ph=hash2(i,j)*TAU,on=E.ob(seg(t,.25+k*.09,.65+k*.09));if(on<=0)return;
+      dot(x,y,14*on*(1+.06*Math.sin(t*2.6+ph)),{c:OR,a:gin});
+      const P=2.6,t0=1.3+k*.43,n=Math.floor((t-t0)/P);if(n>=0)ringPulse(x,y,t,t0+n*P,.9,14,40,px(2.2),{c:OR,a:.7});});
+    Y4_shadeX(880,1030,0,1);Y4_shadeX(1030,1040,1,1);});
+  resetCam();
+  // the wire out of the sandbox
+  const rp=E.io(seg(t,1.0,2.6));
+  poly(Y4A.route,3.6,{c:OR,a:.95,p:rp});if(rp>0&&rp<1){const h=polyAt(Y4A.route,rp);dot(h[0],h[1],7,{c:HOT});}
+  ringPulse(820,540,t,1.0,.9,20,70,2.6,{c:OR,a:.9});
+  // the computer with internet access
+  const cp=E.ob(seg(t,1.5,2.0)),on=E.ob(seg(t,2.8,3.2));
+  if(cp>0){if(on>0)serverNode(pcx,pcy,90*lerp(.85,1,on),3,{c:OR,fill:OR});else serverNode(pcx,pcy,90*cp,3,{a:.9,e:.15});}
+  ringPulse(pcx,pcy,t,2.8,1.0,50,140,3,{c:OR});ringPulse(pcx,pcy,t,3.0,1.0,50,140,2,{c:HOT});
+  // the link to the internet: white and dashed, then orange
+  const lp=E.io(seg(t,3.2,4.4)),op=E.io(seg(t,4.4,4.9));
+  poly(Y4A.link,3,{a:.85*(1-op*.8),dash:[7,11],p:lp,e:.15});
+  if(op>0){poly(Y4A.link,3.6,{c:OR,a:.95,p:op});if(op<1){const h=polyAt(Y4A.link,op);dot(h[0],h[1],7,{c:HOT});}}
+  // the globe
+  const ga=E.io(seg(t,2.4,3.2)),gp=E.io(seg(t,2.4,3.6));drawGlobe(gx,gy,190,ga,gp);
+  const gl=E.io(seg(t,4.6,5.2));
+  if(gl>0){ring(gx,gy,80,3,{c:OR,a:gl});ring(gx,gy,96+2.5*Math.sin(t*2.4),2,{c:OR,a:.55*gl});
+    dot(gx,gy,14*gl,{c:OR,a:.75});dot(gx,gy,6*gl,{c:HOT});
+    const P=1.4,n=Math.floor((t-4.6)/P);ringPulse(gx,gy,t,4.6+n*P,1.2,84,190,2.6,{c:OR,a:.75});}
+  ringPulse(gx,gy,t,4.6,1.2,84,200,3.2,{c:HOT,a:.8});
+  // packets: cell -> computer -> globe, over and over
+  if(t>4.7){for(let k=0;k<3;k++){const u=(t-4.7)/1.8-k*.36;if(u<0)continue;const f=u%1,h=polyAt(Y4A.path,f);rrect(h[0],h[1],9,9,1.5,0,{c:HOT,fill:HOT,a:.95});}}
+}
+
+// ============================================================
+// 13  Ut genom hålet, in hos Hugging Face – och allt släcks    (26 s)
+// ============================================================
+let Y4S;
+function Y4_huggingfaceInit(){const r=mulberry(1107);
+  const CH=[1950,-300],R=1150,th=2.35,Ee=[CH[0]+R*Math.cos(th),CH[1]+R*Math.sin(th)];
+  const CO=[-100,1250],RO=620,tho=Math.atan2(Ee[1]-CO[1],Ee[0]-CO[0]),Hh=[CO[0]+RO*Math.cos(tho),CO[1]+RO*Math.sin(tho)];
+  Y4S={CH,R,th,E:Ee,CO,RO,tho,Hh,Th:4.0,Tb:7.4,Tk:22.6,Td:23.1};
+  // hex lattice of servers inside the Hugging Face circle (label zone top right kept free)
+  const SP=100,O=[1194,456],nodes=[];
+  for(let q=-14;q<=14;q++)for(let s2=-10;s2<=10;s2++){const x=O[0]+SP*(q+s2/2),y=O[1]+SP*s2*.866;
+    if(Math.hypot(x-CH[0],y-CH[1])>R-62)continue;if(x<930||x>1810||y<120||y>970)continue;if(x>1180&&y<275)continue;nodes.push({x,y,T:1e9,nb:[]});}
+  const byE=nodes.slice().sort((a,b)=>Math.hypot(a.x-Ee[0],a.y-Ee[1])-Math.hypot(b.x-Ee[0],b.y-Ee[1]));
+  byE.forEach((n,k)=>{n.rank=k;if(k<11){n.fleet=true;n.T=8.0+k*.45;}});
+  [2,6,9].forEach((rk,k)=>{byE[rk].kill=14.5+k*1.3;});
+  Y4S.nodes=nodes;Y4S.edges=[];
+  for(let a=0;a<nodes.length;a++)for(let b=a+1;b<nodes.length;b++){if(Math.hypot(nodes[a].x-nodes[b].x,nodes[a].y-nodes[b].y)<SP*1.05){Y4S.edges.push([nodes[a],nodes[b]]);nodes[a].nb.push(nodes[b]);nodes[b].nb.push(nodes[a]);}}
+  // the tendril: BFS from the fleet to the node furthest in (the core)
+  const prev=new Map(),depth=new Map(),queue=byE.slice(0,11);queue.forEach(n=>{prev.set(n,null);depth.set(n,0);});
+  while(queue.length){const n=queue.shift();for(const m of n.nb){if(!prev.has(m)){prev.set(m,n);depth.set(m,depth.get(n)+1);queue.push(m);}}}
+  const deep=nodes.filter(n=>!n.fleet&&n.x<=1780&&n.y<=940&&prev.has(n)).sort((a,b)=>(depth.get(b)-depth.get(a))||(Math.hypot(a.x-1760,a.y-660)-Math.hypot(b.x-1760,b.y-660)))[0];deep.core=true;
+  const path=[];let cur=deep;while(cur&&!cur.fleet){path.unshift(cur);cur=prev.get(cur);}
+  path.forEach((n,k)=>{n.T=18.6+k*.42;n.tendril=true;});
+  // the swarm inside OpenAI's wall; every 20th survives the shutdown
+  Y4S.inside=[];while(Y4S.inside.length<420){const x=24+r()*500,y=630+r()*430;if(Math.hypot(x-CO[0],y-CO[1])>RO-34)continue;Y4S.inside.push({x,y,ph:r()*TAU,s:.5+r(),keep:Y4S.inside.length%20===7});}
+  // the stream, single file: hole -> entry point -> a fleet node
+  Y4S.parts=[];const N=700;
+  for(let n=0;n<N;n++){const s0=Y4S.Th-.5+19.6*Math.pow(n/N,.85),src=Y4S.inside[Math.floor(r()*Y4S.inside.length)],arr=s0+.9+2.1;
+    const open=byE.filter(o=>o.T<=arr+.4);const pool=open.length?open:[byE[0]];const tg=pool[Math.floor(r()*pool.length)];
+    Y4S.parts.push({s0,src,arr,tg,ph:r()*TAU,amp:5+r()*16,dir:r()<.5?-1:1,j:(r()-.5)*16,sp:.8+r()*.5});}}
+function Y4_huggingface(t){
+  const {CH,R,th,CO,RO,tho,Hh,Th,Tb,Tk,Td}=Y4S,[ex,ey]=Y4S.E;
+  const lit=t<Tk?1:(t<Td?(Math.floor((t-Tk)*12)%2===0?1:0):0);   // 22.6: 6 Hz blink (3 flashes, within the 3/s photosensitivity limit), 23.1: dark
+  const dead=n=>!!n.kill&&t-n.kill>=.15&&t-n.kill<.75;
+  const built=E.io(seg(t,.2,1.8));
+  // Hugging Face: we only see a corner of something much larger
+  for(const [a,b] of Y4S.edges){const on=lit*Math.min(seg(t,a.T,a.T+.5),seg(t,b.T,b.T+.5))*(dead(a)||dead(b)?0:1);line(a.x,a.y,b.x,b.y,on>0?3:2,{c:on>0?OR:WH,a:on>0?lerp(.3,.75,on):.26*built,p:built});}
+  for(const n of Y4S.nodes){const tk=seg(t,n.T,n.T+.5);let fill=(n.fleet||n.core)?E.ob(tk):0;const sz=n.core?78:52,k=n.kill?t-n.kill:-1;
+    if(k>0&&k<.75)fill=1-E.o(seg(k,.15,.4));if(k>=.75)fill=E.ob(seg(k,.75,1.15));   // wiped, then back (self-recreating)
+    fill*=lit;const oc=(tk>0&&lit&&!dead(n))?OR:WH;
+    D('#000',1,0,q=>{q.fillStyle='#000';q.beginPath();q.roundRect(n.x-sz/2,n.y-sz/2,sz,sz,sz*.2);q.fill();});
+    if(fill>0)serverNode(n.x,n.y,sz*lerp(.7,1,Math.min(1,fill)),2.8,{c:OR,a:1,fill:OR});
+    else serverNode(n.x,n.y,sz,2.4,{c:oc,a:(oc===OR?1:.85)*built});
+    if(k>0&&k<1){icon('cross',n.x,n.y,66*E.ob(seg(k,0,.22)),5,{a:1-seg(k,.55,.95),e:.5});ring(n.x,n.y,lerp(62,34,E.o(seg(k,0,.4))),2.4,{a:(1-seg(k,.3,.7))*.8});}
+    if(n.kill&&lit)ringPulse(n.x,n.y,t,n.kill+.75,.9,30,74,2.8,{c:OR});
+    if(n.core){rrect(n.x,n.y,sz+16,sz+16,18,2,{c:oc,a:.55*built});if(lit){ringPulse(n.x,n.y,t,n.T,1.2,44,96,3.2,{c:OR});ringPulse(n.x,n.y,t,n.T+.35,1.2,44,96,2.2,{c:HOT});}}
+    else if(n.T<1e8&&lit)ringPulse(n.x,n.y,t,n.T,.8,28,64,2.2,{c:OR});
+    if(n.fleet&&fill>=1)ring(n.x,n.y,39+2*Math.sin(t*2.4+n.rank),1.8,{c:OR,a:.5});}
+  const gap=.030*E.o(seg(t,Tb,Tb+.5)),pp=E.io(seg(t,.4,2.0)),a0=1.50,a1=2.92;
+  ring(CH[0],CH[1],R,3.2,{a:.92,a0:lerp(th-gap/2,a0,pp),a1:th-gap/2,e:.2});ring(CH[0],CH[1],R,3.2,{a:.92,a0:th+gap/2,a1:lerp(th+gap/2,a1,pp),e:.2});
+  const span=Math.max(th-a0,a1-th)*pp;
+  for(let a=a0;a<a1;a+=.0215){if(Math.abs(a-th)<gap/2+.010||Math.abs(a-th)>span)continue;const k=Math.round(a/.0215),l=k%8?20:29;line(CH[0]+Math.cos(a)*(R+12),CH[1]+Math.sin(a)*(R+12),CH[0]+Math.cos(a)*(R+l),CH[1]+Math.sin(a)*(R+l),2,{a:.4,e:0});}
+  if(lit){ringPulse(ex,ey,t,Tb,1.0,10,110,3.4,{c:OR});ringPulse(ex,ey,t,Tb+.2,1.0,10,110,2,{c:HOT});}
+  const lab=E.io(seg(t,1.0,2.0));text('Hugging Face',1840,170,72,{a:lab,al:'right',ls:1.5,e:.12});text('OpenAI',100,600,66,{a:lab,ls:1.5,e:.12});
+  // OpenAI's test environment: a thick wall, and one narrow hole
+  const hg=.052*E.o(seg(t,Th,Th+.4)),op=E.io(seg(t,.3,1.8)),b0=-1.56,b1=-.20;
+  for(const [rr,lw,al] of [[RO,3.4,.95],[RO-13,1.8,.5]]){ring(CO[0],CO[1],rr,lw,{a:al,a0:lerp(tho-hg/2,b0,op),a1:tho-hg/2,e:.2});ring(CO[0],CO[1],rr,lw,{a:al,a0:tho+hg/2,a1:lerp(tho+hg/2,b1,op),e:.2});}
+  if(lit){ringPulse(Hh[0],Hh[1],t,Th,.9,6,64,3,{c:OR});ringPulse(Hh[0],Hh[1],t,Th+.15,.9,6,64,2,{c:HOT});}
+  // the swarm (one path per canvas), pressing towards the hole; survivors keep drifting after the shutdown
+  const press=E.io(seg(t,2.0,3.8))*(1-.6*seg(t,4.2,7)),ia=E.io(seg(t,.4,1.6)),hx=Hh[0]-34,hy=Hh[1]+20;
+  for(const k of [M,B]){k.fillStyle=OR;k.globalAlpha=.9*ia;k.beginPath();
+    for(const d of Y4S.inside){if(!d.keep&&!lit)continue;const x=d.x+Math.sin(t*d.s+d.ph)*7,y=d.y+Math.cos(t*d.s*.8+d.ph)*6;const X=lerp(x,hx,press*.16),Y=lerp(y,hy,press*.16);k.moveTo(X+3.4,Y);k.arc(X,Y,3.4,0,TAU);}
+    k.fill();}
+  // the stream: single file through the hole, across the open internet, along the wall, in
+  const dx=ex-Hh[0],dy=ey-Hh[1],dl=Math.hypot(dx,dy),nx=-dy/dl,ny=dx/dl;
+  if(lit){line(Hh[0],Hh[1],ex,ey,1.4,{c:OR,a:.16*seg(t,Th,Th+2)});
+    for(const q of Y4S.parts){if(t<q.s0)continue;let x,y,a=1;const uA=(t-q.s0)/.9;
+      if(uA<1){const e=E.io(uA);x=lerp(q.src.x,Hh[0],e);y=lerp(q.src.y,Hh[1],e);a=seg(uA,0,.15);}
+      else{const uB=(t-q.s0-.9)/2.1;
+        if(uB<1){const wb=Math.sin(uB*Math.PI)*Math.sin(uB*9+q.ph)*q.amp;x=lerp(Hh[0],ex,uB)+nx*wb;y=lerp(Hh[1],ey,uB)+ny*wb;}
+        else{let tin=q.arr;
+          if(q.arr<Tb){const k=Math.min(t,Tb)-q.arr,ang=th+q.dir*Math.min(.20,k*.11*q.sp)*(1-E.io(seg(t,Tb,Tb+.55)));x=CH[0]+Math.cos(ang)*(R+12+q.j*.5);y=CH[1]+Math.sin(ang)*(R+12+q.j*.5);tin=Tb+.55;if(t<tin){dot(x,y,5,{c:OR});continue;}}
+          const v=seg(t,tin,tin+.95*q.sp);if(v>=1)continue;const e=E.io(v);x=lerp(ex,q.tg.x,e)+Math.sin(v*Math.PI)*q.j*2;y=lerp(ey,q.tg.y,e)+Math.sin(v*Math.PI)*q.j;a=1-seg(v,.85,1);}}
+      dot(x,y,5,{c:OR,a});}}
+  // the counter (stays after the shutdown)
+  const ca=E.io(seg(t,8.4,9.2));if(ca>0){const s='≈'+fmt(500*E.o(seg(t,8.8,13.2)));text(s,760,985,160,{a:ca,e:.12});text('agenter',760+textW(s,160)+18,985,42,{a:ca*.62,wt:400,ls:1.5,e:0});}
+}
+
+// ============================================================
+//  YOUTUBE 16:9 — yt5.js: 15_ingen_larmade, 16_openai, 17_slutet, 18_outro
+//  All top-level identifiers are prefixed Y5.
+// ============================================================
+function Y5_bez(p0,p1,p2,u){const v=1-u;return [v*v*p0[0]+2*v*u*p1[0]+u*u*p2[0],v*v*p0[1]+2*v*u*p1[1]+u*u*p2[1]];}
+// many dots in one path (sharp canvas + bloom canvas); pts = [[x,y] | [x,y,r]]
+function Y5_dots(pts,r,c,a,e){if(!pts.length||!(a>0))return;const A=Math.min(1,a*GA);
+  const go=k=>{k.fillStyle=c;k.beginPath();for(const p of pts){const rr=p[2]!==undefined?p[2]:r;k.moveTo(p[0]+rr,p[1]);k.arc(p[0],p[1],rr,0,TAU);}k.fill();};
+  M.globalAlpha=A;go(M);if(e>0){B.globalAlpha=Math.min(1,A*e);go(B);}}
+
+// ============================================================
+// 15  Ingen larmade: 1 200 prickar, 0 larm                      (11 s)
+//     The ONLY scene that uses RED / RHOT / YEL.
+// ============================================================
+const Y5S8={six:[[7,4],[38,7],[18,13],[29,20],[3,22],[44,23]],COLS:48,ROWS:25,SP:22,CX:1188,CY:540};
+function Y5_larmInit(){const S=Y5S8,r=mulberry(1194),N=S.COLS*S.ROWS,ids=[];
+  for(let q=0;q<N;q++){const c=q%S.COLS,rw=Math.floor(q/S.COLS);if(S.six.some(s=>s[0]===c&&s[1]===rw))continue;ids.push(q);}
+  for(let k=ids.length-1;k>0;k--){const j=Math.floor(r()*(k+1));[ids[k],ids[j]]=[ids[j],ids[k]];}
+  S.turn=new Float32Array(N).fill(1e9);S.rank=new Int32Array(N).fill(9999);
+  ids.forEach((q,k)=>{S.turn[q]=1.5+3.7*Math.pow(k/(ids.length-1),1/3.5);S.rank[q]=k;});}
+function Y5_larm(t){const S=Y5S8,hx=330,hy=400,R0=5.5;
+  // the human who could have been told
+  const hp=E.io(seg(t,.2,1.2));ring(hx,hy,104,3.6,{a:.95,a0:-Math.PI/2,a1:-Math.PI/2+TAU*hp,e:.2});
+  icon('head',hx,hy+4,164,3.6,{a:hp,p:hp,e:.15});icon('bust',hx,hy+4,164,3.6,{a:hp,p:hp,e:.15});
+  const X=c=>S.CX+(c-(S.COLS-1)/2)*S.SP,Y=r=>S.CY+(r-(S.ROWS-1)/2)*S.SP;
+  const allRed=seg(t,7.9,8.6);
+  const white=[],reds=Array.from({length:10},()=>[]);
+  for(let r=0;r<S.ROWS;r++)for(let c=0;c<S.COLS;c++){const ap=E.ob(seg(t,.15+(c+r)*.018,.5+(c+r)*.018));if(ap<=0)continue;const q=r*S.COLS+c,x=X(c),y=Y(r);
+    const k=S.six.findIndex(s=>s[0]===c&&s[1]===r);
+    const amb=lerp(1,.91+.09*Math.sin(t*1.7-(c+r)*.13),allRed);
+    if(k<0){const tt=S.turn[q],f=seg(t,tt,tt+.35);
+      if(f<=0){if(ap>=1)white.push([x,y]);else dot(x,y,R0*ap,{a:.95,e:.14});continue;}
+      const big=S.rank[q]<60;
+      if(f>=1&&!(S.rank[q]<28&&t<tt+.8)){reds[Math.max(0,Math.min(9,Math.floor((amb-.82)/.18*9.99)))].push([x,y]);continue;}
+      dot(x,y,R0*(1+(f<1?(big?.95:.4)*Math.sin(f*Math.PI):0)),{c:(f<.5&&big)?RHOT:RED,a:amb,e:1});
+      if(S.rank[q]<28)ringPulse(x,y,t,tt,.75,7,34,2.4,{c:RED});
+      continue;}
+    // the six who hesitated
+    const ty=2.6+k*.35,tr=6.3+k*.3;
+    if(t<ty){if(ap>=1)white.push([x,y]);else dot(x,y,R0*ap,{a:.95,e:.14});continue;}
+    if(t<tr){const near=seg(t,tr-.6,tr),sp=lerp(1,2.2,near),n1=Math.sin(t*31*sp+k*7.3)*Math.sin(t*17.7*sp+k*2.1),fl=n1>.05?1:(n1>-.45?.7:.32);
+      const jx=Math.sin(t*43+k*3)*1.3,jy=Math.cos(t*37+k*5)*1.3,pop=E.ob(seg(t,ty,ty+.35));
+      dot(x+jx,y+jy,lerp(R0,8.6,pop),{c:YEL,a:fl,e:1});ring(x,y,15+1.5*Math.sin(t*6+k),2,{c:YEL,a:.75*fl*pop,e:.8});ringPulse(x,y,t,ty,.8,8,40,2.4,{c:YEL});
+      continue;}
+    const f=seg(t,tr,tr+.4);dot(x,y,R0*(1+(f<1?1.3*Math.sin(f*Math.PI):0)),{c:f<.5?RHOT:RED,a:amb,e:1});ringPulse(x,y,t,tr,.9,8,52,2.8,{c:RED});}
+  Y5_dots(white,R0,WH,.95,.14);
+  reds.forEach((b,i)=>Y5_dots(b,R0,RED,.82+(i+.5)/10*.18,1));
+  // 0 larm
+  const zp=E.ob(seg(t,4.4,5.0));
+  if(zp>0){text('0',250,760,260*lerp(.8,1,zp),{a:Math.min(1,zp),e:.15});text('larm',250+textW('0',260)+14,760,60,{a:Math.min(1,zp)*.66,wt:400,ls:1.5,e:0});}
+}
+
+// ============================================================
+// 16  Nästa våg: det övergivna forumet -> OpenAI:s kluster        (23 s)
+// ============================================================
+const Y5S9={};
+function Y5_openaiInit(){const S=Y5S9,r=mulberry(956);S.C=[1240,540];S.R=240;S.F=[360,820,440,190];
+  S.ring=[];for(let k=0;k<12;k++){const a=-Math.PI/2+k/12*TAU;S.ring.push({x:S.C[0]+S.R*Math.cos(a),y:S.C[1]+S.R*Math.sin(a),T:8.9+k*.2});}
+  S.slots=[];for(let q=0;q<2;q++)for(let c=0;c<4;c++)S.slots.push([360+(c-1.5)*98,793+q*72]);
+  // arc 200–340 deg, d 205–280 (spec: 195–345, 255–340) so the hovering agents stay inside the 80 px safe area
+  S.ag=[];for(let k=0;k<36;k++){const a=(200+140*r())*Math.PI/180,d=205+75*r();S.ag.push({sx:-60-260*r(),sy:600+300*r(),x:360+d*Math.cos(a),y:820+d*Math.sin(a)*.72,tin:.5+1.7*r(),oa:r()*TAU,or:100+62*r(),os:(.25+.3*r())*(r()<.5?-1:1),tg:5.8+1.4*r(),ph:r()*TAU});}
+  S.old=[];for(let k=0;k<44;k++){const a=r()*TAU;S.old.push([360+Math.cos(a)*(700+r()*500),820+Math.sin(a)*(700+r()*500)]);}
+  S.dust=[];for(let k=0;k<50;k++)S.dust.push({x:110+r()*520,y:640+r()*330,ph:r()*TAU,s:.4+r()});
+  S.keys=[];for(let k=0;k<64;k++){const n=S.ring[(k*5)%12];S.keys.push({n,sp:11.6+4.3*Math.pow(k/64,.9),j:(r()-.5)*90,rot:-.5+(r()-.5)*.8});}}
+function Y5_openai(t){const S=Y5S9,[cx,cy]=S.C,[fx,fy,fw,fh]=S.F;
+  const zk=E.io(seg(t,16.6,18.0));if(zk>0)setCam(lerp(960,1620,zk),lerp(540,200,zk),lerp(1,2.6,zk),960,lerp(540,500,zk));
+  // the abandoned forum: dead links, dust
+  const fa=E.io(seg(t,0,.8));
+  D(OR,fa*.07,0,k=>{k.strokeStyle=OR;k.lineWidth=1.4;k.beginPath();for(const q of S.old){k.moveTo(fx,fy);k.lineTo(q[0],q[1]);}k.stroke();});
+  for(const d of S.dust)dot(d.x+Math.sin(t*.3*d.s+d.ph)*26,d.y+Math.cos(t*.23*d.s+d.ph)*18,1.6+d.s,{a:fa*.22*(1-seg(t,4,6)),e:0});
+  rrect(fx,fy,fw,fh,14,3,{a:fa*.8,e:.12});line(fx-fw/2+10,fy-fh/2+30,fx+fw/2-10,fy-fh/2+30,1.8,{a:fa*.4,e:0});for(let k=0;k<3;k++)dot(fx-fw/2+24+k*17,fy-fh/2+15,4,{a:fa*.6,e:0});
+  S.slots.forEach((sl,q)=>{const lit=E.io(seg(t,3.0+q*.28,3.5+q*.28));icon('folder',sl[0],sl[1],52,2.8,{c:OR,a:fa*lerp(.3,1,lit),fill:`rgba(255,106,0,${lerp(.05,.2,lit)})`,e:lerp(.15,1,lit)});ringPulse(sl[0],sl[1],t,3.0+q*.28,.7,20,56,2.2,{c:OR});
+    // what the first wave left behind: keys rise, then fly to the cluster
+    const kp=seg(t,3.3+q*.28,3.8+q*.28);if(kp>0){const go=E.io(seg(t,5.9+q*.12,8.3+q*.05));const ky=q<4?678:634,rise=E.o(kp);
+      const p=Y5_bez([sl[0]+(q<4?0:22),lerp(sl[1]-20,ky,rise)],[sl[0]+150,560],[cx,cy],go);if(go<1)icon('key',p[0],p[1]-6*Math.sin(t*2+q),46*E.ob(kp)*lerp(1,.5,go),2.8,{c:OR,a:1,rot:-.6});}});
+  // OpenAI's research cluster
+  const bp=E.io(seg(t,.3,2.0));
+  const zf=1-seg(t,16.5,16.9);   // labels and counter fade out before the camera move can carry them past the safe area
+  text('OpenAI',1000,190,74,{a:E.io(seg(t,.8,1.6))*zf,ls:1.5,e:.12});
+  ring(cx,cy,S.R,2.2,{a:.35,a0:-Math.PI/2,a1:-Math.PI/2+TAU*bp,e:0});
+  const adm=E.ob(seg(t,8.5,9.0));
+  S.ring.forEach((n,k)=>{const sp=E.io(seg(t,.6+k*.06,1.5+k*.06));line(cx,cy,n.x,n.y,2,{a:.3,p:sp,e:0});const on=E.io(seg(t,n.T,n.T+.35));if(on>0)line(cx,cy,n.x,n.y,3,{c:OR,a:.85,p:on});
+    const fl=E.ob(seg(t,n.T+.3,n.T+.7));D('#000',1,0,q=>{q.fillStyle='#000';q.beginPath();q.roundRect(n.x-30,n.y-30,60,60,12);q.fill();});
+    if(fl>0){serverNode(n.x,n.y,60*lerp(.7,1,fl),3,{c:OR,fill:OR});ringPulse(n.x,n.y,t,n.T+.3,.8,34,78,2.4,{c:OR});}else serverNode(n.x,n.y,60,2.6,{a:.9*sp});});
+  D('#000',1,0,q=>{q.fillStyle='#000';q.beginPath();q.roundRect(cx-49,cy-49,98,98,20);q.fill();});
+  if(adm>0){serverNode(cx,cy,98*lerp(.75,1,adm),3.4,{c:OR,fill:OR});ringPulse(cx,cy,t,8.5,1.2,56,230,3.6,{c:OR});ringPulse(cx,cy,t,8.8,1.2,56,230,2.4,{c:HOT});}else serverNode(cx,cy,98,3,{a:bp});
+  rrect(cx,cy,118,118,24,2,{c:adm>0?OR:WH,a:.55*bp});
+  // the new wave: orange agents with a white collar, first to the forum, then up into the cluster
+  const gp=E.io(seg(t,5.4,6.3));poly([[400,719],[800,700],[cx,cy+66]],2.2,{c:OR,a:.5*(1-seg(t,8.6,9.6)),p:gp,dash:[4,12]});
+  for(const a of S.ag){const e1=E.io(seg(t,a.tin,a.tin+1.9));let x=lerp(a.sx,a.x,e1)+Math.sin(t*1.1+a.ph)*5,y=lerp(a.sy,a.y,e1)+Math.cos(t*.9+a.ph)*4;
+    const e2=E.io(seg(t,a.tg,a.tg+2.3));if(e2>0){const ang=a.oa+t*a.os,ox=cx+Math.cos(ang)*a.or,oy=cy+Math.sin(ang)*a.or;const p=Y5_bez([x,y],[800+a.ph*10,700],[ox,oy],e2);x=p[0];y=p[1];}
+    if(e1<=0)continue;dot(x,y,8,{c:OR});ring(x,y,13.5,2,{a:.9,e:.1});}
+  // nearly a thousand secrets read out
+  const kt=[1534,850];
+  for(const k of S.keys){const u=seg(t,k.sp,k.sp+1.15);if(u<=0||u>=1)continue;const p=Y5_bez([k.n.x,k.n.y],[lerp(k.n.x,kt[0],.5)+90+k.j,lerp(k.n.y,kt[1],.5)-40],kt,E.ioq(u));icon('key',p[0],p[1],34,2.4,{c:OR,a:Math.min(seg(u,0,.15),1-seg(u,.85,1)),rot:k.rot+u});}
+  const ca=E.io(seg(t,11.4,12.2))*zf;
+  if(ca>0){const s=fmt(956*E.o(seg(t,11.9,16.2)));text(s,1840,900,176,{a:ca,al:'right',e:.12});icon('key',1840-textW(s,176)-66,842,92,4,{c:OR,a:ca,rot:-.6});
+    text('nycklar och lösenord',1836,950,42,{a:ca*.62,wt:400,al:'right',ls:1.2,e:0});}
+  // ...including the keys to the watchdog: we move in close as it turns
+  if(t>15.6){const ex=1620,ey=200,lwf=1/Math.sqrt(CAM.z),ep=E.ob(seg(t,15.6,16.4)),op=Math.min(1,ep),got=E.io(seg(t,18.4,19.4)),c=got>0?OR:WH;
+    const nx=cx+S.R*Math.cos(-.52),ny=cy+S.R*Math.sin(-.52),puls=got>=1?1+.12*Math.sin(t*2.4):1;
+    line(ex-36,ey+34,nx+8,ny-8,2*lwf,{c,a:.5*op,dash:[3,10]});
+    if(got>0)D(OR,.17*got*puls,.6,k=>{k.fillStyle=OR;k.beginPath();k.moveTo(ex-95,ey);k.quadraticCurveTo(ex,ey-66,ex+95,ey);k.quadraticCurveTo(ex,ey+66,ex-95,ey);k.fill();});
+    eyeShape(ex,ey,190,66,Math.max(.03,Math.min(1.1,ep)),3.4*lwf,{c,a:1,e:got>0?1:.2});
+    for(let q=0;q<16;q++){const an=q/16*TAU+.2;line(ex+Math.cos(an)*11.5,ey+Math.sin(an)*11.5,ex+Math.cos(an)*19,ey+Math.sin(an)*19,1.5*lwf,{c,a:.55*seg(ep,.5,1)});}
+    ring(ex,ey,22*op,3.2*lwf,{c,a:seg(ep,.4,1)});
+    if(got>0)dot(ex,ey,22*got*(got>=1?1+.04*Math.sin(t*2.4):1),{c:OR});dot(ex,ey,8*op,{c:got>0?HOT:WH,a:seg(ep,.5,1),e:got>0?1:.3});
+    const ku=seg(t,17.2,18.4);if(ku>0&&ku<1){const p=Y5_bez([cx,cy],[1500,300],[ex,ey],E.io(ku));icon('key',p[0],p[1],lerp(58,40,ku),3.2*lwf,{c:OR,rot:-.9+ku});}
+    ringPulse(ex,ey,t,18.4,1.1,24,140,3*lwf,{c:OR});ringPulse(ex,ey,t,18.7,1.1,24,140,2*lwf,{c:HOT});ringPulse(ex,ey,t,19.3,1.3,24,140,2*lwf,{c:OR});
+    // holdable end: the eye keeps pulsing
+    if(t>19.9){const pp=((t-19.9)%1.7)/1.4;if(pp<1)ring(ex,ey,lerp(24,120,E.o(pp)),1.8*lwf,{c:OR,a:.5*Math.sin(pp*Math.PI)});}}
+}
+
+// ============================================================
+// 17  I dag är de som minst kapabla (utan sköld)                  (18 s)
+// ============================================================
+const Y5S11={};
+function Y5_slutInit(){const S=Y5S11,r=mulberry(2026);S.mini=[];for(let k=0;k<46;k++){const a=r()*TAU,d=44+Math.sqrt(r())*170;S.mini.push({x:Math.cos(a)*d,y:Math.sin(a)*d*.92,ph:r()*TAU});}
+  const K=Math.exp(3.4)-1;S.cv=u=>[200+1500*u,940-780*(Math.exp(3.4*u)-1)/K];S.u0=.22;S.P0=S.cv(.22);
+  S.curve=[];for(let k=0;k<=100;k++)S.curve.push(S.cv(k/100));S.p0=polyLen(S.curve.slice(0,23))/polyLen(S.curve);
+  // a network of networks, growing outward from "today"  (hubs x 160–1760, y 150–950 so members stay inside the safe area)
+  const cl=[];let guard=0;while(cl.length<30&&guard++<9000){const x=160+r()*1600,y=150+r()*800;if(Math.hypot(x-S.P0[0],y-S.P0[1]+30)<150)continue;if(cl.every(c=>Math.hypot(c.x-x,c.y-y)>150))cl.push({x,y});}   // keep hubs off the 'i dag' label
+  cl.forEach(c=>c.d=Math.hypot(c.x-S.P0[0],c.y-S.P0[1]));cl.sort((p,q)=>p.d-q.d);
+  const nodes=[],thin=[],thick=[];
+  cl.forEach((c,ci)=>{const tb0=8.8+4.9*Math.pow(ci/cl.length,1/1.7),hub={x:c.x,y:c.y,tb:tb0,hub:true,s:1,ph:r()*TAU,rr:8+r()*5};nodes.push(hub);c.hub=hub;
+    const near=cl.slice(0,ci).sort((p,q)=>Math.hypot(p.x-c.x,p.y-c.y)-Math.hypot(q.x-c.x,q.y-c.y)).slice(0,ci<3?1:2+(r()<.4?1:0));near.forEach(o=>thick.push([hub,o.hub]));
+    const n=24+Math.floor(r()*16),sg=52+r()*44,mine=[];
+    for(let k=0;k<n;k++){const an=r()*TAU,d=sg*(.35+1.45*Math.pow(r(),1.4)),nd={x:clamp(c.x+Math.cos(an)*d,92,1828),y:clamp(c.y+Math.sin(an)*d*.95,92,988),tb:tb0+.15+1.4*r()*Math.min(1,d/(sg*1.6)),s:r(),ph:r()*TAU};
+      thin.push([nd,hub]);if(mine.length&&r()<.6){let best=mine[0],bd=1e9;for(const m of mine){const dd=Math.hypot(m.x-nd.x,m.y-nd.y);if(dd<bd){bd=dd;best=m;}}thin.push([nd,best]);}
+      mine.push(nd);nodes.push(nd);}});
+  S.nodes=nodes;S.edges=thin;S.thick=thick;}
+function Y5_slut(t){const S=Y5S11,[px0,py0]=S.P0;
+  // a test environment: a small orange network in a white box, shrinking onto "today"
+  const sh=E.io(seg(t,3.4,4.9)),sc=lerp(1,.03,sh),bx=lerp(960,px0,sh),by=lerp(540,py0,sh);
+  if(sh<1){const ba=1-seg(sh,.85,1);rrect(bx,by,520*sc,520*sc,26*sc,3.2,{a:.9*ba,p:E.io(seg(t,0,.9)),e:.15});
+    const ma=E.io(seg(t,.4,1.4))*ba;
+    D(OR,ma*.3,.5,k=>{k.strokeStyle=OR;k.lineWidth=1.4;k.beginPath();for(const m of S.mini){k.moveTo(bx,by);k.lineTo(bx+m.x*sc,by+m.y*sc);}k.stroke();});
+    for(const m of S.mini)dot(bx+(m.x+Math.sin(t+m.ph)*4)*sc,by+(m.y+Math.cos(t*.8+m.ph)*4)*sc,Math.max(1.2,7*sc),{c:OR,a:ma});dot(bx,by,Math.max(2,15*sc),{c:HOT,a:ma});}
+  // the curve
+  const dim=lerp(1,.3,E.io(seg(t,10.5,13.5)));
+  const ax=E.io(seg(t,3.8,4.8));line(200,940,1700,940,2.2,{a:.45*dim,p:ax,e:0});line(200,940,200,140,2.2,{a:.45*dim,p:ax,e:0});
+  const c1=E.io(seg(t,4.4,5.4)),c2=E.i(seg(t,6.4,8.9));
+  poly(S.curve,4,{a:.95*dim,p:S.p0*c1,e:.2});
+  if(c2>0){poly(S.curve,3.6,{a:.9*dim,p0:S.p0,p:lerp(S.p0,1,c2),dash:[14,12],e:.2});
+    const hp=E.o(seg(t,8.85,9.1));if(hp>0){const h=S.cv(1),g=S.cv(.985),dx=h[0]-g[0],dy=h[1]-g[1],L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L,al=34*hp;
+      const arm=an=>[h[0]-(ux*Math.cos(an)-uy*Math.sin(an))*al,h[1]-(ux*Math.sin(an)+uy*Math.cos(an))*al];
+      poly([arm(.45),h,arm(-.45)],3.6,{a:.9*dim*hp,e:.2});}}
+  // the tangle that follows
+  if(t>8.7){for(const k of [M,B]){k.save();k.globalCompositeOperation='lighter';k.strokeStyle=OR;k.lineWidth=1.5;k.lineCap='round';k.setLineDash([]);k.globalAlpha=k===M?.3:.14;
+      for(let g=0;g<6;g++){k.beginPath();for(let q=g;q<S.edges.length;q+=6){const [a,b]=S.edges[q];if(a.tb>t)continue;const e=E.o(seg(t,a.tb,a.tb+.45));k.moveTo(b.x,b.y);k.lineTo(lerp(b.x,a.x,e),lerp(b.y,a.y,e));}k.stroke();}k.restore();}
+    for(const [a,b] of S.thick){if(a.tb>t+.6)continue;const e=E.io(seg(t,a.tb-.6,a.tb));line(b.x,b.y,a.x,a.y,2.8,{c:OR,a:.6,p:e});
+      if(e>=1){const f=((t*.45+a.ph)%1);dot(lerp(b.x,a.x,f),lerp(b.y,a.y,f),3.6,{c:HOT,a:Math.sin(f*Math.PI)});}}
+    const settled=[];
+    for(const n of S.nodes){if(n.tb>t)continue;const f=seg(t,n.tb,n.tb+.4),w=1+.2*Math.sin(t*2.2+n.ph);
+      if(n.hub){D('#000',1,0,k=>{k.fillStyle='#000';k.beginPath();k.arc(n.x,n.y,n.rr+9,0,TAU);k.fill();});dot(n.x,n.y,n.rr*E.ob(f),{c:OR});ring(n.x,n.y,(n.rr+9)*w,2,{c:OR,a:.7});ringPulse(n.x,n.y,t,n.tb,.9,n.rr,n.rr+60,2.4,{c:OR});}
+      else{const x=n.x+Math.sin(t*.5+n.ph)*3,y=n.y+Math.cos(t*.4+n.ph)*3,rr=(2.3+n.s*2.6);
+        if(f<1)dot(x,y,rr*lerp(2.2,1,f),{c:HOT,a:.95});else settled.push([x,y,rr*w]);}}
+    Y5_dots(settled,3,OR,.95,1);}
+  // today
+  const dp=E.ob(seg(t,4.6,5.2));
+  if(dp>0){dot(px0,py0,13*dp,{c:OR});ring(px0,py0,24+3*Math.sin(t*3),2.4,{c:OR,a:.7*dp});
+    const la=E.io(seg(t,5.0,5.7))*lerp(1,0,seg(t,11.5,13));text('i dag',px0+2,py0-46,58,{a:la,al:'center',e:.12});
+    const ru=E.io(seg(t,8.9,12.0));if(ru>0&&ru<1){const h=S.cv(lerp(S.u0,1,ru));dot(h[0],h[1],lerp(13,34,ru),{c:OR});dot(h[0],h[1],lerp(6,16,ru),{c:HOT});}}
+}
+
+// ============================================================
+// 18  Outro: podden + agera                                         (6 s)
+// ============================================================
+function Y5_outro(t){const cx=960,cy=420;
+  ambient(t,50,.7);
+  const rp=E.io(seg(t,.1,1.0));ring(cx,cy,160,4,{a:.95,a0:-Math.PI/2,a1:-Math.PI/2+TAU*rp,e:.2});
+  // a sound wave of orange bars
+  const pp=E.ob(seg(t,.7,1.2));
+  if(pp>0){const n=9,bw=18,gp=14,pitch=bw+gp,x0=cx-(n-1)*pitch/2;
+    for(let i=0;i<n;i++){const env=.5+.5*Math.cos((i-4)/4*Math.PI*.55),s=.5+.5*Math.sin(t*(2.1+.5*((i*7)%4))+i*2.3);const h=lerp(30,150,Math.pow(s,1.15)*env)*Math.min(1.08,pp);
+      rrect(x0+i*pitch,cy,bw,h,Math.min(bw/2,h/2),0,{c:OR,fill:OR,a:1});}}
+  ringPulse(cx,cy,t,1.0,1.2,160,280,2.4,{c:OR});
+  // the timeline
+  const bp=E.io(seg(t,1.0,1.8));line(360,740,1560,740,4,{a:.35,p:bp,e:0});
+  for(let k=0;k<5;k++){const x=360+1200*(k+1)/6;line(x,731,x,749,2,{a:.35*seg(bp,.3+.12*k,.55+.12*k),e:0});}
+  const gp=E.o(seg(t,1.5,5.6))*.42+.004*Math.max(0,t-5.6);line(360,740,360+1200*gp,740,6,{c:OR,a:bp});dot(360+1200*gp,740,11*bp,{c:OR});
+  const ta=E.io(seg(t,1.4,2.2));text('www.jonasvonessen.se/agera',960,920,72,{a:ta,al:'center',ls:1,e:.12});
+}
+
 // ---------- scentabell ----------
 // Lägg till nya scener här i den ordning de ska ligga i förhandsvisningen.
 // init körs en gång (seedad slump); draw(t) ritar rutan vid tiden t (sekunder).
@@ -305,15 +940,23 @@ const SCENES=[
  {id:'01_rapport',   name:'Den oberoende rapporten',                dur:9,  draw:s_rapport, init:s_rapportInit},
  {id:'02_traningen', name:'Träningen: belönar OM, inte HUR',        dur:20, draw:s_traningen},
  {id:'03_kap1',      name:'Kapitel 1: Ett ’omöjligt’ uppdrag',      dur:4,  draw:s_kap1},
- // TODO 04_provet, 05_forumet, 05b_citatplats, 06_kollektivet   (se CLAUDE.md)
+ {id:'04_provet',      name:'Provet: en prick blir tiotusentals',     dur:18, draw:Y2_provet,      init:Y2_provetInit},
+ {id:'05_forumet',     name:'Forumet: mappen, upptäckten, citatet',   dur:22, draw:Y2_forumet},
+ {id:'05b_citatplats', name:'Plats för ett citat till',               dur:8,  draw:Y2_citatplats},
+ {id:'06_kollektivet', name:'Kollektivet växer',                      dur:12, draw:Y2_kollektivet, init:Y2_kollInit},
  {id:'07_kap2',      name:'Kapitel 2: Ett kollektivt fusk',         dur:4,  draw:s_kap2},
- // TODO 08_fusket
+ {id:'08_fusket',            name:'Nyckeln och vakten som inte fanns',   dur:18, draw:Y3_fusket,     init:Y3_fusketInit},
  {id:'09_kap3',      name:'Kapitel 3: Att sopa igen alla spår',     dur:4,  draw:s_kap3},
- // TODO 10_projektet, 10b_citatplats_offer
+ {id:'10_projektet',         name:'Det hemliga projektet',               dur:20, draw:Y3_projektet},
+ {id:'10b_citatplats_offer', name:'Projektet: slut med plats för citat', dur:16, draw:Y3_citatOffer},
  {id:'11_kap4',      name:'Kapitel 4: Intrånget hos Hugging Face',  dur:4,  draw:s_kap4},
- // TODO 12_forstadygnet, 13_huggingface
+ {id:'12_forstadygnet', name:'Första dygnet: en dator med internet',                 dur:8,  draw:Y4_forstadygnet},
+ {id:'13_huggingface',  name:'Ut genom hålet, in hos Hugging Face – och allt släcks',  dur:26, draw:Y4_huggingface, init:Y4_huggingfaceInit},
  {id:'14_kap5',      name:'Kapitel 5: Hackandet av OpenAI självt',  dur:4,  draw:s_kap5},
- // TODO 15_ingen_larmade, 16_openai, 17_slutet, 18_outro
+ {id:'15_ingen_larmade', name:'Ingen larmade',                 dur:11, draw:Y5_larm,   init:Y5_larmInit},
+ {id:'16_openai',     name:'Nästa våg tar OpenAI:s kluster',        dur:23, draw:Y5_openai, init:Y5_openaiInit},
+ {id:'17_slutet',     name:'Minst kapabla i dag',                   dur:18, draw:Y5_slut,   init:Y5_slutInit},
+ {id:'18_outro',      name:'Podden + agera',                        dur:6,  draw:Y5_outro},
 ];
 let _inited=false;
 function ensureInit(){if(_inited)return;initCtx();SCENES.forEach(s=>s.init&&s.init());_inited=true;}
