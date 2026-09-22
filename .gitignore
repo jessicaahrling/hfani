@@ -1,0 +1,10 @@
+# byggartefakter och arbetsfiler
+*/all.js
+*/sheets/
+*/render.log
+*/render.out
+*/out/*.part.mp4
+portrait/out/
+work_*/
+__pycache__/
+.DS_Store
