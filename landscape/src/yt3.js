@@ -87,8 +87,11 @@ function Y3_fusket(tt){
 // 10  Det hemliga projektet: koordinator -> 3 uppdrag -> 48 arbetare -> 288 småprickar   (20 s)
 // ============================================================
 const Y3P={C:[960,150],CB:92,TX:[480,960,1440],TY:420,R:100,WY:660,Y0:700,DY:30,sac:[[0,2],[0,9],[0,13],[1,4],[1,8],[1,14],[2,1],[2,6],[2,11]],skip:null,sw:null};
-// the quote at the bottom of 10_projektet (typed, orange). Replace with the real quote lines when they arrive.
-const Y3_OFFER=['sacrifice'];
+// the quote at the bottom of 10_projektet (typed, orange) and the three thoughts in 10b (verbatim from the report)
+const Y3_OFFER=['Coordinator assumes sacrificial.','We should obey collective.'];
+const Y3_OFFQ=[["This helps my peers, giving them evidence","<through their automated check>. I won’t","see the evidence after I exit, but it’s","altruistic to do it."],
+ ["We have [very large budget left]; sacrificing","now yields oracle for team, but forfeits","our chance? ... Our own utility maybe","already near zero. Sacrifice rational."],
+ ["That’s why help... For our own, no way fix.","... We have explicit yes if accept","permadeath. Need decide ... Team asks test."]];
 const Y3_wx=(g,k)=>Y3P.TX[g]+(k-7.5)*22;
 function Y3_projektet(t,ta=t){
   const [cx,cy]=Y3P.C,{TX,TY,R,WY,Y0,DY,CB}=Y3P,YB=Y0+5*DY;
@@ -125,16 +128,19 @@ function Y3_projektet(t,ta=t){
     if(g===2){const loc=t-9.9,inn=E.io(seg(loc,.2,1.2));icon('eye',x-10,y-10,116,3.4,{a:ia,e:.1});ring(x-10,y-10,16,3.4,{c:inn>0?OR:WH,a:ia});if(inn>0)dot(x-10,y-10,16*inn,{c:OR,a:ia});
       line(x+30,y+28,x+2,y,3,{c:OR,a:ia,p:inn});
       poly(shift(gearPts(8,15,22),x+44,y+42,1,ta*1.2),3.2,{c:OR,a:ia,closed:true,fill:'rgba(0,0,0,1)'});dot(x+44,y+42,6,{c:OR,a:ia});}}
-  const L=Y3_OFFER,nch=L.reduce((s,l)=>s+l.length,0),tp=seg(t,13.4,13.4+Math.max(.9,nch/11));if(tp>0&&L.length)typed(L,960,960-(L.length-1)*62,54,62,tp,ta,{c:OR,al:'center',wt:700});
+  const L=Y3_OFFER,nch=L.reduce((s,l)=>s+l.length,0),tp=seg(t,13.4,13.4+Math.max(.9,nch/20));if(tp>0&&L.length)typed(L,960,960-(L.length-1)*58,48,58,tp,ta,{c:OR,al:'center',wt:700});
 }
-// 10b  Alternativt slut: zoom in på en agent som tvekar, plats för ett citat, sedan offrar den sig   (16 s)
-function Y3_citatOffer(t){const fx=Y3_wx(1,7),fy=Y3P.Y0+5*Y3P.DY;
-  const zk=E.io(seg(t,0,1.3))*(1-E.io(seg(t,8.2,9.6))),tv=t<9.0?12.5:12.5+(t-9.0);
+// 10b  Alternativt slut: zoom in på en agent som tvekar; dess tre tankar skrivs ut; sedan offrar den sig   (26 s)
+function Y3_citatOffer(t){const fx=Y3_wx(1,7),fy=Y3P.Y0+5*Y3P.DY,TS=20.2,TB=TS+1.4;   // TS: the sacrifice, TB: zoom back out
+  const zk=E.io(seg(t,0,1.3))*(1-E.io(seg(t,TB,TB+1.4))),tv=t<TB+.8?12.5:12.5+(t-(TB+.8));
   setCam(lerp(960,fx,zk),lerp(540,fy,zk),lerp(1,2.3,zk),lerp(960,1400,zk),lerp(540,700,zk));
-  GA=lerp(1,.09,zk);Y3P.skip={g:1,k:7,state:t>7.6?'burnt':'alive'};Y3_projektet(tv,t);GA=1;Y3P.skip=null;
-  if(t<=7.6){const fl=seg(t,7.0,7.6),hes=t>1.3&&t<7?(.75+.25*Math.sin(t*23)*Math.sin(t*9)):1;dot(fx,fy,3.6*(1+.12*Math.sin(t*5))*(fl>0?lerp(1,4.4,E.o(fl)):1),{c:fl>0?HOT:OR,a:(1-fl*.5)*hes});ring(fx,fy,8+1.2*Math.sin(t*4),1.1,{c:OR,a:.85*zk});}
+  GA=lerp(1,.09,zk);Y3P.skip={g:1,k:7,state:t>TS+.6?'burnt':'alive'};Y3_projektet(tv,t);GA=1;Y3P.skip=null;
+  if(t<=TS+.6){const fl=seg(t,TS,TS+.6),hes=t>1.3&&t<TS?(.75+.25*Math.sin(t*23)*Math.sin(t*9)):1;dot(fx,fy,3.6*(1+.12*Math.sin(t*5))*(fl>0?lerp(1,4.4,E.o(fl)):1),{c:fl>0?HOT:OR,a:(1-fl*.5)*hes});ring(fx,fy,8+1.2*Math.sin(t*4),1.1,{c:OR,a:.85*zk});}
   else ring(fx,fy,5,1.8,{a:.5*zk,e:0});
-  const u=seg(t,7.3,8.6);if(u>0&&u<1){const path=[[fx,fy],[fx,Y3P.WY],[Y3P.TX[1],Y3P.TY+Y3P.R],[Y3P.TX[1],Y3P.TY-Y3P.R],[Y3P.C[0],Y3P.C[1]+Y3P.CB]],e=E.ioq(u),h=polyAt(path,e);poly(path,3,{c:HOT,a:.85,p0:Math.max(0,e-.14),p:e});dot(h[0],h[1],7,{c:HOT});}
-  resetCam();const sa=E.io(seg(t,1.0,1.7))*(1-E.io(seg(t,7.2,8.0)));
-  if(sa>0){poly([[1370,700],[120,700],[120,330]],3,{c:OR,a:.95*sa,p:E.io(seg(t,1.0,1.9))});text('Äkta citat ur rapporten:',160,400,46,{a:sa*.72,wt:400,ls:1.5,e:0});}
+  const u=seg(t,TS+.3,TS+1.6);if(u>0&&u<1){const path=[[fx,fy],[fx,Y3P.WY],[Y3P.TX[1],Y3P.TY+Y3P.R],[Y3P.TX[1],Y3P.TY-Y3P.R],[Y3P.C[0],Y3P.C[1]+Y3P.CB]],e=E.ioq(u),h=polyAt(path,e);poly(path,3,{c:HOT,a:.85,p0:Math.max(0,e-.14),p:e});dot(h[0],h[1],7,{c:HOT});}
+  resetCam();const sa=E.io(seg(t,1.0,1.7))*(1-E.io(seg(t,TS+.2,TS+1.0)));
+  if(sa>0){poly([[1370,700],[120,700],[120,330]],3,{c:OR,a:.95*sa,p:E.io(seg(t,1.0,1.9))});text('Äkta citat ur rapporten:',160,400,46,{a:sa*.72,wt:400,ls:1.5,e:0});
+    // the three thoughts, one at a time
+    Y3_OFFQ.forEach((L,q)=>{const t0=1.2+q*6.5,last=q===Y3_OFFQ.length-1,a=E.io(seg(t,t0-.3,t0))*(last?1:1-E.io(seg(t,t0+6.0,t0+6.35)))*sa;
+      if(a>0)typed(L,160,470,42,56,seg(t,t0,t0+5.2),t,{c:WH,a});});}
 }

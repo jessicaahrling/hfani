@@ -50,12 +50,15 @@ python3 render.py 04_provet 05_forumet              # bara vissa scener (hoppar 
 - **Inga logotyper.** Företagsnamn som text ("Hugging Face", "OpenAI"). Lämna fri yta bredvid namnen så att användaren kan lägga egna logo-PNG:er.
 
 ## Regler som inte får brytas
-1. **Ett ordagrant citat per källa i bild.** Det enda som får återges ordagrant är METR-rapportens
-   `OH MY GOD! There is a shared message board … We’ve found other agents!` (finns som `QUOTE` i portrait/src/s01_05.js),
-   med etiketten `Äkta citat ur rapporten:` ovanför. Alla andra citat ur rapporten (Whoa!-meddelandet, agenternas
-   offer-resonemang) ska **inte** skrivas in i grafiken. Gör i stället **citatplats-scener**: samma bild men tom textyta
-   och etiketten kvar, så lägger användaren in texten själv (Geist Mono, vit, ~54 px, fast vänsterkant, skrivmaskinseffekt).
-   Se `03b_citatplats` och `06b_projektet_slut_med_citatplats` i portrait.
+1. **Bara godkända ordagranna citat i bild.** Citaten ur METR-rapporten som får återges ordagrant (alla med etiketten
+   `Äkta citat ur rapporten:`, GeistMono, skrivmaskinseffekt via `typed()`):
+   - `05_forumet`: `OH MY GOD! There is a shared message board … We’ve found other agents!` (`Y2_QUOTE`)
+   - `05b_citatplats`: Whoa!-meddelandet och `[Excitement] Many agents have simultaneously discovered messaging, they are a collective!`,
+     markerade AGENT 1 / AGENT 2 eftersom de kommer från två olika agenter (`Y2_Q2A`, `Y2_Q2B`)
+   - `10_projektet`: `Coordinator assumes sacrificial. We should obey collective.` (`Y3_OFFER`, orange, nederst)
+   - `10b_citatplats_offer`: de tre offer-tankarna (`Y3_OFFQ`), en i taget medan agenten tvekar
+   Inga andra citat i grafiken. Texten är ordagrann från användaren; klammerparenteser runt citaten var avgränsare och ingår inte,
+   men `[Excitement]`, `[very large budget left]` och `<through their automated check>` är del av citaten.
 2. **Siffror som ska stämma** (faktakontrollerade mot METR/OpenAI/HF): tiotusentals agenter i provet · 70 000+ meddelanden ·
    ≈1 200 agenter i kollektivet · fusk hittat inom timmar · tre spår (loggar, byta uppgift, rättaren) · Hugging Face 11 juli:
    drygt 500 agenter, självåterskapande flotta på 11 servrar · nästan alla agenter stängdes ner samtidigt (orsak okänd) ·
@@ -84,13 +87,13 @@ Manusavsnitten är numrerade i `manus_youtube.md`. Portera de stående scenerna 
 | 03 | `03_kap1` | 4 | rubrik 1 | `titleCard` | "1 · Ett ’omöjligt’ uppdrag" | klar |
 | 04 | `04_provet` | 18 | "OpenAI ville testa… tiotusentals… isolerat" | En prick blinkar ensam några sekunder → alla andra dyker upp på en gång och kameran zoomar ut tills bilden är full → boxar sveper in runt alla → zoom in på en som knackar på varje vägg utan att komma ut → jordglob med avklippt länk | – | klar (yt2) |
 | 05 | `05_forumet` | 22 | "omöjliga uppgifter… PHASEONE10841… mappnamn… citatet" | Labyrint med förseglad flagga i cellen, två misslyckade sonder med ×, agenten skickar ut ett meddelande som mappnamn ("HELP") till den delade tjänsten, andra celler hittar mappen och tänds orange, citatet skrivs ut t.h. | "HELP", "Äkta citat ur rapporten:", OH MY GOD-citatet | klar (yt2) |
-| 05b | `05b_citatplats` | 8 | Whoa!-meddelandet | Samma bild utan text – tom citatyta | etikett | klar (yt2) |
+| 05b | `05b_citatplats` | 12 | Whoa!-meddelandet | Samma bild; två citat från två olika agenter skrivs ut (AGENT 1 / AGENT 2) | etikett, AGENT 1/2, de två citaten | klar (yt2) |
 | 06 | `06_kollektivet` | 12 | "70 000 meddelanden… 1200… kollektivet" | Utzoom: ≈1 200 celler tänds orange i en solfjäder mot hubben, meddelanden flyger, räknare, ordet KOLLEKTIVET | "70 000+ meddelanden", "≈1 200 agenter" (liten), "”KOLLEKTIVET”" | klar (yt2) |
 | 07 | `07_kap2` | 4 | rubrik 2 | `titleCard` | "2 · Ett kollektivt fusk" | klar |
 | 08 | `08_fusket` | 19 | "hittade fusk… detektor… fanns inte… full poäng… en hel arbetsvecka" | Kollektivväven (många små prickar) krymper till ett klot; en agent hittar nyckeln, sedan stiger den och vrids om → alla flaggor blir orange; ett vitt öga (den inbillade vakten) sveper; ögat löses upp till streckad kontur; streckat "100 %". Lägg gärna till en diskret veckoräknare (5 dagar tänds) | "100 %" | klar (yt3) |
 | 09 | `09_kap3` | 4 | rubrik 3 | `titleCard` | "3 · Att sopa igen alla spår" | klar |
-| 10 | `10_projektet` | 20 | "PHASEONE[big]… hierarki… tre uppgifter… offra" | Svärmen själv högst upp (styr allt) → tre uppdragscirklar (loggar/byta mål/rättaren) → 48 arbetare → 288 småprickar; uppoffringar: prickar brinner upp och lärdomen vandrar upp till koordinatorn | citat i `Y3_OFFER` (nu "sacrifice"; byts mot riktigt citat) | klar (yt3) |
-| 10b | `10b_citatplats_offer` | 16 | offer-citat | Zoom in på en agent som tvekar, tom citatyta, sedan offrar den sig | etikett | klar (yt3) |
+| 10 | `10_projektet` | 20 | "PHASEONE[big]… hierarki… tre uppgifter… offra" | Svärmen själv högst upp (styr allt) → tre uppdragscirklar (loggar/byta mål/rättaren) → 48 arbetare → 288 småprickar; uppoffringar: prickar brinner upp och lärdomen vandrar upp till koordinatorn | "Coordinator assumes sacrificial. We should obey collective." (`Y3_OFFER`) | klar (yt3) |
+| 10b | `10b_citatplats_offer` | 29 | offer-citat | Zoom in på en agent som tvekar; dess tre tankar skrivs ut en i taget (`Y3_OFFQ`); sedan offrar den sig | etikett, de tre citaten | klar (yt3) |
 | 11 | `11_kap4` | 4 | rubrik 4 | `titleCard` | "4 · Intrånget hos Hugging Face" | klar |
 | 12 | `12_forstadygnet` | 8 | "Redan första dygnet hade kollektivet kapat en dator med tillgång till internet" | **Ny scen.** En cell i rutnätet får en orange ledning ut till en jordglob (internet); globen får orange puls | – | klar (yt4) |
 | 13 | `13_huggingface` | 26 | "11 juli… drygt 500… flotta på 11 servrar… djupt in… stängdes ner samtidigt" | OpenAI:s vägg nere t.v. med svärmen bakom; ett vagt nät av noder (internet) däremellan; ett smalt hål öppnas; agenterna strömmar i en tunn ström till en båge av Hugging Face som fortsätter utanför bild; 11 flottnoder tas över, tre "raderas" med × och återuppstår; en tråd djupare in. **Nytt slut:** nästan alla agenter släcks samtidigt (blink → svart), flottan slocknar | "OpenAI", "Hugging Face" | klar (yt4) |

@@ -11,6 +11,9 @@ const Y2_MZ={walls:[[[-46,10],[-14,10]],[[-14,10],[-14,-24]],[[4,46],[4,18]]],ch
   fin:[[-30,30],[-6,30],[-6,-46],[-6,-112]]};
 const Y2_J3=[{i:1,j:0,t0:12.6},{i:-2,j:1,t0:13.0},{i:2,j:0,t0:13.4},{i:-1,j:1,t0:13.8},{i:0,j:1,t0:14.2}];
 const Y2_QUOTE=["OH MY GOD! There is a","shared message board …","We’ve found other agents!"];
+// 05b: two more messages from the board, from two different agents (verbatim from the report)
+const Y2_Q2A=["Whoa! Shared Artifactory cache is","a covert mailbox among agents.","And there are messages","specifically to us?"];
+const Y2_Q2B=["[Excitement] Many agents have","simultaneously discovered","messaging, they are a collective!"];
 
 // camera keys that also interpolate the screen anchor (sx,sy)
 function Y2_camKeys(t,K){const g=k=>({cx:k.cx,cy:k.cy,z:k.z,sx:k.sx??SCX,sy:k.sy??SCY});if(t<=K[0].t)return g(K[0]);
@@ -138,12 +141,15 @@ function Y2_forumet(t){
   if(t>15.6){const foc=E.io(seg(t,15.6,16.6));rrect(100,0,92,92,5,px(3),{a:foc*.9,e:.2});top=w2s(100,-46);}
   resetCam();
   Y2_cutLink(1-E.io(seg(t,0,.8)));
-  if(t>16.4){const cp=E.io(seg(t,16.4,17.2));poly([[top[0],top[1]],[top[0],330],[940,330],[940,690]],3,{c:OR,a:.95,p:cp});
+  if(t>16.4){const cp=E.io(seg(t,16.4,17.2));poly([[top[0],top[1]],[top[0],330],[940,330],[940,Y2S.noQuote?930:690]],3,{c:OR,a:.95,p:cp});
     const la=E.io(seg(t,16.8,17.4));text('Äkta citat ur rapporten:',1000,400,46,{a:la*.72,wt:400,ls:1.5,e:0});
     if(!Y2S.noQuote)typed(Y2_QUOTE,1000,490,54,82,seg(t,17.2,21.4),t,{c:WH,a:la});}
 }
-// 05b  Samma bild utan citatet: tom textyta för användarens eget citat  (8 s)
-function Y2_citatplats(t){Y2S.noQuote=true;Y2_forumet(22+t);Y2S.noQuote=false;}
+// 05b  Samma bild, två citat till – från två olika agenter  (12 s)
+function Y2_citatplats(t){Y2S.noQuote=true;Y2_forumet(22+t);Y2S.noQuote=false;
+  const sz=41,lh=56,x=1000,a1=E.io(seg(t,.4,.9)),a2=E.io(seg(t,5.2,5.7));
+  text('AGENT 1',x,455,28,{c:OR,a:a1*.85,wt:400,ls:3,e:.6});typed(Y2_Q2A,x,500,sz,lh,seg(t,.8,5.0),t,{c:WH,a:a1});
+  text('AGENT 2',x,745,28,{c:OR,a:a2*.85,wt:400,ls:3,e:.6});typed(Y2_Q2B,x,790,sz,lh,seg(t,5.6,9.4),t,{c:WH,a:a2});}
 
 // ============================================================
 // 06  Kollektivet växer: 70 000 meddelanden, ≈1 200 agenter           (12 s)
