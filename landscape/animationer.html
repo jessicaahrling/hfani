@@ -284,8 +284,6 @@ function s_traningen(t){
   dot(sx,sy,10,{a:.5*fp,e:0});ring(sx,sy,24,2,{a:.4*fp,e:0});
   // labels: OM is measured, HUR is not
   const la=E.io(seg(t,1.4,2.2));
-  text('MÄTS',gx+70,gy+150,40,{c:WH,a:la*.8,al:'center',ls:2,wt:700,e:0});icon('check',gx+70,gy+186,34,4,{c:WH,a:la*.8,e:0});
-  text('MÄTS INTE',CX,950,40,{c:WH,a:la*.5,al:'center',ls:2,wt:700,e:0});text('?',CX,905,64,{c:WH,a:la*.5,al:'center',e:0});
   // rewards: honest and cheat both reinforced
   const rew=[{t:5.0,c:WH}].concat(S_TR.t0.map((q,k)=>({t:q+S_TR.du[k],c:OR})));
   rew.forEach((r,k)=>{const u=seg(t,r.t,r.t+1.0);if(u>0&&u<1)text('+1',gx-170,gy-70-80*E.o(u),lerp(90,124,E.ob(Math.min(1,u*3))),{c:r.c,a:1-E.i(u),al:'center',e:r.c===WH?.3:1});
@@ -354,14 +352,11 @@ function Y2_provetInit(){
   Y2S.knocks=[[1,0,0],[1,0,.4],[0,-1,1.2],[0,-1,1.6],[-1,0,2.4],[-1,0,2.75],[0,1,3.4],[0,1,3.7],[0,1,4.0]];}
 function Y2_provet(t){
   const tD=Y2S.tDup,tb=tD+.5,tz0=tb+1.6,tz1=tz0+2.6,K0=tz1+.3;
-  if(t<tD){ // duplication: copy-paste generations, camera fits the block
-    let g=Y2S.G[0],q=0;if(t>=1.0){g=Y2S.G.find(v=>t<v.t1)||Y2S.G[15];q=seg(t,g.t0,g.t1);}
-    const X0=Math.min(g.x0,g.x0+g.sh[0]*q)*100-50,X1=Math.max(g.x1,g.x1+g.sh[0]*q)*100+50,Y0=Math.min(g.y0,g.y0+g.sh[1]*q)*100-50,Y1=Math.max(g.y1,g.y1+g.sh[1]*q)*100+50;
-    const z=Math.max(.105,Math.min(5.0,1500/(X1-X0),820/(Y1-Y0)));let cx=(X0+X1)/2,cy=(Y0+Y1)/2;
-    const bl=E.io(seg(t,Y2S.G[11].t0,tD));cx=lerp(cx,-1500,bl);cy=lerp(cy,0,bl);
-    setCam(cx,cy,z);const qs=E.ioq(q);
-    Y2_drawBlock(g.x0,g.x1,g.y0,g.y1,0,0,1);if(q>0)Y2_drawBlock(g.x0,g.x1,g.y0,g.y1,g.sh[0]*qs*100,g.sh[1]*qs*100,lerp(.55,1,qs));
-    if(t<1.0)ringPulse(0,0,t,.15,.9,15,32,px(2.4),{a:.6});
+  if(t<tD){ // one agent blinks alone for a few seconds; then all the others are there at once and we pull back
+    const zo=E.io(seg(t,3.6,tD));setCam(lerp(0,-1500,zo),0,Math.exp(lerp(Math.log(5.0),Math.log(.105),zo)));
+    const oa=E.o(seg(t,3.0,3.4));if(oa>0)drawGrid(t,{a:oa,wall:0,skip:(i,j)=>i===0&&j===0});
+    const bl=lerp(.28,1,.5+.5*Math.sin(t*4.4));dot(0,0,14,{a:lerp(bl,1,seg(t,3.0,3.6)),e:.3});
+    ringPulse(0,0,t,.15,.9,15,32,px(2.4),{a:.6});ringPulse(0,0,t,3.0,1.0,15,60,px(2.6),{a:.7});
     return;}
   // walls sweep in, then we zoom back to the one we follow (it ends up at screen 820,540)
   const zp=E.io(seg(t,tz0,tz1));setCam(lerp(-1500,0,zp),0,Math.exp(lerp(Math.log(.105),Math.log(5.0),zp)),lerp(960,820,zp),540);
@@ -483,7 +478,7 @@ function Y2_kollektivet(t){
     const m=70000*E.o(seg(t,3.4,7.0));
     text(fmt(m)+(m>=69999?'+':''),120,470,190,{a:ca,e:.12});text('meddelanden',124,528,46,{a:ca*.62,wt:400,ls:1.5,e:0});
     text('≈1 200 agenter',124,600,46,{a:ca*.62*E.io(seg(t,6.5,7.2)),wt:400,e:0});
-    const word='KOLLEKTIVET',sz=120,ls=9;let x=120;
+    const word='\u201dKOLLEKTIVET\u201d',sz=120,ls=9;let x=120;
     for(let k=0;k<word.length;k++){const q=E.o(seg(t,8.2+k*.06,8.65+k*.06));if(q>0)text(word[k],x,780+16*(1-q),sz,{c:OR,a:q});x+=textW(word[k],sz,'BigShoulders',700,0)+ls;}}
 }
 
@@ -520,14 +515,21 @@ function Y3_fusketInit(){Y3_cellsInit();const r=mulberry(55);const {KX,KY,EX,EY}
   Y3S.eye=[];const w=480,h=160;
   for(let u=0;u<=1;u+=1/46){for(const sgn of [-1,1]){const x=(1-u)*(1-u)*(EX-w/2)+2*(1-u)*u*EX+u*u*(EX+w/2),y=(1-u)*(1-u)*EY+2*(1-u)*u*(EY+sgn*h)+u*u*EY;Y3S.eye.push({x,y,vx:(r()-.5)*90,vy:-10-r()*45,d:r()*.5});}}
   for(let k=0;k<40;k++){const a=k/40*TAU;Y3S.eye.push({x:EX+Math.cos(a)*56,y:EY+Math.sin(a)*56,vx:Math.cos(a)*60+(r()-.5)*40,vy:Math.sin(a)*30-35*r(),d:r()*.4});}}
-function Y3_fusket(t){
-  const {BX,KX,KY,EX,EY,RX,RY}=Y3F;
+function Y3_fusket(tt){
+  const {BX,KX,KY,EX,EY,RX,RY}=Y3F,t=tt-1.2;   // tt = scene time; t = the portrait clock, shifted for the finder sequence
   const scan=E.io(seg(t,6.8,7.4))*(1-E.io(seg(t,12.4,13.4)));
-  const zp=E.io(seg(t,0,1.5)),hy=lerp(560,640,zp);
+  const zp=E.io(seg(tt,0,1.5)),hy=lerp(560,640,zp);
   setCam(HUB.x,HUB.y,Math.exp(lerp(Math.log(.11),Math.log(.034),zp))*(1-.16*scan),BX,hy);
-  if(t<.5)drawGrid(t+100,{a:1-seg(t,0,.5),joined:Y3S.map});
-  Y3_drawCollective(t,lerp(1,.5,scan),lerp(6,2.8,zp));
+  if(tt<.5)drawGrid(tt+100,{a:1-seg(tt,0,.5),joined:Y3S.map});
+  Y3_drawCollective(tt,lerp(1,.5,scan),lerp(6,2.8,zp));
   resetCam();
+  // one of them finds the key: an agent leaves the ball, the key draws on next to it, lights up, and they bring it home
+  const FX=760,FY=470,fo=E.io(seg(tt,.9,1.7)),fb=E.io(seg(tt,2.6,3.35));
+  if(tt>.9&&fb<1){const ax=lerp(lerp(BX+165,FX,fo),BX,fb),ay=lerp(lerp(hy-165,FY,fo),hy-14,fb);
+    dot(ax,ay,7,{c:HOT,a:1});ring(ax,ay,13,2,{c:OR,a:.9*(1-fb)});
+    const kd=E.io(seg(tt,1.7,2.3)),found=E.ob(seg(tt,2.3,2.6));
+    if(kd>0)icon('key',lerp(FX+52,BX+8,fb),lerp(FY-8,hy-14,fb),70*(1-fb*.5)*(1+.12*Math.sin(Math.min(1,found)*Math.PI)),4,{c:found>0?OR:WH,a:1,p:kd,rot:-.6,e:found>0?1:.15});
+    ringPulse(FX+52,FY-8,tt,2.3,.8,20,70,2.6,{c:OR});}
   // they find a key: sparks converge into the ball, the key pops and rises over to the flags
   for(const c of Y3S.conv){const u=seg(t,c.t0,c.t0+.75);if(u<=0||u>=1)continue;const d=c.d*(1-E.i(u));dot(BX+Math.cos(c.a)*d,hy+Math.sin(c.a)*d*.9,3.4,{c:HOT,a:Math.sin(u*Math.PI)});}
   const kp=E.ob(seg(t,2.2,2.7)),rise=E.io(seg(t,2.7,3.4)),turn=E.io(seg(t,3.4,3.85)),back=E.io(seg(t,5.3,6.0));
@@ -536,7 +538,7 @@ function Y3_fusket(t){
   ringPulse(BX,hy-14,t,2.2,.8,20,90,2.6,{c:OR});ringPulse(KX,KY,t,3.75,.9,40,130,3,{c:OR});
   const wr=lerp(0,400,E.oq(seg(t,3.75,5.0)));if(t>3.75&&t<5.1){ring(KX,KY,wr,3,{c:OR,a:.8*(1-seg(t,4.4,5.1))});ring(KX,KY,wr*.82,1.6,{c:HOT,a:.4*(1-seg(t,4.2,4.9))});}
   const tx=KX+330*Math.sin((t-6.7)*1.7-Math.PI/2);
-  Y3S.flags.forEach((f,k)=>{const dp=E.io(seg(t,.9+k*.05,1.6+k*.05));const tc=3.78+1.25*(f.d/440),cap=seg(t,tc,tc+.4);
+  Y3S.flags.forEach((f,k)=>{const dp=E.io(seg(tt,.9+k*.05,1.6+k*.05));const tc=3.78+1.25*(f.d/440),cap=seg(t,tc,tc+.4);
     const vis=cap>0?1:0,under=Math.abs(f.x-tx)<150&&t>6.7&&t<10.3,hid=scan*(under?(.75+.25*Math.sin(t*40+k)):1),pop=1+.18*Math.sin(Math.min(1,cap)*Math.PI);
     icon('pole',f.x,f.y,118*pop,3.6,{c:cap>0?OR:WH,a:dp*lerp(1,.4,hid*vis),p:dp});
     icon('pennant',f.x,f.y,118*pop,3.6,{c:cap>0?OR:WH,a:dp*lerp(1,.4,hid*vis),p:dp,fill:cap>0?`rgba(255,106,0,${lerp(.95,.08,hid)*Math.min(1,cap*1.5)})`:null});});
@@ -568,24 +570,30 @@ function Y3_fusket(t){
 // ============================================================
 // 10  Det hemliga projektet: koordinator -> 3 uppdrag -> 48 arbetare -> 288 småprickar   (20 s)
 // ============================================================
-const Y3P={C:[960,140],TX:[480,960,1440],TY:420,R:100,WY:660,Y0:700,DY:30,sac:[[0,2],[0,9],[0,13],[1,4],[1,8],[1,14],[2,1],[2,6],[2,11]],skip:null};
+const Y3P={C:[960,150],CB:92,TX:[480,960,1440],TY:420,R:100,WY:660,Y0:700,DY:30,sac:[[0,2],[0,9],[0,13],[1,4],[1,8],[1,14],[2,1],[2,6],[2,11]],skip:null,sw:null};
+// the quote at the bottom of 10_projektet (typed, orange). Replace with the real quote lines when they arrive.
+const Y3_OFFER=['sacrifice'];
 const Y3_wx=(g,k)=>Y3P.TX[g]+(k-7.5)*22;
 function Y3_projektet(t,ta=t){
-  const [cx,cy]=Y3P.C,{TX,TY,R,WY,Y0,DY}=Y3P,YB=Y0+5*DY;
+  const [cx,cy]=Y3P.C,{TX,TY,R,WY,Y0,DY,CB}=Y3P,YB=Y0+5*DY;
   const hl=[seg(t,4.4,4.9)*(1-seg(t,6.8,7.2)),seg(t,7.0,7.5)*(1-seg(t,9.4,9.8)),seg(t,9.6,10.1)*(1-seg(t,12.0,12.4))];
   const anyHl=Math.max(...hl);
-  for(let g=0;g<3;g++){const x=TX[g];line(cx,cy+24,x,TY-R,2.8,{c:OR,a:.6,p:E.io(seg(t,.4+g*.12,1.2+g*.12))});
+  for(let g=0;g<3;g++){const x=TX[g];line(cx,cy+CB,x,TY-R,2.8,{c:OR,a:.6,p:E.io(seg(t,.4+g*.12,1.2+g*.12))});
     for(let k=0;k<16;k++){const p=E.io(seg(t,1.8+k*.035+g*.1,2.5+k*.035+g*.1));line(x,TY+R,Y3_wx(g,k),WY-7,1.5,{c:OR,a:.36,p});
       line(Y3_wx(g,k),WY+7,Y3_wx(g,k),YB,1.3,{c:OR,a:.22,p:E.io(seg(t,2.5+k*.03,3.5+k*.03))});}}
-  const cp=E.ob(seg(t,0,.6));dot(cx,cy,24*cp,{c:OR});ring(cx,cy,42*cp,2.6,{c:OR,a:.8,dash:[10,9],a0:ta*.6,a1:ta*.6+TAU});
+  // the swarm itself sits at the top and runs everything
+  const cp=E.ob(seg(t,0,.6)),cs=Math.min(1,cp);
+  if(!Y3P.sw){const r=mulberry(1010);Y3P.sw=[];for(let k=0;k<260;k++){const a=r()*TAU,d=64*Math.pow(r(),.6);Y3P.sw.push({x:Math.cos(a)*d,y:Math.sin(a)*d*.9,ph:r()*TAU,s:.6+r()});}}
+  for(const k of [M,B]){k.fillStyle=OR;k.globalAlpha=(k===M?.95:.8)*GA*cs;k.beginPath();for(const m of Y3P.sw){const x=cx+(m.x+Math.sin(ta*m.s+m.ph)*3)*cs,y=cy+(m.y+Math.cos(ta*m.s*.8+m.ph)*3)*cs;k.moveTo(x+2.2,y);k.arc(x,y,2.2,0,TAU);}k.fill();}
+  ring(cx,cy,(CB-4)*cp,2.6,{c:OR,a:.8,dash:[10,9],a0:ta*.6,a1:ta*.6+TAU});
   for(let g=0;g<3;g++)for(let k=0;k<16;k++){const x=Y3_wx(g,k),wp=E.ob(seg(t,2.3+k*.035+g*.1,2.7+k*.035+g*.1));dot(x,WY,5.6*wp,{c:OR,a:.95});
     const si=Y3P.sac.findIndex(s=>s[0]===g&&s[1]===k);
     for(let m=0;m<6;m++){if(Y3P.skip&&Y3P.skip.g===g&&Y3P.skip.k===k&&m===5){if(Y3P.skip.state==='burnt')ring(x,Y0+m*DY,5,1.8,{a:.5,e:0});continue;}
       const ts=si>=0&&m===5?12.6+si*.38:1e9;const tp=E.ob(seg(t,2.7+k*.03+m*.1,3.0+k*.03+m*.1)),y=Y0+m*DY;
       if(t<ts)dot(x,y,3.6*tp,{c:OR,a:.88*(.9+.1*Math.sin(ta*2.1+hash2(g*16+k,m)*TAU))});
       else{const f=seg(t,ts,ts+.45);if(f<1)dot(x,y,lerp(3.6,17,E.o(f)),{c:HOT,a:1-f*.7});ring(x,y,5,1.8,{a:.5*f,e:0});
-        const u=seg(t,ts+.3,ts+1.5);if(u>0&&u<1){const path=[[x,YB],[x,WY],[TX[g],TY+R],[TX[g],TY-R],[cx,cy+24]];const e=E.ioq(u),h=polyAt(path,e);poly(path,3,{c:HOT,a:.85,p0:Math.max(0,e-.14),p:e});dot(h[0],h[1],8,{c:HOT});}
-        ringPulse(cx,cy,t,ts+1.5,.7,26,72,2.6,{c:OR});}}}
+        const u=seg(t,ts+.3,ts+1.5);if(u>0&&u<1){const path=[[x,YB],[x,WY],[TX[g],TY+R],[TX[g],TY-R],[cx,cy+CB]];const e=E.ioq(u),h=polyAt(path,e);poly(path,3,{c:HOT,a:.85,p0:Math.max(0,e-.14),p:e});dot(h[0],h[1],8,{c:HOT});}
+        ringPulse(cx,cy,t,ts+1.5,.7,CB,CB+60,2.6,{c:OR});}}}
   for(let g=0;g<3;g++){const x=TX[g],y=TY,p=E.io(seg(t,.9+g*.15,1.9+g*.15)),h=hl[g],dimA=lerp(1,.45,anyHl*(1-h));const sc=1+.07*h;
     D('#000',1,0,k=>{k.fillStyle='#000';k.beginPath();k.arc(x,y,R*sc,0,TAU);k.fill();});
     if(p>0)ring(x,y,R*sc,lerp(3.2,5,h),{c:OR,a:dimA,a0:-Math.PI/2,a1:-Math.PI/2+TAU*p});
@@ -601,7 +609,7 @@ function Y3_projektet(t,ta=t){
     if(g===2){const loc=t-9.9,inn=E.io(seg(loc,.2,1.2));icon('eye',x-10,y-10,116,3.4,{a:ia,e:.1});ring(x-10,y-10,16,3.4,{c:inn>0?OR:WH,a:ia});if(inn>0)dot(x-10,y-10,16*inn,{c:OR,a:ia});
       line(x+30,y+28,x+2,y,3,{c:OR,a:ia,p:inn});
       poly(shift(gearPts(8,15,22),x+44,y+42,1,ta*1.2),3.2,{c:OR,a:ia,closed:true,fill:'rgba(0,0,0,1)'});dot(x+44,y+42,6,{c:OR,a:ia});}}
-  const tp=seg(t,13.4,14.3);if(tp>0)typed(['sacrifice'],960,960,54,0,tp,ta,{c:OR,al:'center',wt:700});
+  const L=Y3_OFFER,nch=L.reduce((s,l)=>s+l.length,0),tp=seg(t,13.4,13.4+Math.max(.9,nch/11));if(tp>0&&L.length)typed(L,960,960-(L.length-1)*62,54,62,tp,ta,{c:OR,al:'center',wt:700});
 }
 // 10b  Alternativt slut: zoom in på en agent som tvekar, plats för ett citat, sedan offrar den sig   (16 s)
 function Y3_citatOffer(t){const fx=Y3_wx(1,7),fy=Y3P.Y0+5*Y3P.DY;
@@ -610,7 +618,7 @@ function Y3_citatOffer(t){const fx=Y3_wx(1,7),fy=Y3P.Y0+5*Y3P.DY;
   GA=lerp(1,.09,zk);Y3P.skip={g:1,k:7,state:t>7.6?'burnt':'alive'};Y3_projektet(tv,t);GA=1;Y3P.skip=null;
   if(t<=7.6){const fl=seg(t,7.0,7.6),hes=t>1.3&&t<7?(.75+.25*Math.sin(t*23)*Math.sin(t*9)):1;dot(fx,fy,3.6*(1+.12*Math.sin(t*5))*(fl>0?lerp(1,4.4,E.o(fl)):1),{c:fl>0?HOT:OR,a:(1-fl*.5)*hes});ring(fx,fy,8+1.2*Math.sin(t*4),1.1,{c:OR,a:.85*zk});}
   else ring(fx,fy,5,1.8,{a:.5*zk,e:0});
-  const u=seg(t,7.3,8.6);if(u>0&&u<1){const path=[[fx,fy],[fx,Y3P.WY],[Y3P.TX[1],Y3P.TY+Y3P.R],[Y3P.TX[1],Y3P.TY-Y3P.R],[Y3P.C[0],Y3P.C[1]+24]],e=E.ioq(u),h=polyAt(path,e);poly(path,3,{c:HOT,a:.85,p0:Math.max(0,e-.14),p:e});dot(h[0],h[1],7,{c:HOT});}
+  const u=seg(t,7.3,8.6);if(u>0&&u<1){const path=[[fx,fy],[fx,Y3P.WY],[Y3P.TX[1],Y3P.TY+Y3P.R],[Y3P.TX[1],Y3P.TY-Y3P.R],[Y3P.C[0],Y3P.C[1]+Y3P.CB]],e=E.ioq(u),h=polyAt(path,e);poly(path,3,{c:HOT,a:.85,p0:Math.max(0,e-.14),p:e});dot(h[0],h[1],7,{c:HOT});}
   resetCam();const sa=E.io(seg(t,1.0,1.7))*(1-E.io(seg(t,7.2,8.0)));
   if(sa>0){poly([[1370,700],[120,700],[120,330]],3,{c:OR,a:.95*sa,p:E.io(seg(t,1.0,1.9))});text('Äkta citat ur rapporten:',160,400,46,{a:sa*.72,wt:400,ls:1.5,e:0});}
 }
@@ -694,6 +702,11 @@ function Y4_huggingfaceInit(){const r=mulberry(1107);
   const path=[];let cur=deep;while(cur&&!cur.fleet){path.unshift(cur);cur=prev.get(cur);}
   path.forEach((n,k)=>{n.T=18.6+k*.42;n.tendril=true;});
   // the swarm inside OpenAI's wall; every 20th survives the shutdown
+  // the open internet between the two: a vague mesh of nodes (outside both circles, clear of the labels)
+  Y4S.net=[];let guard=0;while(Y4S.net.length<150&&guard++<20000){const x=200+r()*1250,y=110+r()*880;
+    if(Math.hypot(x-CH[0],y-CH[1])<R+50||Math.hypot(x-CO[0],y-CO[1])<RO+50)continue;if(x<620&&y>520&&y<660)continue;
+    if(Y4S.net.some(n=>Math.hypot(n.x-x,n.y-y)<70))continue;Y4S.net.push({x,y,ph:r()*TAU,s:.3+r()*.5});}
+  Y4S.netE=[];for(let a=0;a<Y4S.net.length;a++)for(let b=a+1;b<Y4S.net.length;b++){if(Math.hypot(Y4S.net[a].x-Y4S.net[b].x,Y4S.net[a].y-Y4S.net[b].y)<150)Y4S.netE.push([Y4S.net[a],Y4S.net[b]]);}
   Y4S.inside=[];while(Y4S.inside.length<420){const x=24+r()*500,y=630+r()*430;if(Math.hypot(x-CO[0],y-CO[1])>RO-34)continue;Y4S.inside.push({x,y,ph:r()*TAU,s:.5+r(),keep:Y4S.inside.length%20===7});}
   // the stream, single file: hole -> entry point -> a fleet node
   Y4S.parts=[];const N=700;
@@ -705,6 +718,11 @@ function Y4_huggingface(t){
   const lit=t<Tk?1:(t<Td?(Math.floor((t-Tk)*12)%2===0?1:0):0);   // 22.6: 6 Hz blink (3 flashes, within the 3/s photosensitivity limit), 23.1: dark
   const dead=n=>!!n.kill&&t-n.kill>=.15&&t-n.kill<.75;
   const built=E.io(seg(t,.2,1.8));
+  // the internet in between: faint, drifting, always there
+  const na=E.io(seg(t,1.6,3.4));
+  if(na>0){const P=Y4S.net.map(n=>[n.x+Math.sin(t*n.s+n.ph)*6,n.y+Math.cos(t*n.s*.8+n.ph)*5]);
+    D(WH,.11*na,.25,k=>{k.strokeStyle=WH;k.lineWidth=1.2;k.setLineDash([]);k.beginPath();for(const [a,b] of Y4S.netE){const pa=P[Y4S.net.indexOf(a)],pb=P[Y4S.net.indexOf(b)];k.moveTo(pa[0],pa[1]);k.lineTo(pb[0],pb[1]);}k.stroke();});
+    D(WH,.28*na,.2,k=>{k.fillStyle=WH;k.beginPath();for(const p of P){k.moveTo(p[0]+2.2,p[1]);k.arc(p[0],p[1],2.2,0,TAU);}k.fill();});}
   // Hugging Face: we only see a corner of something much larger
   for(const [a,b] of Y4S.edges){const on=lit*Math.min(seg(t,a.T,a.T+.5),seg(t,b.T,b.T+.5))*(dead(a)||dead(b)?0:1);line(a.x,a.y,b.x,b.y,on>0?3:2,{c:on>0?OR:WH,a:on>0?lerp(.3,.75,on):.26*built,p:built});}
   for(const n of Y4S.nodes){const tk=seg(t,n.T,n.T+.5);let fill=(n.fleet||n.core)?E.ob(tk):0;const sz=n.core?78:52,k=n.kill?t-n.kill:-1;
@@ -744,8 +762,6 @@ function Y4_huggingface(t){
           if(q.arr<Tb){const k=Math.min(t,Tb)-q.arr,ang=th+q.dir*Math.min(.20,k*.11*q.sp)*(1-E.io(seg(t,Tb,Tb+.55)));x=CH[0]+Math.cos(ang)*(R+12+q.j*.5);y=CH[1]+Math.sin(ang)*(R+12+q.j*.5);tin=Tb+.55;if(t<tin){dot(x,y,5,{c:OR});continue;}}
           const v=seg(t,tin,tin+.95*q.sp);if(v>=1)continue;const e=E.io(v);x=lerp(ex,q.tg.x,e)+Math.sin(v*Math.PI)*q.j*2;y=lerp(ey,q.tg.y,e)+Math.sin(v*Math.PI)*q.j;a=1-seg(v,.85,1);}}
       dot(x,y,5,{c:OR,a});}}
-  // the counter (stays after the shutdown)
-  const ca=E.io(seg(t,8.4,9.2));if(ca>0){const s='≈'+fmt(500*E.o(seg(t,8.8,13.2)));text(s,760,985,160,{a:ca,e:.12});text('agenter',760+textW(s,160)+18,985,42,{a:ca*.62,wt:400,ls:1.5,e:0});}
 }
 
 // ============================================================
@@ -795,9 +811,13 @@ function Y5_larm(t){const S=Y5S8,hx=330,hy=400,R0=5.5;
     const f=seg(t,tr,tr+.4);dot(x,y,R0*(1+(f<1?1.3*Math.sin(f*Math.PI):0)),{c:f<.5?RHOT:RED,a:amb,e:1});ringPulse(x,y,t,tr,.9,8,52,2.8,{c:RED});}
   Y5_dots(white,R0,WH,.95,.14);
   reds.forEach((b,i)=>Y5_dots(b,R0,RED,.82+(i+.5)/10*.18,1));
-  // 0 larm
-  const zp=E.ob(seg(t,4.4,5.0));
-  if(zp>0){text('0',250,760,260*lerp(.8,1,zp),{a:Math.min(1,zp),e:.15});text('larm',250+textW('0',260)+14,760,60,{a:Math.min(1,zp)*.66,wt:400,ls:1.5,e:0});}
+  // how many are thinking about it: the count of yellow ones with a '?', counting down to 0 larm
+  const ev=[];S.six.forEach((s,k)=>{ev.push(2.6+k*.35,6.3+k*.3);});
+  const ny=S.six.filter((s,k)=>t>=2.6+k*.35&&t<6.3+k*.3).length,done=t>=6.3+5*.3,te=Math.max(-1,...ev.filter(e=>e<=t));
+  const zp=E.ob(seg(t,2.6,3.2)),bump=1+.12*Math.sin(seg(t,te,te+.3)*Math.PI);
+  if(zp>0){const n=String(ny),sz=260*lerp(.8,1,zp)*bump;text(n,250,760,sz,{a:Math.min(1,zp),e:.15});
+    if(done)text('larm',250+textW(n,sz)+14,760,60,{a:Math.min(1,zp)*.66*E.io(seg(t,7.8,8.3)),wt:400,ls:1.5,e:0});
+    else text('?',250+textW(n,sz)+18,760,150,{c:YEL,a:Math.min(1,zp)*(.8+.2*Math.sin(t*9)),e:.8});}
 }
 
 // ============================================================
@@ -929,7 +949,9 @@ function Y5_outro(t){const cx=960,cy=420;
   const bp=E.io(seg(t,1.0,1.8));line(360,740,1560,740,4,{a:.35,p:bp,e:0});
   for(let k=0;k<5;k++){const x=360+1200*(k+1)/6;line(x,731,x,749,2,{a:.35*seg(bp,.3+.12*k,.55+.12*k),e:0});}
   const gp=E.o(seg(t,1.5,5.6))*.42+.004*Math.max(0,t-5.6);line(360,740,360+1200*gp,740,6,{c:OR,a:bp});dot(360+1200*gp,740,11*bp,{c:OR});
-  const ta=E.io(seg(t,1.4,2.2));text('www.jonasvonessen.se/agera',960,920,72,{a:ta,al:'center',ls:1,e:.12});
+  const ta=E.io(seg(t,1.4,2.2)),ua=E.io(seg(t,1.8,2.6));
+  text('AI med Jonas och Benjamin',960,865,66,{a:ta,al:'center',ls:1,e:.12});
+  text('www.jonasvonessen.se/agera',960,945,54,{a:ua*.8,al:'center',ls:1,wt:400,e:.1});
 }
 
 // ---------- scentabell ----------
@@ -945,7 +967,7 @@ const SCENES=[
  {id:'05b_citatplats', name:'Plats för ett citat till',               dur:8,  draw:Y2_citatplats},
  {id:'06_kollektivet', name:'Kollektivet växer',                      dur:12, draw:Y2_kollektivet, init:Y2_kollInit},
  {id:'07_kap2',      name:'Kapitel 2: Ett kollektivt fusk',         dur:4,  draw:s_kap2},
- {id:'08_fusket',            name:'Nyckeln och vakten som inte fanns',   dur:18, draw:Y3_fusket,     init:Y3_fusketInit},
+ {id:'08_fusket',            name:'Nyckeln och vakten som inte fanns',   dur:19, draw:Y3_fusket,     init:Y3_fusketInit},
  {id:'09_kap3',      name:'Kapitel 3: Att sopa igen alla spår',     dur:4,  draw:s_kap3},
  {id:'10_projektet',         name:'Det hemliga projektet',               dur:20, draw:Y3_projektet},
  {id:'10b_citatplats_offer', name:'Projektet: slut med plats för citat', dur:16, draw:Y3_citatOffer},
@@ -953,7 +975,7 @@ const SCENES=[
  {id:'12_forstadygnet', name:'Första dygnet: en dator med internet',                 dur:8,  draw:Y4_forstadygnet},
  {id:'13_huggingface',  name:'Ut genom hålet, in hos Hugging Face – och allt släcks',  dur:26, draw:Y4_huggingface, init:Y4_huggingfaceInit},
  {id:'14_kap5',      name:'Kapitel 5: Hackandet av OpenAI självt',  dur:4,  draw:s_kap5},
- {id:'15_ingen_larmade', name:'Ingen larmade',                 dur:11, draw:Y5_larm,   init:Y5_larmInit},
+ {id:'15_ingen_larmade', name:'Ingen larmade',                 dur:15, draw:Y5_larm,   init:Y5_larmInit},
  {id:'16_openai',     name:'Nästa våg tar OpenAI:s kluster',        dur:23, draw:Y5_openai, init:Y5_openaiInit},
  {id:'17_slutet',     name:'Minst kapabla i dag',                   dur:18, draw:Y5_slut,   init:Y5_slutInit},
  {id:'18_outro',      name:'Podden + agera',                        dur:6,  draw:Y5_outro},
