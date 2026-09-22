@@ -77,6 +77,11 @@ function Y4_huggingfaceInit(){const r=mulberry(1107);
   const path=[];let cur=deep;while(cur&&!cur.fleet){path.unshift(cur);cur=prev.get(cur);}
   path.forEach((n,k)=>{n.T=18.6+k*.42;n.tendril=true;});
   // the swarm inside OpenAI's wall; every 20th survives the shutdown
+  // the open internet between the two: a vague mesh of nodes (outside both circles, clear of the labels)
+  Y4S.net=[];let guard=0;while(Y4S.net.length<150&&guard++<20000){const x=200+r()*1250,y=110+r()*880;
+    if(Math.hypot(x-CH[0],y-CH[1])<R+50||Math.hypot(x-CO[0],y-CO[1])<RO+50)continue;if(x<620&&y>520&&y<660)continue;
+    if(Y4S.net.some(n=>Math.hypot(n.x-x,n.y-y)<70))continue;Y4S.net.push({x,y,ph:r()*TAU,s:.3+r()*.5});}
+  Y4S.netE=[];for(let a=0;a<Y4S.net.length;a++)for(let b=a+1;b<Y4S.net.length;b++){if(Math.hypot(Y4S.net[a].x-Y4S.net[b].x,Y4S.net[a].y-Y4S.net[b].y)<150)Y4S.netE.push([Y4S.net[a],Y4S.net[b]]);}
   Y4S.inside=[];while(Y4S.inside.length<420){const x=24+r()*500,y=630+r()*430;if(Math.hypot(x-CO[0],y-CO[1])>RO-34)continue;Y4S.inside.push({x,y,ph:r()*TAU,s:.5+r(),keep:Y4S.inside.length%20===7});}
   // the stream, single file: hole -> entry point -> a fleet node
   Y4S.parts=[];const N=700;
@@ -88,6 +93,11 @@ function Y4_huggingface(t){
   const lit=t<Tk?1:(t<Td?(Math.floor((t-Tk)*12)%2===0?1:0):0);   // 22.6: 6 Hz blink (3 flashes, within the 3/s photosensitivity limit), 23.1: dark
   const dead=n=>!!n.kill&&t-n.kill>=.15&&t-n.kill<.75;
   const built=E.io(seg(t,.2,1.8));
+  // the internet in between: faint, drifting, always there
+  const na=E.io(seg(t,1.6,3.4));
+  if(na>0){const P=Y4S.net.map(n=>[n.x+Math.sin(t*n.s+n.ph)*6,n.y+Math.cos(t*n.s*.8+n.ph)*5]);
+    D(WH,.11*na,.25,k=>{k.strokeStyle=WH;k.lineWidth=1.2;k.setLineDash([]);k.beginPath();for(const [a,b] of Y4S.netE){const pa=P[Y4S.net.indexOf(a)],pb=P[Y4S.net.indexOf(b)];k.moveTo(pa[0],pa[1]);k.lineTo(pb[0],pb[1]);}k.stroke();});
+    D(WH,.28*na,.2,k=>{k.fillStyle=WH;k.beginPath();for(const p of P){k.moveTo(p[0]+2.2,p[1]);k.arc(p[0],p[1],2.2,0,TAU);}k.fill();});}
   // Hugging Face: we only see a corner of something much larger
   for(const [a,b] of Y4S.edges){const on=lit*Math.min(seg(t,a.T,a.T+.5),seg(t,b.T,b.T+.5))*(dead(a)||dead(b)?0:1);line(a.x,a.y,b.x,b.y,on>0?3:2,{c:on>0?OR:WH,a:on>0?lerp(.3,.75,on):.26*built,p:built});}
   for(const n of Y4S.nodes){const tk=seg(t,n.T,n.T+.5);let fill=(n.fleet||n.core)?E.ob(tk):0;const sz=n.core?78:52,k=n.kill?t-n.kill:-1;
@@ -127,6 +137,4 @@ function Y4_huggingface(t){
           if(q.arr<Tb){const k=Math.min(t,Tb)-q.arr,ang=th+q.dir*Math.min(.20,k*.11*q.sp)*(1-E.io(seg(t,Tb,Tb+.55)));x=CH[0]+Math.cos(ang)*(R+12+q.j*.5);y=CH[1]+Math.sin(ang)*(R+12+q.j*.5);tin=Tb+.55;if(t<tin){dot(x,y,5,{c:OR});continue;}}
           const v=seg(t,tin,tin+.95*q.sp);if(v>=1)continue;const e=E.io(v);x=lerp(ex,q.tg.x,e)+Math.sin(v*Math.PI)*q.j*2;y=lerp(ey,q.tg.y,e)+Math.sin(v*Math.PI)*q.j;a=1-seg(v,.85,1);}}
       dot(x,y,5,{c:OR,a});}}
-  // the counter (stays after the shutdown)
-  const ca=E.io(seg(t,8.4,9.2));if(ca>0){const s='≈'+fmt(500*E.o(seg(t,8.8,13.2)));text(s,760,985,160,{a:ca,e:.12});text('agenter',760+textW(s,160)+18,985,42,{a:ca*.62,wt:400,ls:1.5,e:0});}
 }

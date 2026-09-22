@@ -45,9 +45,13 @@ function Y5_larm(t){const S=Y5S8,hx=330,hy=400,R0=5.5;
     const f=seg(t,tr,tr+.4);dot(x,y,R0*(1+(f<1?1.3*Math.sin(f*Math.PI):0)),{c:f<.5?RHOT:RED,a:amb,e:1});ringPulse(x,y,t,tr,.9,8,52,2.8,{c:RED});}
   Y5_dots(white,R0,WH,.95,.14);
   reds.forEach((b,i)=>Y5_dots(b,R0,RED,.82+(i+.5)/10*.18,1));
-  // 0 larm
-  const zp=E.ob(seg(t,4.4,5.0));
-  if(zp>0){text('0',250,760,260*lerp(.8,1,zp),{a:Math.min(1,zp),e:.15});text('larm',250+textW('0',260)+14,760,60,{a:Math.min(1,zp)*.66,wt:400,ls:1.5,e:0});}
+  // how many are thinking about it: the count of yellow ones with a '?', counting down to 0 larm
+  const ev=[];S.six.forEach((s,k)=>{ev.push(2.6+k*.35,6.3+k*.3);});
+  const ny=S.six.filter((s,k)=>t>=2.6+k*.35&&t<6.3+k*.3).length,done=t>=6.3+5*.3,te=Math.max(-1,...ev.filter(e=>e<=t));
+  const zp=E.ob(seg(t,2.6,3.2)),bump=1+.12*Math.sin(seg(t,te,te+.3)*Math.PI);
+  if(zp>0){const n=String(ny),sz=260*lerp(.8,1,zp)*bump;text(n,250,760,sz,{a:Math.min(1,zp),e:.15});
+    if(done)text('larm',250+textW(n,sz)+14,760,60,{a:Math.min(1,zp)*.66*E.io(seg(t,7.8,8.3)),wt:400,ls:1.5,e:0});
+    else text('?',250+textW(n,sz)+18,760,150,{c:YEL,a:Math.min(1,zp)*(.8+.2*Math.sin(t*9)),e:.8});}
 }
 
 // ============================================================
@@ -179,5 +183,7 @@ function Y5_outro(t){const cx=960,cy=420;
   const bp=E.io(seg(t,1.0,1.8));line(360,740,1560,740,4,{a:.35,p:bp,e:0});
   for(let k=0;k<5;k++){const x=360+1200*(k+1)/6;line(x,731,x,749,2,{a:.35*seg(bp,.3+.12*k,.55+.12*k),e:0});}
   const gp=E.o(seg(t,1.5,5.6))*.42+.004*Math.max(0,t-5.6);line(360,740,360+1200*gp,740,6,{c:OR,a:bp});dot(360+1200*gp,740,11*bp,{c:OR});
-  const ta=E.io(seg(t,1.4,2.2));text('www.jonasvonessen.se/agera',960,920,72,{a:ta,al:'center',ls:1,e:.12});
+  const ta=E.io(seg(t,1.4,2.2)),ua=E.io(seg(t,1.8,2.6));
+  text('AI med Jonas och Benjamin',960,865,66,{a:ta,al:'center',ls:1,e:.12});
+  text('www.jonasvonessen.se/agera',960,945,54,{a:ua*.8,al:'center',ls:1,wt:400,e:.1});
 }

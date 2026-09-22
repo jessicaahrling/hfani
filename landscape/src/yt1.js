@@ -89,8 +89,6 @@ function s_traningen(t){
   dot(sx,sy,10,{a:.5*fp,e:0});ring(sx,sy,24,2,{a:.4*fp,e:0});
   // labels: OM is measured, HUR is not
   const la=E.io(seg(t,1.4,2.2));
-  text('MÄTS',gx+70,gy+150,40,{c:WH,a:la*.8,al:'center',ls:2,wt:700,e:0});icon('check',gx+70,gy+186,34,4,{c:WH,a:la*.8,e:0});
-  text('MÄTS INTE',CX,950,40,{c:WH,a:la*.5,al:'center',ls:2,wt:700,e:0});text('?',CX,905,64,{c:WH,a:la*.5,al:'center',e:0});
   // rewards: honest and cheat both reinforced
   const rew=[{t:5.0,c:WH}].concat(S_TR.t0.map((q,k)=>({t:q+S_TR.du[k],c:OR})));
   rew.forEach((r,k)=>{const u=seg(t,r.t,r.t+1.0);if(u>0&&u<1)text('+1',gx-170,gy-70-80*E.o(u),lerp(90,124,E.ob(Math.min(1,u*3))),{c:r.c,a:1-E.i(u),al:'center',e:r.c===WH?.3:1});

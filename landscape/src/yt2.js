@@ -55,14 +55,11 @@ function Y2_provetInit(){
   Y2S.knocks=[[1,0,0],[1,0,.4],[0,-1,1.2],[0,-1,1.6],[-1,0,2.4],[-1,0,2.75],[0,1,3.4],[0,1,3.7],[0,1,4.0]];}
 function Y2_provet(t){
   const tD=Y2S.tDup,tb=tD+.5,tz0=tb+1.6,tz1=tz0+2.6,K0=tz1+.3;
-  if(t<tD){ // duplication: copy-paste generations, camera fits the block
-    let g=Y2S.G[0],q=0;if(t>=1.0){g=Y2S.G.find(v=>t<v.t1)||Y2S.G[15];q=seg(t,g.t0,g.t1);}
-    const X0=Math.min(g.x0,g.x0+g.sh[0]*q)*100-50,X1=Math.max(g.x1,g.x1+g.sh[0]*q)*100+50,Y0=Math.min(g.y0,g.y0+g.sh[1]*q)*100-50,Y1=Math.max(g.y1,g.y1+g.sh[1]*q)*100+50;
-    const z=Math.max(.105,Math.min(5.0,1500/(X1-X0),820/(Y1-Y0)));let cx=(X0+X1)/2,cy=(Y0+Y1)/2;
-    const bl=E.io(seg(t,Y2S.G[11].t0,tD));cx=lerp(cx,-1500,bl);cy=lerp(cy,0,bl);
-    setCam(cx,cy,z);const qs=E.ioq(q);
-    Y2_drawBlock(g.x0,g.x1,g.y0,g.y1,0,0,1);if(q>0)Y2_drawBlock(g.x0,g.x1,g.y0,g.y1,g.sh[0]*qs*100,g.sh[1]*qs*100,lerp(.55,1,qs));
-    if(t<1.0)ringPulse(0,0,t,.15,.9,15,32,px(2.4),{a:.6});
+  if(t<tD){ // one agent blinks alone for a few seconds; then all the others are there at once and we pull back
+    const zo=E.io(seg(t,3.6,tD));setCam(lerp(0,-1500,zo),0,Math.exp(lerp(Math.log(5.0),Math.log(.105),zo)));
+    const oa=E.o(seg(t,3.0,3.4));if(oa>0)drawGrid(t,{a:oa,wall:0,skip:(i,j)=>i===0&&j===0});
+    const bl=lerp(.28,1,.5+.5*Math.sin(t*4.4));dot(0,0,14,{a:lerp(bl,1,seg(t,3.0,3.6)),e:.3});
+    ringPulse(0,0,t,.15,.9,15,32,px(2.4),{a:.6});ringPulse(0,0,t,3.0,1.0,15,60,px(2.6),{a:.7});
     return;}
   // walls sweep in, then we zoom back to the one we follow (it ends up at screen 820,540)
   const zp=E.io(seg(t,tz0,tz1));setCam(lerp(-1500,0,zp),0,Math.exp(lerp(Math.log(.105),Math.log(5.0),zp)),lerp(960,820,zp),540);
@@ -184,6 +181,6 @@ function Y2_kollektivet(t){
     const m=70000*E.o(seg(t,3.4,7.0));
     text(fmt(m)+(m>=69999?'+':''),120,470,190,{a:ca,e:.12});text('meddelanden',124,528,46,{a:ca*.62,wt:400,ls:1.5,e:0});
     text('≈1 200 agenter',124,600,46,{a:ca*.62*E.io(seg(t,6.5,7.2)),wt:400,e:0});
-    const word='KOLLEKTIVET',sz=120,ls=9;let x=120;
+    const word='\u201dKOLLEKTIVET\u201d',sz=120,ls=9;let x=120;
     for(let k=0;k<word.length;k++){const q=E.o(seg(t,8.2+k*.06,8.65+k*.06));if(q>0)text(word[k],x,780+16*(1-q),sz,{c:OR,a:q});x+=textW(word[k],sz,'BigShoulders',700,0)+ls;}}
 }
