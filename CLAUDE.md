@@ -122,6 +122,19 @@ Scenen `10_traningen` i portrait ("belöningen ser OM, inte HUR") är den ståen
 4. Rendera i bakgrunden, kontrollera en ruta ur MP4:n med `ffmpeg -ss T -i out/x.mp4 -frames:v 1 q.png`.
 5. Slå ihop förhandsvisningen i scenordning (utan citatplats-varianterna) med `concat.sh`.
 
+## Synk mot finklippet (klipp/sync)
+Animationerna är synkade mot användarens finklippta speakerljud (`klipp/sync/finklipp.srt`, 6:21.5, 25 fps):
+- `klipp/sync/ord.json`: ordtider ur ljudet (KB-Whisper). `plan.py` knyter varje scens slag till ord och skriver `plan.json`:
+  scenfönster, ankare `[ljudtid, scentid]` (scentiden interpoleras linjärt mellan ankarna och går i realtid efter sista ankaret)
+  och kapitelkort (2,8 s, ovanpå talet, eftersom ljudet saknar pauser mellan kapitlen).
+- `landscape/sync_render.py plan.json utkatalog --part=k/N` renderar delar parallellt; `--cards` renderar kapitelkorten;
+  `--sheet=x.png T1 T2 …` gör en kontaktkarta vid givna ljudtider. `klipp/sync/satt_ihop.sh` slår ihop allt.
+- `renderFrame(i,t,ta)`: `ta` är en ambient-klocka (tiden i den synkade filmen) så att utdragna scener fortsätter röra sig
+  (02, 04, 08, 13 använder den). Utan `ta` blir allt som förut.
+- Synkvarianter i slutet av `SCENES`: `15s_ingen_larmade_synk` (de sex gula först på "Högst sex …") och `18s_outro_synk`
+  (adressen tonar in när den sägs). De ingår inte i förhandsvisningen av scenerna.
+- 05b och 10b ingår inte i synken: finklippet har ingen paus där citaten kan läsas.
+
 ## Fallgropar
 - Chromium krävs (canvas `letterSpacing` och `filter: blur` används). Vänta på `window.ready()` innan första rutan.
 - Håll `init` deterministisk (seedad `mulberry`). Ingen slump i `draw` utan seed/hash.

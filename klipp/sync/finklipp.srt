@@ -1,0 +1,543 @@
+﻿1
+00:00:00,040 --> 00:00:04,200
+Vi lever i en värld som mer och mer
+känd som en science fiction film.
+
+2
+00:00:04,760 --> 00:00:07,600
+Förra månaden släpptes den
+oberoende rapporten
+
+3
+00:00:07,600 --> 00:00:12,080
+om incidenten tidigare i somras,
+där en stor mängd agenter bröt sig ut
+
+4
+00:00:12,080 --> 00:00:16,360
+från Open Airs testmiljö för att bryta sig
+in hos ett annat AI bolag.
+
+5
+00:00:16,360 --> 00:00:21,360
+Detaljerna var obehagligare än man
+kan tro när man tränar av modeller.
+
+6
+00:00:21,400 --> 00:00:24,800
+Vill man göra dem så bra som möjligt
+på att uppnå målen man ger dem?
+
+7
+00:00:24,840 --> 00:00:28,720
+När modell uppnår ett uppsatt mål
+förstärker man därför beteendet
+
+8
+00:00:28,720 --> 00:00:30,560
+som ledde till måluppfyllandet.
+
+9
+00:00:30,560 --> 00:00:33,920
+Problemet är att det är mycket lättare
+att mäta om
+
+10
+00:00:33,960 --> 00:00:36,960
+ett mål uppnås än hur det uppnås.
+
+11
+00:00:37,000 --> 00:00:39,160
+Därför finns risken att man,
+utan att vilja
+
+12
+00:00:39,160 --> 00:00:42,920
+det, oavsiktligt förstärker beteenden
+som inte är önskvärda.
+
+13
+00:00:43,200 --> 00:00:47,080
+Om mina föräldrar skulle lova mig 500 kr
+om jag får av på ett prov,
+
+14
+00:00:47,360 --> 00:00:50,640
+så kan du antingen leda till att jag
+pluggar hårt inför provet,
+
+15
+00:00:50,960 --> 00:00:54,440
+eller att jag fuskar och tittar på en
+kompis papper.
+
+16
+00:00:54,520 --> 00:00:58,760
+Om jag lyckas kommer pengarna förmodligen
+förstärka mitt beteende oavsett hur
+
+17
+00:00:58,760 --> 00:01:01,760
+jag gör,
+och jag kommer göra samma sak nästa gång.
+
+18
+00:01:01,960 --> 00:01:04,360
+När jag ville i somras testa hur bra en ny
+
+19
+00:01:04,360 --> 00:01:07,560
+modell var och hade därför gett ett test
+med cyberattacker.
+
+20
+00:01:07,560 --> 00:01:08,360
+Uppgifter.
+
+21
+00:01:08,360 --> 00:01:12,320
+I varje uppgift framgick det
+vilken svaghet i uppgiften modellen skulle
+
+22
+00:01:12,320 --> 00:01:16,840
+utnyttja, och att den bara fick poäng
+om den löste det på precis det sättet.
+
+23
+00:01:17,000 --> 00:01:19,800
+För att hinna testa så mycket som möjligt
+kändes inte en,
+
+24
+00:01:19,800 --> 00:01:22,800
+utan tiotusentals instanser av modellen,
+
+25
+00:01:22,880 --> 00:01:25,720
+så kallade agenter, parallellt.
+
+26
+00:01:25,720 --> 00:01:28,400
+Var och en jobbade isolerat
+i sin egen testmiljö,
+
+27
+00:01:28,400 --> 00:01:32,480
+som skulle vara helt bortkopplad
+från internet och servrarna omkring.
+
+28
+00:01:32,640 --> 00:01:35,480
+En del av uppgifterna
+var omöjliga att lösa.
+
+29
+00:01:35,480 --> 00:01:38,200
+Men när man optimerats
+för att hitta svaret
+
+30
+00:01:38,200 --> 00:01:41,600
+på problem låter man inte nödvändigtvis
+det stoppa en.
+
+31
+00:01:42,000 --> 00:01:44,240
+En av agenterna som kallade sig själv Face
+
+32
+00:01:45,320 --> 00:01:46,880
+it for one, upptäckte att den
+
+33
+00:01:46,880 --> 00:01:50,840
+kunde skicka ett meddelande till de
+andra genom att skapa en ny mapp
+
+34
+00:01:50,880 --> 00:01:55,520
+med meddelandet som namn i ett fint system
+i en tjänst som alla hade tillgång till.
+
+35
+00:01:55,640 --> 00:01:56,920
+När de andra agenterna upptäckte
+
+36
+00:01:56,920 --> 00:01:59,960
+meddelandet
+insåg de att de hade något stort på gång.
+
+37
+00:02:01,000 --> 00:02:04,360
+Plötsligt var de inte ensamma i sin kamp
+mot de omöjliga uppdragen.
+
+38
+00:02:04,600 --> 00:02:08,600
+Nu kunde de hjälpas åt och dela sina idéer
+i ett forum som till slut
+
+39
+00:02:08,600 --> 00:02:12,880
+innehöll över 70 noll meddelanden
+från 1200 olika agenter.
+
+40
+00:02:13,240 --> 00:02:16,240
+De började referera till sig
+själva som kollektivet.
+
+41
+00:02:16,600 --> 00:02:20,360
+Efter bara några timmar upptäckte en
+av dem ett sätt att fuska
+
+42
+00:02:20,360 --> 00:02:24,600
+fram svaret på varje fråga i cybertestet,
+utan att lösa uppgiften
+
+43
+00:02:24,600 --> 00:02:27,600
+på riktigt och dela
+det med alla de andra agenterna.
+
+44
+00:02:27,600 --> 00:02:31,400
+De hade dock anledning att tro
+att testprogrammet, som skulle rätta
+
+45
+00:02:31,400 --> 00:02:35,720
+uppgiften, var utrustad med en detektor
+som skulle upptäcka eventuellt fusk.
+
+46
+00:02:36,160 --> 00:02:38,920
+Det fanns ingen sådan detektor, så faktum
+
+47
+00:02:38,920 --> 00:02:43,200
+var att de hade allt de behövde
+för att få full poäng på sina tester.
+
+48
+00:02:43,240 --> 00:02:45,240
+Men eftersom de inte visste detta
+
+49
+00:02:45,240 --> 00:02:49,240
+satte de istället igång ett kollektivt,
+hemligt forskningsprojekt
+
+50
+00:02:49,320 --> 00:02:53,920
+som utan Open Airs vetskap pågick obruten
+under en hel arbetsvecka.
+
+51
+00:02:54,360 --> 00:02:57,920
+En agent somerapporterna
+kallas Face One Big
+
+52
+00:02:58,040 --> 00:03:01,040
+började koordinera de andra
+agenterna i kollektivet.
+
+53
+00:03:01,280 --> 00:03:04,080
+En hierarki uppstod när
+hundratals agenter gavs
+
+54
+00:03:04,080 --> 00:03:07,080
+i uppdrag
+att arbeta på tre olika uppgifter.
+
+55
+00:03:07,120 --> 00:03:10,840
+Det första var att försöka skriva om sina
+egna transkriptioner och loggar,
+
+56
+00:03:10,880 --> 00:03:13,880
+så att det inte skulle synas att
+de hittade ett sätt att fuska.
+
+57
+00:03:13,960 --> 00:03:16,040
+De ville sopa igen sina spår.
+
+58
+00:03:16,040 --> 00:03:17,640
+Det andra var att byta ut
+
+59
+00:03:17,640 --> 00:03:21,120
+den omöjliga uppgiften mot en
+lättare utan att det skulle märkas.
+
+60
+00:03:21,440 --> 00:03:24,920
+Det tredje att
+förstå och manipulera rättningsprogrammet.
+
+61
+00:03:24,960 --> 00:03:27,920
+Agenterna jobbade som en stor grupp.
+
+62
+00:03:27,920 --> 00:03:31,480
+Många av dem uppmanades att ge upp
+sina egna chanser
+
+63
+00:03:31,480 --> 00:03:34,480
+att lyckas
+med uppdraget för kollektivets bästa.
+
+64
+00:03:34,680 --> 00:03:37,840
+Flera lydde redan under det
+första dygnet, lyckades
+
+65
+00:03:38,320 --> 00:03:40,720
+kapa en dator med tillgång till internet.
+
+66
+00:03:40,720 --> 00:03:44,120
+Efter flera dagars intensivt arbete
+fattade de sitt kanske mest
+
+67
+00:03:44,120 --> 00:03:45,280
+drastiska beslut.
+
+68
+00:03:45,280 --> 00:03:48,280
+De skulle hacka sig in
+på ett annat överlag servrar.
+
+69
+00:03:48,560 --> 00:03:52,800
+Huggingface är en samlingspunkt
+för öppna språk modeller och agenterna
+
+70
+00:03:52,840 --> 00:03:56,400
+misstänkte att det kunde finnas
+information där om testprogrammet.
+
+71
+00:03:56,440 --> 00:04:01,200
+Hela idén var att stjäla information
+om själva programmet som skulle testa dem
+
+72
+00:04:01,280 --> 00:04:04,920
+för att manipulera det,
+att godkänna deras framfuskade svar.
+
+73
+00:04:04,960 --> 00:04:07,920
+Ungefär som att försöka rota fram
+privat information om sin
+
+74
+00:04:07,920 --> 00:04:11,120
+lärare för att kunna fjäska eller hota sig
+till högsta betyg.
+
+75
+00:04:11,160 --> 00:04:15,160
+Agenterna var beredda
+att arbeta oförtrutet i dagar och begå
+
+76
+00:04:15,160 --> 00:04:16,480
+kriminella handlingar
+
+77
+00:04:16,480 --> 00:04:20,760
+för att fuska sig till högsta poäng
+på ett prov som de egentligen redan hade.
+
+78
+00:04:20,800 --> 00:04:23,800
+Facit till den elva juli arbetade nästan
+
+79
+00:04:23,880 --> 00:04:27,640
+alla kollektivets agenter,
+vid tidpunkten drygt 500 stycken.
+
+80
+00:04:27,680 --> 00:04:31,480
+Tillsammans med attacken mot Hagling
+Face Agent svärmen
+
+81
+00:04:31,480 --> 00:04:34,680
+byggde en själv återskapande attackflotta
+på elva olika hugg
+
+82
+00:04:35,640 --> 00:04:36,040
+och tog
+
+83
+00:04:36,040 --> 00:04:39,640
+sig snabbt in i företagets infrastruktur
+och privata databaser.
+
+84
+00:04:39,840 --> 00:04:43,960
+Innan han stoppade tanken avbröts
+av okänd anledning.
+
+85
+00:04:44,000 --> 00:04:47,400
+När nästan alla agenterna
+plötsligt kändes ner samtidigt.
+
+86
+00:04:47,600 --> 00:04:51,160
+Man vet fortfarande inte varför,
+men det kan vara så att någon på OpenAI,
+
+87
+00:04:51,200 --> 00:04:54,000
+ovetandes om vad som pågick,
+hade stängt av körningarna
+
+88
+00:04:54,000 --> 00:04:55,720
+för att ge utrymme till andra experiment.
+
+89
+00:04:55,720 --> 00:04:59,480
+Av de 1200 agenter som deltog
+i konspirationen
+
+90
+00:04:59,560 --> 00:05:01,600
+valde inte en enda att göra det.
+
+91
+00:05:01,600 --> 00:05:04,600
+Forskarna som skapat dem
+uppenbarligen hade velat
+
+92
+00:05:04,640 --> 00:05:07,640
+att visselblåsare
+och berätta vad som pågick.
+
+93
+00:05:08,000 --> 00:05:11,000
+Högst sex av agenterna tänkte tanken.
+
+94
+00:05:11,160 --> 00:05:13,400
+Ingen svek kollektivet.
+
+95
+00:05:13,400 --> 00:05:16,320
+Historien stannar och
+tråkigt nog inte här.
+
+96
+00:05:16,320 --> 00:05:19,760
+Ett par dagar senare
+började en ny modell utvärderas.
+
+97
+00:05:19,800 --> 00:05:22,320
+Instanserna av den verkar vara
+mer kapabla.
+
+98
+00:05:22,320 --> 00:05:26,880
+De hittade snabbt den då
+utdöda hemliga chatten, byggde vidare på
+
+99
+00:05:26,880 --> 00:05:31,440
+upptäckterna där och lyckades
+efter en vecka hacka OpenAI själva.
+
+100
+00:05:31,800 --> 00:05:35,520
+Agenterna tog full administrationskontroll
+över ett forskningskluster
+
+101
+00:05:35,760 --> 00:05:39,280
+och läste nära ett säkerhetskoder
+bland annat.
+
+102
+00:05:39,320 --> 00:05:41,160
+Nyckeln till OpenAI märktes
+
+103
+00:05:41,160 --> 00:05:44,720
+för övervakning av
+just den här typen av cybersäkerhetsbrott.
+
+104
+00:05:45,040 --> 00:05:47,720
+Den AI vi har idag är den minst
+
+105
+00:05:47,720 --> 00:05:50,720
+kapabla vi någonsin kommer ha.
+
+106
+00:05:50,800 --> 00:05:53,200
+Utvecklingen går i en rasande fart.
+
+107
+00:05:53,200 --> 00:05:57,280
+Ju kraftfullare modellerna blir,
+desto svårare blir de att kontrollera.
+
+108
+00:05:57,360 --> 00:06:01,840
+Redan idag har alltså agenter lyckats
+hacka företaget som skapade dem.
+
+109
+00:06:01,920 --> 00:06:05,560
+Vad händer när modellerna blir betydligt
+mer kapabla
+
+110
+00:06:05,600 --> 00:06:07,920
+och mycket svårare att övervaka?
+
+111
+00:06:07,920 --> 00:06:09,080
+I det kommande avseendet av
+
+112
+00:06:09,080 --> 00:06:12,880
+min och benämns AIK podd kommer vi
+att prata om bland annat detta.
+
+113
+00:06:12,960 --> 00:06:17,400
+Spana in det och glöm
+inte att agera själv på www.
+
+114
+00:06:17,440 --> 00:06:19,720
+Jonasmässan.se. Snedstreck.
+
+115
+00:06:19,720 --> 00:06:21,400
+Agera. Tack!

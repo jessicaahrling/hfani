@@ -23,11 +23,15 @@ const SCENES=[
  {id:'16_openai',     name:'Nästa våg tar OpenAI:s kluster',        dur:23, draw:Y5_openai, init:Y5_openaiInit},
  {id:'17_slutet',     name:'Minst kapabla i dag',                   dur:18, draw:Y5_slut,   init:Y5_slutInit},
  {id:'18_outro',      name:'Podden + agera',                        dur:6,  draw:Y5_outro},
+ // synkvarianter för finklippet (klipp/sync): samma scener, annan ordning på de sista slagen
+ {id:'15s_ingen_larmade_synk', name:'Ingen larmade (synk: gula först på "högst sex")', dur:15, draw:t=>{Y5S8.ty0=5.4;Y5S8.tr0=8.0;Y5_larm(t);Y5S8.ty0=2.6;Y5S8.tr0=6.3;}},
+ {id:'18s_outro_synk', name:'Outro (synk: adressen när den sägs)', dur:10, draw:t=>{Y5OUT.u0=3.4;Y5_outro(t);Y5OUT.u0=1.8;}},
 ];
 let _inited=false;
 function ensureInit(){if(_inited)return;initCtx();SCENES.forEach(s=>s.init&&s.init());_inited=true;}
 window.SCENES_META=()=>SCENES.map(s=>({id:s.id,name:s.name,dur:s.dur}));
-window.renderFrame=(i,t)=>{ensureInit();begin();SCENES[i].draw(t);finish();};
+// ta = valfri 'ambient'-klocka (t.ex. tiden i den synkade filmen) så att en utdragen scen ändå lever
+window.renderFrame=(i,t,ta)=>{ensureInit();begin();SCENES[i].draw(t,ta===undefined?t:ta);finish();};
 window.ready=async()=>{await Promise.all([document.fonts.load('700 100px BigShoulders'),document.fonts.load('400 100px BigShoulders'),document.fonts.load('400 50px GeistMono'),document.fonts.load('700 50px GeistMono')]);await document.fonts.ready;ensureInit();return true;};
 
 // ---------- förhandsvisning (visas inte i #render-läge) ----------

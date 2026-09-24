@@ -56,12 +56,12 @@ function Y2_provetInit(){
     if(d==='R')x1+=w;else if(d==='L')x0-=w;else if(d==='D')y1+=h;else y0-=h;tt+=du;}
   Y2S.G=G;Y2S.tDup=tt;Y2S.fin={x0,x1,y0,y1};
   Y2S.knocks=[[1,0,0],[1,0,.4],[0,-1,1.2],[0,-1,1.6],[-1,0,2.4],[-1,0,2.75],[0,1,3.4],[0,1,3.7],[0,1,4.0]];}
-function Y2_provet(t){
+function Y2_provet(t,ta=t){
   const tD=Y2S.tDup,tb=tD+.5,tz0=tb+1.6,tz1=tz0+2.6,K0=tz1+.3;
   if(t<tD){ // one agent blinks alone for a few seconds; then all the others are there at once and we pull back
     const zo=E.io(seg(t,3.6,tD));setCam(lerp(0,-1500,zo),0,Math.exp(lerp(Math.log(5.0),Math.log(.105),zo)));
     const oa=E.o(seg(t,3.0,3.4));if(oa>0)drawGrid(t,{a:oa,wall:0,skip:(i,j)=>i===0&&j===0});
-    const bl=lerp(.28,1,.5+.5*Math.sin(t*4.4));dot(0,0,14,{a:lerp(bl,1,seg(t,3.0,3.6)),e:.3});
+    const bl=lerp(.28,1,.5+.5*Math.sin(ta*4.4));dot(0,0,14,{a:lerp(bl,1,seg(t,3.0,3.6)),e:.3});
     ringPulse(0,0,t,.15,.9,15,32,px(2.4),{a:.6});ringPulse(0,0,t,3.0,1.0,15,60,px(2.6),{a:.7});
     return;}
   // walls sweep in, then we zoom back to the one we follow (it ends up at screen 820,540)
@@ -77,7 +77,7 @@ function Y2_provet(t){
     rrect(0,0,92,92,5,px(3.4),{a:.55*seg(t,tz1-.4,tz1+.3),e:.15});
     for(const [dx,dy,f] of hits){const hx=dx*46,hy=dy*46,al=Math.pow(1-f,1.3);line(hx-dy*24,hy-dx*24,hx+dy*24,hy+dx*24,px(6),{a:al,e:.6});
       const base=Math.atan2(dy,dx)+Math.PI;for(let k=0;k<2;k++)ring(hx,hy,5+f*22+k*7,px(2.2),{a:al*.8,a0:base-1.15,a1:base+1.15,e:.4});}
-    const rest=seg(t,K0+4.8,K0+6.0);dot(ox,oy,14,{a:lerp(1,.78+.08*Math.sin(t*2),rest),e:.3});}
+    const rest=seg(t,K0+4.8,K0+6.0);dot(ox,oy,14,{a:lerp(1,.78+.08*Math.sin(ta*2),rest),e:.3});}
   resetCam();Y2_cutLink(E.io(seg(t,tz1-1.0,tz1)),E.io(seg(t,tz1-1.0,tz1-.1)));
 }
 

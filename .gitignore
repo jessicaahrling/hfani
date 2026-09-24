@@ -15,3 +15,12 @@ klipp/work/*.mp3
 klipp/work/test60*
 klipp/work/asr.log
 klipp/work/filter.txt
+# synk: källjud, delrenderingar och stora mellanfiler
+klipp/sync/*.wav
+klipp/sync/finklipp.mp3
+klipp/sync/del_*.mp4
+klipp/sync/kort_*.mp4
+klipp/sync/delar.txt
+klipp/sync/sync.log
+klipp/sync/asr.log
+klipp/sync/k[0-9].png

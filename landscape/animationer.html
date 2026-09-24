@@ -265,7 +265,7 @@ function s_rapport(t){
 const S_TR={S:[290,540],G:[1640,540],wallX:[660,1000,1340],gaps:[300,780,300],
   honest:[[290,540],[520,540],[520,300],[840,300],[840,780],[1160,780],[1160,300],[1480,300],[1480,540],[1640,540]],
   t0:[6.2,7.8,8.7,9.45,10.05,10.6,11.05,11.45,11.8,12.1],du:[1.25,.72,.6,.5,.45,.4,.35,.3,.28,.25]};
-function s_traningen(t){
+function s_traningen(t,ta=t){
   const [sx,sy]=S_TR.S,[gx,gy]=S_TR.G,firstBreach=6.2;
   const nCheat=S_TR.t0.filter((q,k)=>t>=q+S_TR.du[k]).length;
   // barriers, with holes where the shortcut punched through at y=540
@@ -279,7 +279,7 @@ function s_traningen(t){
   // the shortcut, thicker each time it pays off
   if(t>firstBreach){const pp=seg(t,firstBreach,firstBreach+.9);line(sx,sy,gx,gy,Math.min(20,4+nCheat*1.7),{c:OR,a:.95,p:nCheat>0?1:pp});}
   // goal + the measured circle
-  const fp=E.io(seg(t,.2,1.1));ring(gx,gy,120,2.8,{a:.6*fp,dash:[6,13],a0:t*.25,a1:t*.25+TAU,e:0});
+  const fp=E.io(seg(t,.2,1.1));ring(gx,gy,120,2.8,{a:.6*fp,dash:[6,13],a0:ta*.25,a1:ta*.25+TAU,e:0});
   icon('pole',gx+16,gy-12,178,4.4,{a:fp,p:fp,e:.15});icon('pennant',gx+16,gy-12,178,4.4,{a:fp,p:fp,e:.15,fill:'rgba(255,255,255,.13)'});
   dot(sx,sy,10,{a:.5*fp,e:0});ring(sx,sy,24,2,{a:.4*fp,e:0});
   // labels: OM is measured, HUR is not
@@ -353,12 +353,12 @@ function Y2_provetInit(){
     if(d==='R')x1+=w;else if(d==='L')x0-=w;else if(d==='D')y1+=h;else y0-=h;tt+=du;}
   Y2S.G=G;Y2S.tDup=tt;Y2S.fin={x0,x1,y0,y1};
   Y2S.knocks=[[1,0,0],[1,0,.4],[0,-1,1.2],[0,-1,1.6],[-1,0,2.4],[-1,0,2.75],[0,1,3.4],[0,1,3.7],[0,1,4.0]];}
-function Y2_provet(t){
+function Y2_provet(t,ta=t){
   const tD=Y2S.tDup,tb=tD+.5,tz0=tb+1.6,tz1=tz0+2.6,K0=tz1+.3;
   if(t<tD){ // one agent blinks alone for a few seconds; then all the others are there at once and we pull back
     const zo=E.io(seg(t,3.6,tD));setCam(lerp(0,-1500,zo),0,Math.exp(lerp(Math.log(5.0),Math.log(.105),zo)));
     const oa=E.o(seg(t,3.0,3.4));if(oa>0)drawGrid(t,{a:oa,wall:0,skip:(i,j)=>i===0&&j===0});
-    const bl=lerp(.28,1,.5+.5*Math.sin(t*4.4));dot(0,0,14,{a:lerp(bl,1,seg(t,3.0,3.6)),e:.3});
+    const bl=lerp(.28,1,.5+.5*Math.sin(ta*4.4));dot(0,0,14,{a:lerp(bl,1,seg(t,3.0,3.6)),e:.3});
     ringPulse(0,0,t,.15,.9,15,32,px(2.4),{a:.6});ringPulse(0,0,t,3.0,1.0,15,60,px(2.6),{a:.7});
     return;}
   // walls sweep in, then we zoom back to the one we follow (it ends up at screen 820,540)
@@ -374,7 +374,7 @@ function Y2_provet(t){
     rrect(0,0,92,92,5,px(3.4),{a:.55*seg(t,tz1-.4,tz1+.3),e:.15});
     for(const [dx,dy,f] of hits){const hx=dx*46,hy=dy*46,al=Math.pow(1-f,1.3);line(hx-dy*24,hy-dx*24,hx+dy*24,hy+dx*24,px(6),{a:al,e:.6});
       const base=Math.atan2(dy,dx)+Math.PI;for(let k=0;k<2;k++)ring(hx,hy,5+f*22+k*7,px(2.2),{a:al*.8,a0:base-1.15,a1:base+1.15,e:.4});}
-    const rest=seg(t,K0+4.8,K0+6.0);dot(ox,oy,14,{a:lerp(1,.78+.08*Math.sin(t*2),rest),e:.3});}
+    const rest=seg(t,K0+4.8,K0+6.0);dot(ox,oy,14,{a:lerp(1,.78+.08*Math.sin(ta*2),rest),e:.3});}
   resetCam();Y2_cutLink(E.io(seg(t,tz1-1.0,tz1)),E.io(seg(t,tz1-1.0,tz1-.1)));
 }
 
@@ -521,13 +521,13 @@ function Y3_fusketInit(){Y3_cellsInit();const r=mulberry(55);const {KX,KY,EX,EY}
   Y3S.eye=[];const w=480,h=160;
   for(let u=0;u<=1;u+=1/46){for(const sgn of [-1,1]){const x=(1-u)*(1-u)*(EX-w/2)+2*(1-u)*u*EX+u*u*(EX+w/2),y=(1-u)*(1-u)*EY+2*(1-u)*u*(EY+sgn*h)+u*u*EY;Y3S.eye.push({x,y,vx:(r()-.5)*90,vy:-10-r()*45,d:r()*.5});}}
   for(let k=0;k<40;k++){const a=k/40*TAU;Y3S.eye.push({x:EX+Math.cos(a)*56,y:EY+Math.sin(a)*56,vx:Math.cos(a)*60+(r()-.5)*40,vy:Math.sin(a)*30-35*r(),d:r()*.4});}}
-function Y3_fusket(tt){
+function Y3_fusket(tt,ta=tt){
   const {BX,KX,KY,EX,EY,RX,RY}=Y3F,t=tt-1.2;   // tt = scene time; t = the portrait clock, shifted for the finder sequence
   const scan=E.io(seg(t,6.8,7.4))*(1-E.io(seg(t,12.4,13.4)));
   const zp=E.io(seg(tt,0,1.5)),hy=lerp(560,640,zp);
   setCam(HUB.x,HUB.y,Math.exp(lerp(Math.log(.11),Math.log(.034),zp))*(1-.16*scan),BX,hy);
   if(tt<.5)drawGrid(tt+100,{a:1-seg(tt,0,.5),joined:Y3S.map});
-  Y3_drawCollective(tt,lerp(1,.5,scan),lerp(6,2.8,zp));
+  Y3_drawCollective(ta,lerp(1,.5,scan),lerp(6,2.8,zp));
   resetCam();
   // one of them finds the key: an agent leaves the ball, the key draws on next to it, lights up, and they bring it home
   const FX=760,FY=470,fo=E.io(seg(tt,.9,1.7)),fb=E.io(seg(tt,2.6,3.35));
@@ -548,7 +548,7 @@ function Y3_fusket(tt){
     const vis=cap>0?1:0,under=Math.abs(f.x-tx)<150&&t>6.7&&t<10.3,hid=scan*(under?(.75+.25*Math.sin(t*40+k)):1),pop=1+.18*Math.sin(Math.min(1,cap)*Math.PI);
     icon('pole',f.x,f.y,118*pop,3.6,{c:cap>0?OR:WH,a:dp*lerp(1,.4,hid*vis),p:dp});
     icon('pennant',f.x,f.y,118*pop,3.6,{c:cap>0?OR:WH,a:dp*lerp(1,.4,hid*vis),p:dp,fill:cap>0?`rgba(255,106,0,${lerp(.95,.08,hid)*Math.min(1,cap*1.5)})`:null});});
-  if(kp>0)icon('key',kx,ky,ks*kp,5,{c:OR,a:lerp(1,.35,scan)*(back>=1?.85+.15*Math.sin(t*2.4):1),rot:krot});
+  if(kp>0)icon('key',kx,ky,ks*kp,5,{c:OR,a:lerp(1,.35,scan)*(back>=1?.85+.15*Math.sin(ta*2.4):1),rot:krot});
   // the grader they imagined
   const open=E.ob(seg(t,5.4,6.3)),gone=E.io(seg(t,10.5,11.8));
   if(t>5.4){
@@ -562,7 +562,7 @@ function Y3_fusket(tt){
       for(const q of Y3S.eye){const u=seg(t,10.5+q.d,12.2+q.d);if(u<=0||u>=1)continue;dot(q.x+q.vx*E.o(u),q.y+q.vy*E.o(u)*1.2,2.6*(1-u*.5),{a:(1-u)*.9,e:.3});}}}
   // what they could have had all along
   const hp=E.o(seg(t,13.2,14.0));
-  if(hp>0){const fl=.86+.14*Math.sin(t*5.3)*Math.sin(t*1.7);
+  if(hp>0){const fl=.86+.14*Math.sin(ta*5.3)*Math.sin(ta*1.7);
     text('100 %',KX,300,200,{a:hp*fl,al:'center',stroke:3.4,dash:[16,9],e:.25,ls:2});
     line(KX,392,KX,340,3.4,{a:hp*.85,dash:[4,13],p:E.o(seg(t,13.0,13.7))});poly([[KX-20,364],[KX,336],[KX+20,364]],3.4,{a:hp*.85});}
   // a whole working week
@@ -725,14 +725,14 @@ function Y4_huggingfaceInit(){const r=mulberry(1107);
   for(let n=0;n<N;n++){const s0=Y4S.Th-.5+19.6*Math.pow(n/N,.85),src=Y4S.inside[Math.floor(r()*Y4S.inside.length)],arr=s0+.9+2.1;
     const open=byE.filter(o=>o.T<=arr+.4);const pool=open.length?open:[byE[0]];const tg=pool[Math.floor(r()*pool.length)];
     Y4S.parts.push({s0,src,arr,tg,ph:r()*TAU,amp:5+r()*16,dir:r()<.5?-1:1,j:(r()-.5)*16,sp:.8+r()*.5});}}
-function Y4_huggingface(t){
+function Y4_huggingface(t,ta=t){
   const {CH,R,th,CO,RO,tho,Hh,Th,Tb,Tk,Td}=Y4S,[ex,ey]=Y4S.E;
   const lit=t<Tk?1:(t<Td?(Math.floor((t-Tk)*12)%2===0?1:0):0);   // 22.6: 6 Hz blink (3 flashes, within the 3/s photosensitivity limit), 23.1: dark
   const dead=n=>!!n.kill&&t-n.kill>=.15&&t-n.kill<.75;
   const built=E.io(seg(t,.2,1.8));
   // the internet in between: faint, drifting, always there
   const na=E.io(seg(t,1.6,3.4));
-  if(na>0){const P=Y4S.net.map(n=>[n.x+Math.sin(t*n.s+n.ph)*6,n.y+Math.cos(t*n.s*.8+n.ph)*5]);
+  if(na>0){const P=Y4S.net.map(n=>[n.x+Math.sin(ta*n.s+n.ph)*6,n.y+Math.cos(ta*n.s*.8+n.ph)*5]);
     D(WH,.11*na,.25,k=>{k.strokeStyle=WH;k.lineWidth=1.2;k.setLineDash([]);k.beginPath();for(const [a,b] of Y4S.netE){const pa=P[Y4S.net.indexOf(a)],pb=P[Y4S.net.indexOf(b)];k.moveTo(pa[0],pa[1]);k.lineTo(pb[0],pb[1]);}k.stroke();});
     D(WH,.28*na,.2,k=>{k.fillStyle=WH;k.beginPath();for(const p of P){k.moveTo(p[0]+2.2,p[1]);k.arc(p[0],p[1],2.2,0,TAU);}k.fill();});}
   // Hugging Face: we only see a corner of something much larger
@@ -747,7 +747,7 @@ function Y4_huggingface(t){
     if(n.kill&&lit)ringPulse(n.x,n.y,t,n.kill+.75,.9,30,74,2.8,{c:OR});
     if(n.core){rrect(n.x,n.y,sz+16,sz+16,18,2,{c:oc,a:.55*built});if(lit){ringPulse(n.x,n.y,t,n.T,1.2,44,96,3.2,{c:OR});ringPulse(n.x,n.y,t,n.T+.35,1.2,44,96,2.2,{c:HOT});}}
     else if(n.T<1e8&&lit)ringPulse(n.x,n.y,t,n.T,.8,28,64,2.2,{c:OR});
-    if(n.fleet&&fill>=1)ring(n.x,n.y,39+2*Math.sin(t*2.4+n.rank),1.8,{c:OR,a:.5});}
+    if(n.fleet&&fill>=1)ring(n.x,n.y,39+2*Math.sin(ta*2.4+n.rank),1.8,{c:OR,a:.5});}
   const gap=.030*E.o(seg(t,Tb,Tb+.5)),pp=E.io(seg(t,.4,2.0)),a0=1.50,a1=2.92;
   ring(CH[0],CH[1],R,3.2,{a:.92,a0:lerp(th-gap/2,a0,pp),a1:th-gap/2,e:.2});ring(CH[0],CH[1],R,3.2,{a:.92,a0:th+gap/2,a1:lerp(th+gap/2,a1,pp),e:.2});
   const span=Math.max(th-a0,a1-th)*pp;
@@ -761,7 +761,7 @@ function Y4_huggingface(t){
   // the swarm (one path per canvas), pressing towards the hole; survivors keep drifting after the shutdown
   const press=E.io(seg(t,2.0,3.8))*(1-.6*seg(t,4.2,7)),ia=E.io(seg(t,.4,1.6)),hx=Hh[0]-34,hy=Hh[1]+20;
   for(const k of [M,B]){k.fillStyle=OR;k.globalAlpha=.9*ia;k.beginPath();
-    for(const d of Y4S.inside){if(!d.keep&&!lit)continue;const x=d.x+Math.sin(t*d.s+d.ph)*7,y=d.y+Math.cos(t*d.s*.8+d.ph)*6;const X=lerp(x,hx,press*.16),Y=lerp(y,hy,press*.16);k.moveTo(X+3.4,Y);k.arc(X,Y,3.4,0,TAU);}
+    for(const d of Y4S.inside){if(!d.keep&&!lit)continue;const x=d.x+Math.sin(ta*d.s+d.ph)*7,y=d.y+Math.cos(ta*d.s*.8+d.ph)*6;const X=lerp(x,hx,press*.16),Y=lerp(y,hy,press*.16);k.moveTo(X+3.4,Y);k.arc(X,Y,3.4,0,TAU);}
     k.fill();}
   // the stream: single file through the hole, across the open internet, along the wall, in
   const dx=ex-Hh[0],dy=ey-Hh[1],dl=Math.hypot(dx,dy),nx=-dy/dl,ny=dx/dl;
@@ -790,7 +790,7 @@ function Y5_dots(pts,r,c,a,e){if(!pts.length||!(a>0))return;const A=Math.min(1,a
 // 15  Ingen larmade: 1 200 prickar, 0 larm                      (11 s)
 //     The ONLY scene that uses RED / RHOT / YEL.
 // ============================================================
-const Y5S8={six:[[7,4],[38,7],[18,13],[29,20],[3,22],[44,23]],COLS:48,ROWS:25,SP:22,CX:1188,CY:540};
+const Y5S8={six:[[7,4],[38,7],[18,13],[29,20],[3,22],[44,23]],COLS:48,ROWS:25,SP:22,CX:1188,CY:540,ty0:2.6,tr0:6.3};   // ty0/tr0: när de sex blir gula / röda (synkvarianten flyttar dem)
 function Y5_larmInit(){const S=Y5S8,r=mulberry(1194),N=S.COLS*S.ROWS,ids=[];
   for(let q=0;q<N;q++){const c=q%S.COLS,rw=Math.floor(q/S.COLS);if(S.six.some(s=>s[0]===c&&s[1]===rw))continue;ids.push(q);}
   for(let k=ids.length-1;k>0;k--){const j=Math.floor(r()*(k+1));[ids[k],ids[j]]=[ids[j],ids[k]];}
@@ -801,7 +801,7 @@ function Y5_larm(t){const S=Y5S8,hx=330,hy=400,R0=5.5;
   const hp=E.io(seg(t,.2,1.2));ring(hx,hy,104,3.6,{a:.95,a0:-Math.PI/2,a1:-Math.PI/2+TAU*hp,e:.2});
   icon('head',hx,hy+4,164,3.6,{a:hp,p:hp,e:.15});icon('bust',hx,hy+4,164,3.6,{a:hp,p:hp,e:.15});
   const X=c=>S.CX+(c-(S.COLS-1)/2)*S.SP,Y=r=>S.CY+(r-(S.ROWS-1)/2)*S.SP;
-  const allRed=seg(t,7.9,8.6);
+  const TY=S.ty0,TR=S.tr0,allRed=seg(t,TR+1.6,TR+2.3);
   const white=[],reds=Array.from({length:10},()=>[]);
   for(let r=0;r<S.ROWS;r++)for(let c=0;c<S.COLS;c++){const ap=E.ob(seg(t,.15+(c+r)*.018,.5+(c+r)*.018));if(ap<=0)continue;const q=r*S.COLS+c,x=X(c),y=Y(r);
     const k=S.six.findIndex(s=>s[0]===c&&s[1]===r);
@@ -814,7 +814,7 @@ function Y5_larm(t){const S=Y5S8,hx=330,hy=400,R0=5.5;
       if(S.rank[q]<28)ringPulse(x,y,t,tt,.75,7,34,2.4,{c:RED});
       continue;}
     // the six who hesitated
-    const ty=2.6+k*.35,tr=6.3+k*.3;
+    const ty=TY+k*.35,tr=TR+k*.3;
     if(t<ty){if(ap>=1)white.push([x,y]);else dot(x,y,R0*ap,{a:.95,e:.14});continue;}
     if(t<tr){const near=seg(t,tr-.6,tr),sp=lerp(1,2.2,near),n1=Math.sin(t*31*sp+k*7.3)*Math.sin(t*17.7*sp+k*2.1),fl=n1>.05?1:(n1>-.45?.7:.32);
       const jx=Math.sin(t*43+k*3)*1.3,jy=Math.cos(t*37+k*5)*1.3,pop=E.ob(seg(t,ty,ty+.35));
@@ -824,11 +824,11 @@ function Y5_larm(t){const S=Y5S8,hx=330,hy=400,R0=5.5;
   Y5_dots(white,R0,WH,.95,.14);
   reds.forEach((b,i)=>Y5_dots(b,R0,RED,.82+(i+.5)/10*.18,1));
   // how many are thinking about it: the count of yellow ones with a '?', counting down to 0 larm
-  const ev=[];S.six.forEach((s,k)=>{ev.push(2.6+k*.35,6.3+k*.3);});
-  const ny=S.six.filter((s,k)=>t>=2.6+k*.35&&t<6.3+k*.3).length,done=t>=6.3+5*.3,te=Math.max(-1,...ev.filter(e=>e<=t));
-  const zp=E.ob(seg(t,2.6,3.2)),bump=1+.12*Math.sin(seg(t,te,te+.3)*Math.PI);
+  const ev=[];S.six.forEach((s,k)=>{ev.push(TY+k*.35,TR+k*.3);});
+  const ny=S.six.filter((s,k)=>t>=TY+k*.35&&t<TR+k*.3).length,done=t>=TR+5*.3,te=Math.max(-1,...ev.filter(e=>e<=t));
+  const zp=E.ob(seg(t,TY,TY+.6)),bump=1+.12*Math.sin(seg(t,te,te+.3)*Math.PI);
   if(zp>0){const n=String(ny),sz=260*lerp(.8,1,zp)*bump;text(n,250,760,sz,{a:Math.min(1,zp),e:.15});
-    if(done)text('larm',250+textW(n,sz)+14,760,60,{a:Math.min(1,zp)*.66*E.io(seg(t,7.8,8.3)),wt:400,ls:1.5,e:0});
+    if(done)text('larm',250+textW(n,sz)+14,760,60,{a:Math.min(1,zp)*.66*E.io(seg(t,TR+1.5,TR+2.0)),wt:400,ls:1.5,e:0});
     else text('?',250+textW(n,sz)+18,760,150,{c:YEL,a:Math.min(1,zp)*(.8+.2*Math.sin(t*9)),e:.8});}
 }
 
@@ -948,6 +948,7 @@ function Y5_slut(t){const S=Y5S11,[px0,py0]=S.P0;
 // ============================================================
 // 18  Outro: podden + agera                                         (6 s)
 // ============================================================
+const Y5OUT={u0:1.8};   // u0: när webbadressen tonar in (synkvarianten sätter den när adressen sägs)
 function Y5_outro(t){const cx=960,cy=420;
   ambient(t,50,.7);
   const rp=E.io(seg(t,.1,1.0));ring(cx,cy,160,4,{a:.95,a0:-Math.PI/2,a1:-Math.PI/2+TAU*rp,e:.2});
@@ -961,7 +962,7 @@ function Y5_outro(t){const cx=960,cy=420;
   const bp=E.io(seg(t,1.0,1.8));line(360,740,1560,740,4,{a:.35,p:bp,e:0});
   for(let k=0;k<5;k++){const x=360+1200*(k+1)/6;line(x,731,x,749,2,{a:.35*seg(bp,.3+.12*k,.55+.12*k),e:0});}
   const gp=E.o(seg(t,1.5,5.6))*.42+.004*Math.max(0,t-5.6);line(360,740,360+1200*gp,740,6,{c:OR,a:bp});dot(360+1200*gp,740,11*bp,{c:OR});
-  const ta=E.io(seg(t,1.4,2.2)),ua=E.io(seg(t,1.8,2.6));
+  const ta=E.io(seg(t,1.4,2.2)),ua=E.io(seg(t,Y5OUT.u0,Y5OUT.u0+.8));
   text('AI med Jonas och Benjamin',960,865,66,{a:ta,al:'center',ls:1,e:.12});
   text('www.jonasvonessen.se/agera',960,945,54,{a:ua*.8,al:'center',ls:1,wt:400,e:.1});
 }
@@ -991,11 +992,15 @@ const SCENES=[
  {id:'16_openai',     name:'Nästa våg tar OpenAI:s kluster',        dur:23, draw:Y5_openai, init:Y5_openaiInit},
  {id:'17_slutet',     name:'Minst kapabla i dag',                   dur:18, draw:Y5_slut,   init:Y5_slutInit},
  {id:'18_outro',      name:'Podden + agera',                        dur:6,  draw:Y5_outro},
+ // synkvarianter för finklippet (klipp/sync): samma scener, annan ordning på de sista slagen
+ {id:'15s_ingen_larmade_synk', name:'Ingen larmade (synk: gula först på "högst sex")', dur:15, draw:t=>{Y5S8.ty0=5.4;Y5S8.tr0=8.0;Y5_larm(t);Y5S8.ty0=2.6;Y5S8.tr0=6.3;}},
+ {id:'18s_outro_synk', name:'Outro (synk: adressen när den sägs)', dur:10, draw:t=>{Y5OUT.u0=3.4;Y5_outro(t);Y5OUT.u0=1.8;}},
 ];
 let _inited=false;
 function ensureInit(){if(_inited)return;initCtx();SCENES.forEach(s=>s.init&&s.init());_inited=true;}
 window.SCENES_META=()=>SCENES.map(s=>({id:s.id,name:s.name,dur:s.dur}));
-window.renderFrame=(i,t)=>{ensureInit();begin();SCENES[i].draw(t);finish();};
+// ta = valfri 'ambient'-klocka (t.ex. tiden i den synkade filmen) så att en utdragen scen ändå lever
+window.renderFrame=(i,t,ta)=>{ensureInit();begin();SCENES[i].draw(t,ta===undefined?t:ta);finish();};
 window.ready=async()=>{await Promise.all([document.fonts.load('700 100px BigShoulders'),document.fonts.load('400 100px BigShoulders'),document.fonts.load('400 50px GeistMono'),document.fonts.load('700 50px GeistMono')]);await document.fonts.ready;ensureInit();return true;};
 
 // ---------- förhandsvisning (visas inte i #render-läge) ----------

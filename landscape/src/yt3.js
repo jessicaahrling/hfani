@@ -31,13 +31,13 @@ function Y3_fusketInit(){Y3_cellsInit();const r=mulberry(55);const {KX,KY,EX,EY}
   Y3S.eye=[];const w=480,h=160;
   for(let u=0;u<=1;u+=1/46){for(const sgn of [-1,1]){const x=(1-u)*(1-u)*(EX-w/2)+2*(1-u)*u*EX+u*u*(EX+w/2),y=(1-u)*(1-u)*EY+2*(1-u)*u*(EY+sgn*h)+u*u*EY;Y3S.eye.push({x,y,vx:(r()-.5)*90,vy:-10-r()*45,d:r()*.5});}}
   for(let k=0;k<40;k++){const a=k/40*TAU;Y3S.eye.push({x:EX+Math.cos(a)*56,y:EY+Math.sin(a)*56,vx:Math.cos(a)*60+(r()-.5)*40,vy:Math.sin(a)*30-35*r(),d:r()*.4});}}
-function Y3_fusket(tt){
+function Y3_fusket(tt,ta=tt){
   const {BX,KX,KY,EX,EY,RX,RY}=Y3F,t=tt-1.2;   // tt = scene time; t = the portrait clock, shifted for the finder sequence
   const scan=E.io(seg(t,6.8,7.4))*(1-E.io(seg(t,12.4,13.4)));
   const zp=E.io(seg(tt,0,1.5)),hy=lerp(560,640,zp);
   setCam(HUB.x,HUB.y,Math.exp(lerp(Math.log(.11),Math.log(.034),zp))*(1-.16*scan),BX,hy);
   if(tt<.5)drawGrid(tt+100,{a:1-seg(tt,0,.5),joined:Y3S.map});
-  Y3_drawCollective(tt,lerp(1,.5,scan),lerp(6,2.8,zp));
+  Y3_drawCollective(ta,lerp(1,.5,scan),lerp(6,2.8,zp));
   resetCam();
   // one of them finds the key: an agent leaves the ball, the key draws on next to it, lights up, and they bring it home
   const FX=760,FY=470,fo=E.io(seg(tt,.9,1.7)),fb=E.io(seg(tt,2.6,3.35));
@@ -58,7 +58,7 @@ function Y3_fusket(tt){
     const vis=cap>0?1:0,under=Math.abs(f.x-tx)<150&&t>6.7&&t<10.3,hid=scan*(under?(.75+.25*Math.sin(t*40+k)):1),pop=1+.18*Math.sin(Math.min(1,cap)*Math.PI);
     icon('pole',f.x,f.y,118*pop,3.6,{c:cap>0?OR:WH,a:dp*lerp(1,.4,hid*vis),p:dp});
     icon('pennant',f.x,f.y,118*pop,3.6,{c:cap>0?OR:WH,a:dp*lerp(1,.4,hid*vis),p:dp,fill:cap>0?`rgba(255,106,0,${lerp(.95,.08,hid)*Math.min(1,cap*1.5)})`:null});});
-  if(kp>0)icon('key',kx,ky,ks*kp,5,{c:OR,a:lerp(1,.35,scan)*(back>=1?.85+.15*Math.sin(t*2.4):1),rot:krot});
+  if(kp>0)icon('key',kx,ky,ks*kp,5,{c:OR,a:lerp(1,.35,scan)*(back>=1?.85+.15*Math.sin(ta*2.4):1),rot:krot});
   // the grader they imagined
   const open=E.ob(seg(t,5.4,6.3)),gone=E.io(seg(t,10.5,11.8));
   if(t>5.4){
@@ -72,7 +72,7 @@ function Y3_fusket(tt){
       for(const q of Y3S.eye){const u=seg(t,10.5+q.d,12.2+q.d);if(u<=0||u>=1)continue;dot(q.x+q.vx*E.o(u),q.y+q.vy*E.o(u)*1.2,2.6*(1-u*.5),{a:(1-u)*.9,e:.3});}}}
   // what they could have had all along
   const hp=E.o(seg(t,13.2,14.0));
-  if(hp>0){const fl=.86+.14*Math.sin(t*5.3)*Math.sin(t*1.7);
+  if(hp>0){const fl=.86+.14*Math.sin(ta*5.3)*Math.sin(ta*1.7);
     text('100 %',KX,300,200,{a:hp*fl,al:'center',stroke:3.4,dash:[16,9],e:.25,ls:2});
     line(KX,392,KX,340,3.4,{a:hp*.85,dash:[4,13],p:E.o(seg(t,13.0,13.7))});poly([[KX-20,364],[KX,336],[KX+20,364]],3.4,{a:hp*.85});}
   // a whole working week

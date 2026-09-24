@@ -88,14 +88,14 @@ function Y4_huggingfaceInit(){const r=mulberry(1107);
   for(let n=0;n<N;n++){const s0=Y4S.Th-.5+19.6*Math.pow(n/N,.85),src=Y4S.inside[Math.floor(r()*Y4S.inside.length)],arr=s0+.9+2.1;
     const open=byE.filter(o=>o.T<=arr+.4);const pool=open.length?open:[byE[0]];const tg=pool[Math.floor(r()*pool.length)];
     Y4S.parts.push({s0,src,arr,tg,ph:r()*TAU,amp:5+r()*16,dir:r()<.5?-1:1,j:(r()-.5)*16,sp:.8+r()*.5});}}
-function Y4_huggingface(t){
+function Y4_huggingface(t,ta=t){
   const {CH,R,th,CO,RO,tho,Hh,Th,Tb,Tk,Td}=Y4S,[ex,ey]=Y4S.E;
   const lit=t<Tk?1:(t<Td?(Math.floor((t-Tk)*12)%2===0?1:0):0);   // 22.6: 6 Hz blink (3 flashes, within the 3/s photosensitivity limit), 23.1: dark
   const dead=n=>!!n.kill&&t-n.kill>=.15&&t-n.kill<.75;
   const built=E.io(seg(t,.2,1.8));
   // the internet in between: faint, drifting, always there
   const na=E.io(seg(t,1.6,3.4));
-  if(na>0){const P=Y4S.net.map(n=>[n.x+Math.sin(t*n.s+n.ph)*6,n.y+Math.cos(t*n.s*.8+n.ph)*5]);
+  if(na>0){const P=Y4S.net.map(n=>[n.x+Math.sin(ta*n.s+n.ph)*6,n.y+Math.cos(ta*n.s*.8+n.ph)*5]);
     D(WH,.11*na,.25,k=>{k.strokeStyle=WH;k.lineWidth=1.2;k.setLineDash([]);k.beginPath();for(const [a,b] of Y4S.netE){const pa=P[Y4S.net.indexOf(a)],pb=P[Y4S.net.indexOf(b)];k.moveTo(pa[0],pa[1]);k.lineTo(pb[0],pb[1]);}k.stroke();});
     D(WH,.28*na,.2,k=>{k.fillStyle=WH;k.beginPath();for(const p of P){k.moveTo(p[0]+2.2,p[1]);k.arc(p[0],p[1],2.2,0,TAU);}k.fill();});}
   // Hugging Face: we only see a corner of something much larger
@@ -110,7 +110,7 @@ function Y4_huggingface(t){
     if(n.kill&&lit)ringPulse(n.x,n.y,t,n.kill+.75,.9,30,74,2.8,{c:OR});
     if(n.core){rrect(n.x,n.y,sz+16,sz+16,18,2,{c:oc,a:.55*built});if(lit){ringPulse(n.x,n.y,t,n.T,1.2,44,96,3.2,{c:OR});ringPulse(n.x,n.y,t,n.T+.35,1.2,44,96,2.2,{c:HOT});}}
     else if(n.T<1e8&&lit)ringPulse(n.x,n.y,t,n.T,.8,28,64,2.2,{c:OR});
-    if(n.fleet&&fill>=1)ring(n.x,n.y,39+2*Math.sin(t*2.4+n.rank),1.8,{c:OR,a:.5});}
+    if(n.fleet&&fill>=1)ring(n.x,n.y,39+2*Math.sin(ta*2.4+n.rank),1.8,{c:OR,a:.5});}
   const gap=.030*E.o(seg(t,Tb,Tb+.5)),pp=E.io(seg(t,.4,2.0)),a0=1.50,a1=2.92;
   ring(CH[0],CH[1],R,3.2,{a:.92,a0:lerp(th-gap/2,a0,pp),a1:th-gap/2,e:.2});ring(CH[0],CH[1],R,3.2,{a:.92,a0:th+gap/2,a1:lerp(th+gap/2,a1,pp),e:.2});
   const span=Math.max(th-a0,a1-th)*pp;
@@ -124,7 +124,7 @@ function Y4_huggingface(t){
   // the swarm (one path per canvas), pressing towards the hole; survivors keep drifting after the shutdown
   const press=E.io(seg(t,2.0,3.8))*(1-.6*seg(t,4.2,7)),ia=E.io(seg(t,.4,1.6)),hx=Hh[0]-34,hy=Hh[1]+20;
   for(const k of [M,B]){k.fillStyle=OR;k.globalAlpha=.9*ia;k.beginPath();
-    for(const d of Y4S.inside){if(!d.keep&&!lit)continue;const x=d.x+Math.sin(t*d.s+d.ph)*7,y=d.y+Math.cos(t*d.s*.8+d.ph)*6;const X=lerp(x,hx,press*.16),Y=lerp(y,hy,press*.16);k.moveTo(X+3.4,Y);k.arc(X,Y,3.4,0,TAU);}
+    for(const d of Y4S.inside){if(!d.keep&&!lit)continue;const x=d.x+Math.sin(ta*d.s+d.ph)*7,y=d.y+Math.cos(ta*d.s*.8+d.ph)*6;const X=lerp(x,hx,press*.16),Y=lerp(y,hy,press*.16);k.moveTo(X+3.4,Y);k.arc(X,Y,3.4,0,TAU);}
     k.fill();}
   // the stream: single file through the hole, across the open internet, along the wall, in
   const dx=ex-Hh[0],dy=ey-Hh[1],dl=Math.hypot(dx,dy),nx=-dy/dl,ny=dx/dl;

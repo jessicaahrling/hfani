@@ -70,7 +70,7 @@ function s_rapport(t){
 const S_TR={S:[290,540],G:[1640,540],wallX:[660,1000,1340],gaps:[300,780,300],
   honest:[[290,540],[520,540],[520,300],[840,300],[840,780],[1160,780],[1160,300],[1480,300],[1480,540],[1640,540]],
   t0:[6.2,7.8,8.7,9.45,10.05,10.6,11.05,11.45,11.8,12.1],du:[1.25,.72,.6,.5,.45,.4,.35,.3,.28,.25]};
-function s_traningen(t){
+function s_traningen(t,ta=t){
   const [sx,sy]=S_TR.S,[gx,gy]=S_TR.G,firstBreach=6.2;
   const nCheat=S_TR.t0.filter((q,k)=>t>=q+S_TR.du[k]).length;
   // barriers, with holes where the shortcut punched through at y=540
@@ -84,7 +84,7 @@ function s_traningen(t){
   // the shortcut, thicker each time it pays off
   if(t>firstBreach){const pp=seg(t,firstBreach,firstBreach+.9);line(sx,sy,gx,gy,Math.min(20,4+nCheat*1.7),{c:OR,a:.95,p:nCheat>0?1:pp});}
   // goal + the measured circle
-  const fp=E.io(seg(t,.2,1.1));ring(gx,gy,120,2.8,{a:.6*fp,dash:[6,13],a0:t*.25,a1:t*.25+TAU,e:0});
+  const fp=E.io(seg(t,.2,1.1));ring(gx,gy,120,2.8,{a:.6*fp,dash:[6,13],a0:ta*.25,a1:ta*.25+TAU,e:0});
   icon('pole',gx+16,gy-12,178,4.4,{a:fp,p:fp,e:.15});icon('pennant',gx+16,gy-12,178,4.4,{a:fp,p:fp,e:.15,fill:'rgba(255,255,255,.13)'});
   dot(sx,sy,10,{a:.5*fp,e:0});ring(sx,sy,24,2,{a:.4*fp,e:0});
   // labels: OM is measured, HUR is not
