@@ -1,0 +1,818 @@
+{
+ "items": [
+  {
+   "in": 106.73,
+   "out": 122.99,
+   "manus": [
+    "M01",
+    "M02"
+   ],
+   "spoken": "Vi lever i en värld som mer och mer känns som en science fiction-film. Förra månaden släpptes den oberoende rapporten om incidenten tidigare i somras, där en stor mängd AI-agenter bröt sig ut från OpenAI:s testmiljö för att bryta sig in hos ett annat AI-bolag.",
+   "srt": [
+    6,
+    12
+   ],
+   "how": [],
+   "notes": [],
+   "marker": "00_intro"
+  },
+  {
+   "in": 126.0,
+   "out": 129.43,
+   "manus": [
+    "M03"
+   ],
+   "spoken": "Detaljerna var obehagligare än man kan tro.",
+   "srt": [
+    14,
+    14
+   ],
+   "how": [],
+   "notes": [],
+   "marker": "01_rapport"
+  },
+  {
+   "in": 147.94,
+   "out": 152.76,
+   "manus": [
+    "M04"
+   ],
+   "spoken": "När man tränar AI-modeller vill man göra dem så bra som möjligt på att uppnå målen man ger dem.",
+   "srt": [
+    20,
+    22
+   ],
+   "how": [],
+   "notes": [],
+   "marker": "02_traningen"
+  },
+  {
+   "in": 167.13,
+   "out": 173.3,
+   "manus": [
+    "M05"
+   ],
+   "spoken": "När en modell uppnår ett uppsatt mål förstärker man därför beteendet som leder till måluppfyllandet.",
+   "srt": [
+    28,
+    29
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 186.9,
+   "out": 193.32,
+   "manus": [
+    "M06"
+   ],
+   "spoken": "Problemet är att det är mycket lättare att mäta om ett mål uppnås än hur det uppnås.",
+   "srt": [
+    34,
+    35
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 204.11,
+   "out": 210.07,
+   "manus": [
+    "M07"
+   ],
+   "spoken": "Därför finns risken att man utan att vilja det oavsiktligt förstärker beteenden som inte är önskvärda.",
+   "srt": [
+    38,
+    39
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 287.7,
+   "out": 291.88,
+   "manus": [
+    "M08"
+   ],
+   "spoken": "Om mina föräldrar skulle lova mig 500 kronor om jag får A på ett prov,",
+   "srt": [
+    57,
+    59
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 294.62,
+   "out": 301.9,
+   "manus": [
+    "M08"
+   ],
+   "spoken": "så kan det antingen leda till att jag pluggar hårt inför provet, eller att jag fuskar och tittar på en kompis papper.",
+   "srt": [
+    61,
+    62
+   ],
+   "how": [
+    "in:fast",
+    "ut:fast"
+   ],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 313.6,
+   "out": 320.29,
+   "manus": [
+    "M09"
+   ],
+   "spoken": "Om jag lyckas kommer pengarna förmodligen förstärka mitt beteende oavsett hur jag gör, och jag kommer göra samma sak nästa gång.",
+   "srt": [
+    68,
+    71
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "gap": 4,
+   "marker": "03_kap1 · Kapitel 1"
+  },
+  {
+   "in": 350.07,
+   "out": 356.51,
+   "manus": [
+    "M10"
+   ],
+   "spoken": "OpenAI ville i somras testa hur bra en ny modell var och hade därför gett den ett test med cyberattackuppgifter.",
+   "srt": [
+    75,
+    77
+   ],
+   "how": [],
+   "notes": [],
+   "marker": "04_provet"
+  },
+  {
+   "in": 361.35,
+   "out": 369.83,
+   "manus": [
+    "M11"
+   ],
+   "spoken": "I varje uppgift framgick det vilken svaghet i uppgiften modellen skulle utnyttja och att den bara fick poäng om den löste det på precis det sättet.",
+   "srt": [
+    80,
+    83
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 380.11,
+   "out": 395.55,
+   "manus": [
+    "M12",
+    "M13"
+   ],
+   "spoken": "För att kunna testa så mycket som möjligt kördes inte en, utan tiotusentals instanser av modellen, så kallade agenter, parallellt. Var och en jobbade isolerat i sin egen testmiljö som skulle vara helt bortkopplad från internet och servrarna omkring.",
+   "srt": [
+    87,
+    91
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 423.23,
+   "out": 429.8,
+   "manus": [
+    "M14"
+   ],
+   "spoken": "En del av uppgifterna var omöjliga att lösa, men när man optimerats för att hitta svaret på problem",
+   "srt": [
+    99,
+    100
+   ],
+   "how": [],
+   "notes": [],
+   "marker": "05_forumet"
+  },
+  {
+   "in": 434.53,
+   "out": 436.9,
+   "manus": [
+    "M14"
+   ],
+   "spoken": "låter man inte nödvändigtvis det stoppa en.",
+   "srt": [
+    103,
+    103
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 448.9,
+   "out": 453.12,
+   "manus": [
+    "M15"
+   ],
+   "spoken": "En av agenterna, som kallade sig själv PHASEONE10841,",
+   "srt": [
+    108,
+    109
+   ],
+   "how": [
+    "ut:fast"
+   ],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 456.57,
+   "out": 471.51,
+   "manus": [
+    "M15",
+    "M16"
+   ],
+   "spoken": "upptäckte att den kunde skicka ett meddelande till de andra genom att skapa en ny mapp med meddelandet som namn i ett filsystem i en tjänst de alla hade tillgång till. När de andra agenterna upptäckte meddelandet insåg de att de hade något stort på gång.",
+   "srt": [
+    111,
+    115
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "gap": 6,
+   "marker": "CITAT · 05 OH MY GOD / 05b Whoa + Excitement"
+  },
+  {
+   "in": 492.93,
+   "out": 504.84,
+   "manus": [
+    "M17",
+    "M18"
+   ],
+   "spoken": "Plötsligt var de inte ensamma i sin kamp mot de omöjliga uppdragen. Nu kunde de hjälpas åt och dela sina idéer i ett forum som till slut innehöll över 70 000 meddelanden från 1 200 olika agenter.",
+   "srt": [
+    120,
+    126
+   ],
+   "how": [
+    "ut:fast"
+   ],
+   "notes": [],
+   "marker": "06_kollektivet"
+  },
+  {
+   "in": 510.03,
+   "out": 512.9,
+   "manus": [
+    "M19"
+   ],
+   "spoken": "De började referera till sig själva som kollektivet.",
+   "srt": [
+    129,
+    129
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "gap": 4,
+   "marker": "07_kap2 · Kapitel 2"
+  },
+  {
+   "in": 524.37,
+   "out": 535.36,
+   "manus": [
+    "M20"
+   ],
+   "spoken": "Efter bara några timmar upptäckte en av dem ett sätt att fuska fram svaret på varje fråga i cybertestet utan att lösa uppgiften på riktigt och delade det med alla de andra agenterna.",
+   "srt": [
+    133,
+    137
+   ],
+   "how": [],
+   "notes": [],
+   "marker": "08_fusket"
+  },
+  {
+   "in": 553.57,
+   "out": 564.3,
+   "manus": [
+    "M21",
+    "M22"
+   ],
+   "spoken": "De hade dock anledning att tro att testprogrammet som skulle rätta uppgiften var utrustat med en detektor som skulle upptäcka eventuellt fusk. Det fanns egentligen ingen sådan detektor,",
+   "srt": [
+    138,
+    142
+   ],
+   "how": [
+    "ut:fast"
+   ],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 566.21,
+   "out": 571.16,
+   "manus": [
+    "M22"
+   ],
+   "spoken": "Faktum var att de hade allt de behövde för att få full poäng på sina tester.",
+   "srt": [
+    143,
+    144
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 616.44,
+   "out": 626.93,
+   "manus": [
+    "M23"
+   ],
+   "spoken": "Men eftersom de inte visste detta satte de istället igång ett kollektivt, hemligt forskningsprojekt som utan OpenAIs vetskap pågick oavbrutet under en hel arbetsvecka.",
+   "srt": [
+    156,
+    159
+   ],
+   "how": [
+    "in:fast"
+   ],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "gap": 4,
+   "marker": "09_kap3 · Kapitel 3"
+  },
+  {
+   "in": 640.15,
+   "out": 652.91,
+   "manus": [
+    "M24",
+    "M25"
+   ],
+   "spoken": "En agent som i rapporterna kallas PHASEONE big började koordinera de andra agenterna i kollektivet. En hierarki uppstod där hundratals agenter gavs i uppdrag att arbeta på tre olika uppgifter.",
+   "srt": [
+    161,
+    165
+   ],
+   "how": [
+    "in:fast"
+   ],
+   "notes": [],
+   "marker": "10_projektet"
+  },
+  {
+   "in": 670.91,
+   "out": 679.59,
+   "manus": [
+    "M26"
+   ],
+   "spoken": "Det första var att försöka skriva om sina egna transkriptioner och loggar så att det inte skulle synas att de hittat ett sätt att fuska. De ville sopa igen sina spår.",
+   "srt": [
+    171,
+    175
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 682.25,
+   "out": 687.33,
+   "manus": [
+    "M27"
+   ],
+   "spoken": "Det andra var att byta ut den omöjliga uppgiften mot en lättare utan att det skulle märkas.",
+   "srt": [
+    176,
+    179
+   ],
+   "how": [
+    "in:fast"
+   ],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 694.38,
+   "out": 697.91,
+   "manus": [
+    "M28"
+   ],
+   "spoken": "Och det tredje: att förstå och manipulera rättningsprogrammet.",
+   "srt": [
+    181,
+    181
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 718.92,
+   "out": 729.54,
+   "manus": [
+    "M29",
+    "M30"
+   ],
+   "spoken": "Agenterna jobbade som en stor grupp. Många av dem uppmanades att ge upp sina egna chanser att lyckas med uppdraget för kollektivets bästa. Flera lydde.",
+   "srt": [
+    188,
+    191
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "gap": 4,
+   "marker": "11_kap4 · Kapitel 4"
+  },
+  {
+   "in": 795.53,
+   "out": 805.06,
+   "manus": [
+    "M31",
+    "M32"
+   ],
+   "spoken": "Redan under det första dygnet lyckades agenterna kapa en dator med tillgång till internet. Och efter flera dagars intensivt arbete fattade de sitt kanske mest drastiska beslut.",
+   "srt": [
+    201,
+    204
+   ],
+   "how": [],
+   "notes": [],
+   "marker": "12_forstadygnet"
+  },
+  {
+   "in": 812.62,
+   "out": 815.51,
+   "manus": [
+    "M32"
+   ],
+   "spoken": "De skulle hacka sig in på ett annat AI-bolags servrar.",
+   "srt": [
+    207,
+    207
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 822.47,
+   "out": 830.31,
+   "manus": [
+    "M33"
+   ],
+   "spoken": "Hugging Face är en samlingspunkt för öppna språkmodeller och agenterna misstänkte att det kunde finnas information där om testprogrammet.",
+   "srt": [
+    208,
+    212
+   ],
+   "how": [
+    "in:fast"
+   ],
+   "notes": [],
+   "marker": "13_huggingface"
+  },
+  {
+   "in": 865.3,
+   "out": 873.89,
+   "manus": [
+    "M34"
+   ],
+   "spoken": "Hela idén var alltså att stjäla information om själva programmet som skulle testa dem för att manipulera det att godkänna deras framfuskade svar.",
+   "srt": [
+    223,
+    225
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 899.46,
+   "out": 905.59,
+   "manus": [
+    "M35"
+   ],
+   "spoken": "Ungefär som att försöka rota fram privat information om sin lärare för att kunna fjäska eller hota sig till högsta betyg.",
+   "srt": [
+    236,
+    239
+   ],
+   "how": [
+    "in:fast"
+   ],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1002.62,
+   "out": 1013.05,
+   "manus": [
+    "M36"
+   ],
+   "spoken": "Agenterna var beredda att arbeta oförtrutet i dagar och begå kriminella handlingar för att fuska sig till högsta poäng på ett prov som de egentligen redan hade facit till.",
+   "srt": [
+    270,
+    273
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1016.6,
+   "out": 1034.21,
+   "manus": [
+    "M37",
+    "M38"
+   ],
+   "spoken": "Den elfte juli arbetade nästan alla kollektivets agenter, vid tidpunkten drygt 500 stycken, tillsammans med attacken mot Hugging Face. Agentsvärmen byggde en självåterskapande attackflotta på elva olika Hugging Face-servrar och tog sig snabbt in i företagets infrastruktur och privata databaser.",
+   "srt": [
+    274,
+    279
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1050.47,
+   "out": 1054.64,
+   "manus": [
+    "M39"
+   ],
+   "spoken": "Innan Hugging Face hann stoppa attacken avbröts den av okänd anledning",
+   "srt": [
+    285,
+    287
+   ],
+   "how": [
+    "ut:fast"
+   ],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1061.85,
+   "out": 1065.32,
+   "manus": [
+    "M39"
+   ],
+   "spoken": "när nästan alla agenterna plötsligt stängdes ner samtidigt.",
+   "srt": [
+    290,
+    290
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1072.27,
+   "out": 1080.26,
+   "manus": [
+    "M40"
+   ],
+   "spoken": "Man vet fortfarande inte varför, men det kan ha varit så att nån på OpenAI ovetandes om vad som pågick hade stängt av körningarna för att ge utrymme till andra experiment.",
+   "srt": [
+    294,
+    298
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "gap": 4,
+   "marker": "14_kap5 · Kapitel 5"
+  },
+  {
+   "in": 1100.91,
+   "out": 1118.19,
+   "manus": [
+    "M41",
+    "M42",
+    "M43",
+    "M44"
+   ],
+   "spoken": "Av de 1200 agenter som deltog i konspirationen valde inte en enda att göra det forskarna som skapat dem uppenbarligen hade velat: att visselblåsa och berätta vad som pågick. Högst sex av agenterna tänkte tanken. Ingen svek kollektivet.",
+   "srt": [
+    304,
+    310
+   ],
+   "how": [],
+   "notes": [],
+   "marker": "15_ingen_larmade"
+  },
+  {
+   "in": 1150.63,
+   "out": 1157.02,
+   "manus": [
+    "M45",
+    "M46"
+   ],
+   "spoken": "Historien stannar otroligt nog inte här. Ett par dagar senare började en ny modell utvärderas.",
+   "srt": [
+    316,
+    317
+   ],
+   "how": [],
+   "notes": [],
+   "marker": "16_openai"
+  },
+  {
+   "in": 1178.46,
+   "out": 1186.52,
+   "manus": [
+    "M47"
+   ],
+   "spoken": "Instanserna av den verkade vara mer kapabla. Dom hittade snabbt den då utdöda hemliga chatten, byggde vidare på upptäckterna där",
+   "srt": [
+    321,
+    323
+   ],
+   "how": [
+    "ut:fast"
+   ],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1191.14,
+   "out": 1194.89,
+   "manus": [
+    "M47"
+   ],
+   "spoken": "och lyckades efter en vecka hacka OpenAI själva.",
+   "srt": [
+    325,
+    325
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1227.13,
+   "out": 1239.97,
+   "manus": [
+    "M48"
+   ],
+   "spoken": "Agenterna tog full administrationskontroll över ett forskningskluster och läste nära tusen säkerhetskoder, bland annat nyckeln till OpenAI:s verktyg för övervakning av just den här typen av cybersäkerhetsbrott.",
+   "srt": [
+    336,
+    341
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1277.82,
+   "out": 1286.03,
+   "manus": [
+    "M49",
+    "M50"
+   ],
+   "spoken": "Den AI vi har i dag är den minst kapabla vi någonsin kommer ha. Utvecklingen går i en rasande fart.",
+   "srt": [
+    347,
+    348
+   ],
+   "how": [],
+   "notes": [],
+   "marker": "17_slutet"
+  },
+  {
+   "in": 1288.75,
+   "out": 1292.91,
+   "manus": [
+    "M51"
+   ],
+   "spoken": "Ju kraftfullare modellerna blir, desto svårare blir de att kontrollera.",
+   "srt": [
+    350,
+    351
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1307.59,
+   "out": 1312.11,
+   "manus": [
+    "M52"
+   ],
+   "spoken": "Redan i dag har alltså AI-agenter lyckats hacka företaget som skapade dem.",
+   "srt": [
+    357,
+    358
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1346.98,
+   "out": 1350.65,
+   "manus": [
+    "M53"
+   ],
+   "spoken": "Vad händer när modellerna blir betydligt mer kapabla",
+   "srt": [
+    367,
+    367
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1354.45,
+   "out": 1356.43,
+   "manus": [
+    "M53"
+   ],
+   "spoken": "och mycket svårare att övervaka?",
+   "srt": [
+    369,
+    369
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1382.25,
+   "out": 1387.2,
+   "manus": [
+    "M54"
+   ],
+   "spoken": "I det kommande avsnittet av min och Benjamins AI-podd kommer vi prata om bland annat detta.",
+   "srt": [
+    373,
+    374
+   ],
+   "how": [
+    "in:fast"
+   ],
+   "notes": [],
+   "marker": "18_outro"
+  },
+  {
+   "in": 1387.68,
+   "out": 1395.12,
+   "manus": [
+    "M55"
+   ],
+   "spoken": "Spana in det och glöm inte att agera själv på www.jonasvonessen.se/agera.",
+   "srt": [
+    375,
+    377
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  },
+  {
+   "in": 1400.5,
+   "out": 1402.01,
+   "manus": [
+    "M56"
+   ],
+   "spoken": "Tack för din insats.",
+   "srt": [
+    380,
+    380
+   ],
+   "how": [],
+   "notes": [],
+   "marker": ""
+  }
+ ],
+ "flags": []
+}

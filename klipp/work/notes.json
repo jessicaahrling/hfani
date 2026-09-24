@@ -1,0 +1,130 @@
+[
+ {
+  "section": 1,
+  "missing": [],
+  "flags": [
+   "#6–#7 (M01): ASR hör 'mer och mer är känd' i båda fönstren (#6 och #7) där SRT har 'känns', och SRT delar raden precis före 'känns' (#3 i första försöket gjorde det inte). Det kan vara ett tvekljud ('ä') eller en paus före 'känns'. Lyssna. Om det låter stakigt är den rena äldre tagningen #2–#3 alternativet för M01. Skarven mot M02 går då bra, eftersom #8 börjar exakt på 'Förra månaden'.",
+   "#9 (M02): SRT skriver 'obehörda rapporten' och ASR 'oberoende'. Kontrollera att det är 'oberoende'.",
+   "#10 (M02): omformulerat till 'tidigare i somras' (manus: 'tidigare i år'). SRT saknar 'i' ('tidigare somras'), så lyssna att frasen sitter.",
+   "#11–#12 (M02): både SRT och ASR hör 'för att brytas in hos'. Troligen sa användaren 'bryta sig in' snabbt, men lyssna. Omformulerat mot manuset: 'bröt sig ut' i stället för 'hackade sig ut', och 'stort' saknas före AI-bolag.",
+   "#14 (M03): omformulerat till 'Detaljerna var obehagligare än man kan tro' (manus: 'mer oroväckande än de flesta anat'). SRT skriver 'obehagliga än'. Kontrollera att böjningen blev rätt.",
+   "#28–#29 (M05): SRT har 'leder till' (i #27 och #29, men 'ledde' i #24) och ASR 'ledde'. Båda fungerar. ASR tappade också 'en' i 'När en modell'. Lyssna att 'en' hörs.",
+   "#34–#35 (M06): SRT skriver 'uppnådds' på båda ställena, ASR 'uppnås'. Om hen faktiskt sa 'uppnåddes' är #30–#32 alternativet.",
+   "#57 (M08): ASR hör bara 'skulle' i #57:s fönster, och 'Om mina föräldrar' i den falska starten #56 ('om mina föräldrar lovar mig'). Kontrollera att #57 verkligen börjar med 'Om mina föräldrar' och att in-punkten ligger efter #56-stumpen.",
+   "M08 är skarvad inom samma tagning: #57–#59 + #61–#62, där det avbrutna #60 hoppas över. SRT för #61 är förvrängd ('så kan antingen det till'), och ASR hör bara 'att jag pluggar hårt inför provet' där. Kontrollera att #61 börjar med en hel och flytande 'Så kan det antingen leda till' utan stakning. Om #61 bara innehåller 'att jag pluggar...' eller stakar i början, ta 'Så kan det antingen leda till' från #60 (klipp efter 'till') och fortsätt i #61 från 'att jag pluggar'.",
+   "#62: 'om' ska trimmas mitt i raden, precis vid slutet (början på 'Om jag lyckas' som hör till en tagning som inte används). Klipp tätt efter 'papper'. ASR lägger även 'jag' i #62:s fönster.",
+   "M08 är omformulerat mot manuset: 'Om mina föräldrar skulle lova mig 500 kronor' och 'tittar på en kompis papper' i stället för 'kika på en kompis'. 500 kronor stämmer med manuset.",
+   "M09 (#68–#71): tillagt 'Om jag lyckas' och en ny mening som inte finns i manuset: 'och jag kommer göra samma sak nästa gång'. 'oavsett hur jag gör' ersätter 'Oavsett vilket'. ASR hör 'och' både i slutet av #70 och i början av #71. Troligen samma ord vid radgränsen, men lyssna efter 'och och'. Alternativet nära manuset är #51–#52 ('Oavsett vilket så kommer pengarna förmodligen förstärka mitt beteende').",
+   "#1 ('vill du bli med') och ASR-ljudet utan SRT-rad 01:08–01:30 är prat med andra och ska inte med."
+  ],
+  "changes": [
+   "Inga ändringar i picks, missing eller ordningen. Varje pick är det sista kompletta försöket, alla nio manusmeningar täcks en gång i rätt ordning, och trimningen stämmer ('om' = 1 ord sist i #62).",
+   "Flagga utökad (M01 #6–#7): ASR hör 'är känd' i båda fönstren, och SRT delar raden före 'känns'. Det tyder på ett möjligt tvekljud, och alternativet #2–#3 + #8 fungerar som skarv vid en meningsgräns.",
+   "Ny flagga (#57): ASR hör bara 'skulle' i #57. Kontrollera att in-punkten fångar 'Om mina föräldrar' och ligger efter falska starten #56.",
+   "Flagga utökad (#61): konkret reservplan om #61 stakar eller saknar början. Ta 'Så kan det antingen leda till' från #60 och fortsätt i #61 från 'att jag pluggar'.",
+   "Ny flagga (#70–#71): 'och' hörs i båda ASR-fönstren. Troligen samma ord vid radgränsen, men lyssna efter 'och och'."
+  ]
+ },
+ {
+  "section": 2,
+  "missing": [],
+  "flags": [
+   "M10 (#75): användarens formulering 'OpenAI ville i somras testa' (tillägget 'i somras' är medvetet). Klippet ska börja på #75 och inte på stumpen #74 ('OpenAI ville i…'), som slutar bara 0,9 s före.",
+   "M10 (#74/#75): ASR lägger 'OpenAI ville' i #74 och låter #75 börja på 'i somras testa'. SRT har däremot 'OpenAI ville i somras testa' i #75, vilket tyder på en hel omstart. Lyssna på att #75 verkligen börjar med 'OpenAI ville'. Om inte är #74–#77 en och samma tagning: börja då i #74 på 'OpenAI ville' och klipp bort den avbrutna stumpen före 'i somras'.",
+   "M11 (#80–#83): avviker från manuset med 'vilken svaghet i uppgiften', 'löste det' och 'på precis det sättet' (manus: 'löste uppgiften på just det sättet'). Sista och enda kompletta tagningen, behåll.",
+   "M12 (#85–#87): osäkert val. SRT har 'för att kunna testa så mycket som möjligt' både i #86 och #87, medan ASR bara hör en version ('För att hinna testa så mycket som möjligt') och 'kördes' i #87. Kontrollera att #87 verkligen är en hel upprepning och säger 'kunna', inte 'hinna'. Är #87 bara en stump, börja på #86 och klipp direkt till #88.",
+   "M12 (#88–#89): tillägg jämfört med manuset: 'kördes inte en, utan tiotusentals instanser' och 'så kallade agenter'. Siffran 'tiotusentals' stämmer.",
+   "M14: skarvad av två tagningar, #99–#100 + #103. #101–#102 ('låter man inte nödvändigt låter man inte nödvändigt', 'låter man inte nödvändigtvis') ska bort. Lyssna på att skarven 'problem | låter man inte…' låter naturlig.",
+   "M14 (#100): användaren säger 'för att hitta svaret på problem' i stället för manusets 'för att lösa problem' (de tre tidigare försöken sa 'lösa problem'). Det är den sista tagningen, så formuleringen behålls, men lyssna på att det är en medveten omformulering och inte en felsägning. Reservalternativ: #97–#98 säger 'lösa problem', men också 'råkade vara'.",
+   "M15: skarvad, #108–#109 + #111–#115. Trimma bort ordet 'upptäckte' i slutet av #109 (mitt i en SRT-rad). Därefter kommer #110, som inte används.",
+   "M15 (#108–#109): SRT skriver 'kallades sig själv'. Lyssna på att det är 'kallade'. Kontrollera också att numret uttalas 'PHASEONE, ett-noll-åtta-fyra-ett' eller 'one zero eight four one' (10841) och inte blir fel.",
+   "M16 (#115): bara en tagning. SRT hör 'medelhavet' för 'meddelandet' (ASR hör 'meddelandet'). Troligen ett SRT-fel, men lyssna.",
+   "M17 (#120): ASR hör bara 'var de inte' och saknar 'Plötsligt', medan SRT har 'plötsligt var dom inte'. Lyssna på att 'Plötsligt' finns med i början av #120. Saknas det: ta M17 från #116–#117 och M18 från #122–#126 (skarv vid meningsgränsen 'Nu kunde…').",
+   "M18 (#125): SRT hör 'över sjuttiotusen medlemmar', ASR hör 'meddelanden'. Lyssna noga, eftersom faktauppgiften är 70 000 meddelanden. (SRT hör också 'medelhavet' för 'meddelandet' i #115, så det är troligen ett SRT-fel.) Blev det 'medlemmar' finns ingen annan komplett tagning (#119 avbryts före ordet).",
+   "M18 (#122–#123): SRT hör 'hjälpa sig åt', ASR 'hjälpas åt'. Lyssna efter en felsägning. Reservalternativ: #116–#118 (fram till 'idéer') + #124–#126 (från 'i ett forum…').",
+   "M18 (#126): SRT hör 'agenturer', ASR 'agenter'. Kontrollera. '1 200' stämmer.",
+   "M19 (#129): börjar bara 0,03 s efter stumpen #128 ('De började'). Sätt in-punkten noga så att stumpen inte hörs dubbelt. #127 är också komplett men hade troligen felsägningen 'reflektera', vilket förklarar omtagningen."
+  ],
+  "changes": [
+   "M10 (#75–#77): konfidensen är sänkt från hög till medel och en flagga är tillagd. ASR placerar 'OpenAI ville' i #74 och låter #75 börja på 'i somras', så det är osäkert om #75 är en hel omstart. Reservklipp finns i flaggan. Intervallet är oförändrat.",
+   "M17 (#120): ny flagga. ASR saknar 'Plötsligt' i #120. Reservalternativet är #116–#117 + #122–#126. Picken är oförändrad.",
+   "M14 (#100): flaggan är utökad med reservalternativet #97–#98 ('lösa problem', men med 'råkade vara') om 'hitta svaret på' visar sig vara en felsägning.",
+   "M16 (#115): ny låg flagga för SRT:s 'medelhavet' = 'meddelandet'. Den stöder också att 'medlemmar' i #125 troligen är ett SRT-fel.",
+   "Kontrollerat utan anmärkning: alla picks, M10–M19, är täckta exakt en gång i manusordning, det finns inget skräp, och skarvarna ('problem | låter man…', 'PHASEONE10841 | upptäckte…') ger varken dubbla eller saknade ord. Trimningen av 'upptäckte' (1 ord i slutet av #109) stämmer. Inga senare kompletta försök har missats."
+  ]
+ },
+ {
+  "section": 3,
+  "missing": [],
+  "flags": [
+   "M22, #142: SRT har \"det fanns egentligen sån detektor\", utan \"ingen\", medan ASR hör \"ingen sådan detektor\". Kontrollera att \"ingen\" verkligen sägs, annars blir betydelsen den motsatta.",
+   "M22, gränsen #142/#143: trolig stakning \"så det var – så faktum var\". Trimningen tar bort \"så det var\" mitt i #142, och M22 delas därför på två picks ur samma tagning. Visar det sig inte vara någon stakning, lägg #142–#144 i ett stycke. Se också till att klippet in i #143 (09:26.13) inte kapar början av \"så\" (ASR lägger \"så\" på 09:25.36–09:26.36, så omstartens \"så\" kan börja före SRT-radens start).",
+   "M21, #140: båda transkriptionerna hör \"utrusat\". Lyssna om \"utrustat\" sägs tydligt.",
+   "M21–M22 är omformulerade jämfört med manus (\"testprogrammet som skulle rätta uppgiften … eventuellt fusk\", \"Det fanns egentligen ingen sådan detektor, så faktum var att de hade allt de behövde …\"). Det är den enda tagningen.",
+   "M23, #156: \"det\" i början av raden är stumpen från det avbrutna \"men eftersom de inte visste det\" (#155) och måste trimmas bort mitt i raden. Lyssna på gränsen #158/#159 så att \"OpenAIs\" inte hörs två gånger (ASR har ordet i båda raderna, SRT delar det som \"öppna | sitt\"). Den valda tagningen saknar det tidigare tillägget \"för att lura OpenAI och rättaren\" (#145–#151).",
+   "M24, #161: klipp bort felstarten \"en annan\" före \"en agent som i rapporterna kallas PHASEONE big\" (trimning mitt i raden). Lyssna på uttalet av PHASEONE big.",
+   "M24, #162: SRT hör \"var det koordinera\" där ASR och manus har \"började koordinera\". Lyssna så att \"började\" sägs tydligt.",
+   "M25, #164: SRT hör \"uppstod när … gav sig uppdrag\" där ASR och manus har \"uppstod där … gavs i uppdrag\". Troligen SRT-fel, men lyssna.",
+   "M26, gränsen #170/#171: ASR har \"Det första var\" bara en gång (i #170), medan SRT har två försök (\"det första var att skriva om\" / \"det första var att försöka skriva om …\"). Picken börjar vid #171 och förutsätter att \"Det första var\" tas om där. Börjar #171 i stället direkt på \"att försöka\", starta picken vid \"det första var\" i #170.",
+   "M26, #173/#174: ASR har \"skulle\" i båda raderna (troligen dubbelräkning vid radgränsen). Lyssna så att det inte blir \"skulle – skulle synas\".",
+   "M26: tillagd mening som inte finns i manus, \"De ville sopa igen sina spår.\" (#175), är med. M26–M28 är omformulerade till uppräkningen \"Det första / Det andra / Det tredje\".",
+   "M27, #176: klipp bort \"det andra handlar om\" mitt i raden så att det blir \"Det andra var att byta ut …\". ASR hör \"mot den lättare\" där SRT och manus har \"mot en lättare\". Lyssna.",
+   "M28: sista tagningen säger \"rättningsprogrammet\" i stället för manusets \"testprogrammet\" (medveten omformulering, #181). Alternativet med \"testprogrammet\" finns i #180.",
+   "M29: tillagd mening som inte finns i manus, \"Agenterna jobbade som en stor grupp.\" (#188), är med. Vill användaren slippa den finns #183–#185 som komplett alternativ (\"… att ge upp chansen att själva lyckas med sitt uppdrag för kollektivets bästa. Flera lydde.\").",
+   "M20: den valda tagningen säger \"en av dem\" i stället för manusets \"en agent\" (omformulering i sista tagningen)."
+  ],
+  "changes": [
+   "Inga ändringar i picks. Jag gick igenom alla rader själv och kom fram till samma val, trimningar och skarvar. Den löpande texten blir hel utan dubbla eller saknade ord.",
+   "Ny flagga, #170/#171: ASR har \"Det första var\" bara en gång. Om SRT:s omstart inte finns måste picken börja i #170.",
+   "Ny flagga, #162 och #164: SRT hör \"var det koordinera\" och \"när … gav sig uppdrag\". Lyssna så att det verkligen är \"började koordinera\" och \"där … gavs i uppdrag\".",
+   "Ny flagga, #173/#174: ASR har \"skulle\" i båda raderna. Lyssna efter en upprepning.",
+   "Ny flagga, M21–M22 och M28: omformuleringarna från manus i de valda tagningarna."
+  ]
+ },
+ {
+  "section": 4,
+  "missing": [],
+  "flags": [
+   "M31/M32 (#201–#204) är omformulerade jämfört med manuset: 'Redan under det första dygnet lyckades agenterna kapa' (manus: 'hade kollektivet kapat'), 'flera dagars intensivt arbete' (manus: 'ett par dagars') och 'kanske mest drastiska' (manus: 'kanske allra mest'). ASR hör 'lyckades jag kapa' i #202 – kontrollera att det är 'agenterna'.",
+   "M32 slutmening: #206 ('De VILLE hacka sig in på ett annat AI-bolags servrar') ligger närmast manusets 'De vill försöka…'. Jag valde #207 ('De SKULLE…') eftersom den är sist. Lyssna och byt till #206 om den låter bättre.",
+   "M33 (#208): trimning mitt i raden. #208 innehåller 'Hugging Face är en sam– Hugging Face, Hugging Face'. Behåll bara sista 'Hugging Face' före 'är en samlingspunkt' (#209).",
+   "M33: SRT hör 'visste inte att det kunde finnas' i #211 och ASR hör 'misstänkte'. Det är troligen 'misstänkte' (som i manuset), men kontrollera. SRT hör också 'för att öppna' i #209; ASR hör 'för öppna'.",
+   "M34 (#223–#225): SRT saknar 'alltså' i #223 men ASR har det. Tagningen har 'om själva programmet' (tillagt 'själva'). I #225 kan det vara 'manipulera det att' eller 'det och' godkänna.",
+   "M35 (#236): trimning mitt i raden, 'ungefär ungefär' → ta bort det första. ASR missade raden helt, så lyssna på skarven. Omformulerat: 'Ungefär som att försöka rota fram privat information om sin lärare'. Alternativ med samma innehåll: #231–#233 ('få reda på privata uppgifter om läraren').",
+   "M35 (#236): den dubbla 'ungefär' finns bara i SRT, och ASR är tom för raden. Om det bara sägs ETT 'ungefär' tar du inte bort något (drop_head 0), annars försvinner ordet.",
+   "M36 (#270–#273): omformulerad till 'oförtrutet i dagar' (manus: 'oavbrutet') och 'för att fuska sig till högsta poäng på ett prov' (manus: 'för en chans att lyckas fuska på ett prov'). Tagningen börjar bara 0,7 s efter det avbrutna #269 ('…i dagar för att'), så kontrollera att skarven är ren. Alternativ: #264–#268 ('…som de alltså egentligen redan hade svaret till').",
+   "M38 (#274–#279): 'djupt' fattas, hon säger 'tog sig snabbt in i företagets infrastruktur' (manus: 'snabbt djupt in'). Detta är enda tagningen. ASR hör 'Huggling Face' i #276, lyssna efter felsägning. Kontrollera också 'och' före 'privata databaser'.",
+   "M39: omformulerad till 'Innan Hugging Face hann stoppa attacken avbröts den av okänd anledning när nästan alla agenterna plötsligt stängdes ner samtidigt'. Den klipps ihop av #285–#287, där slutet av #287 ('när nästan alla agenterna stängdes') tas bort, och #290. Både SRT ('sänjs') och ASR ('händes') hör fel på 'stängdes' i #290, så lyssna efter otydligt uttal. Om det låter fel är alternativet #285–#288 i ett stycke (utan 'plötsligt').",
+   "M40: den valda tagningen #294–#298 innehåller en tillagd inledning som inte finns i manuset: 'Man vet fortfarande inte varför, men det kan ha varit så att…'. Versionen som ligger närmare manuset är #291–#293 ('Kanske för att nån på OpenAI…'). Välj efter smak.",
+   "M40 (#295–#296): ASR hör 'kan ha' i både #295 och #296. Det är troligen bara överlapp vid radgränsen, eftersom SRT-raderna ligger kant i kant (17:54.40) utan upprepning, men lyssna efter ett eventuellt 'det kan ha– kan ha varit'."
+  ],
+  "changes": []
+ },
+ {
+  "section": 5,
+  "missing": [],
+  "flags": [
+   "M41: säger 'de 1200 agenter' (manus: 'agenterna'). Siffran 1200 stämmer. Klippet #304–#310 täcker M41–M44 i en sammanhängande tagning.",
+   "M45: säger 'otroligt nog' i alla försök i stället för manusets 'tyvärr', alltså medvetet. SRT stavar #316 'och tror det nog', så lyssna att 'otroligt' är rent.",
+   "M46: säger 'en ny modell utvärderas' (manus: 'några nya modeller'). Medvetet, M47:s 'Instanserna av den' bygger på det. SRT hör 'utföras', ASR hör 'utvärderas', så lyssna.",
+   "M47: omformulerad till 'Instanserna av den verkade vara mer kapabla. Dom hittade snabbt…'. SRT hör 'uppsättningarna' i #323 där ASR hör 'upptäckterna', lyssna. I #322 hör ASR 'De hittades snabbt' och SRT 'dom hittade', så kontrollera att det inte är en felsägning. Klippet är ihopsatt av #321–#323 (trimmad efter 'där') och omtagningen #325. Ordet 'och' i början av #325 kan börja före SRT-radens start 19:50.93 (ASR har ett fristående 'och' någonstans i 19:49.48–19:51.32). Ta med början men inget av slutet på #324 ('hacka OpenAI själva').",
+   "M48: SRT hör 'administrativ kontroll' i #337 medan ASR hör 'administrationskontroll', lyssna. Säger 'och läste nära (ett) tusen säkerhetskoder' (SRT hör 'ett tusen', ASR 'tusen'). Siffran nära 1000 stämmer. Ordet 'och' har lagts till jämfört med manus.",
+   "M49: säger 'vi någonsin kommer ha' utan 'att' (manus: 'kommer att ha'). Både SRT och ASR hör det i #347. Den tidigare kompletta tagningen #344 har kanske 'kommer att ha' (ASR), om du föredrar manusets ordalydelse.",
+   "M50: säger 'Utvecklingen går i en rasande fart' (manus: 'går rasande fort').",
+   "M51: den kasserade falska starten #349 'ju starkare modellerna blir' slutar bara 0,2 s före #350, så klipp tätt. SRT hör 'dessutom svårare' i #351 där ASR hör 'desto svårare'. Det finns ingen annan tagning, så lyssna att det är 'desto'.",
+   "M52: säger 'har alltså AI-agenter lyckats hacka' (manus: 'har agenter alltså hackat'). Omformuleringen är medveten. SRT delar 'AI | agenter' mellan #357 och #358 med ett glapp på 0,2 s, så lyssna efter ett avbrott mellan 'AI' och 'agenter'.",
+   "M53: de sista tagningarna säger 'övervaka' i stället för manusets 'överblicka', och 'modellerna blir betydligt mer kapabla' i stället för 'de är mycket mer kapabla'. Vill du ha manusets ord 'överblicka' finns det i det tidigare kompletta försöket #360–#361 ('agenterna blir betydligt mer kapabla och mycket svårare att överblicka'). Klippet är ihopsatt av #367 och #369, och #368 (samma avslutning) används inte. Varianterna 'blir betydligt kraftfullare?' (#359, #362) har tolkats som självrättelser och används inte. Den avbrutna starten #366 slutar 0,4 s före #367, så klipp tätt.",
+   "M54: rader behöver trimmas mitt i. #373 börjar med stumpen 'benjamins' från ett avbrutet försök som ska bort. ASR hör bara en upprepning i #371–#373 medan SRT hör tre, men SRT-tiderna (9 ord på 2,3 s i #373) stöder SRT. Visar det sig vid lyssning att #372–#374 är en sammanhängande tagning, använd #372–#374 utan trimning. Omformulerad till 'I det kommande avsnittet … kommer vi prata om bland annat detta'.",
+   "M55: enda tagningen. 'agera i AI-frågan, till exempel via' har ersatts med 'agera själv på', så ordet AI-frågan saknas. Säger 'Spana in det' (manus: 'den'), vilket passar med 'avsnittet' i M54. Lyssna att adressen uttalas rätt (SRT hör 'jonas messen', ASR 'jonassmessen'), och kontrollera att 'von' hörs.",
+   "M56: #381 är ett ensamt 'tack' efter sista tagningen och är inte med. Det kan vara en påbörjad fjärde tagning."
+  ],
+  "changes": [
+   "Inga ändringar i picks. Jag har kontrollerat rad för rad och kommit fram till samma val: sista kompletta försöket för varje mening, korrekta frasgränser vid M47 och M53, och rätt trimning ('och lyckades efter en vecka' = 5 ord sist i #323, 'benjamins' = 1 ord först i #373). Den löpande texten blir hel utan dubbla eller saknade ord.",
+   "Ny flagga för M49: 'kommer ha' i stället för manusets 'kommer att ha'.",
+   "Ny flagga för M51: SRT hör 'dessutom' där ASR hör 'desto'. Det kan vara en felsägning, och det finns ingen annan tagning.",
+   "Ny flagga för M52: glapp på 0,2 s mitt i 'AI-agenter' (#357/#358), lyssna efter ett avbrott.",
+   "Tillägg i M47-flaggan: ASR hör 'hittades' i #322, lyssna.",
+   "Tillägg i M54-flaggan: SRT-tiderna i #373 stöder tolkningen med tre starter."
+  ]
+ }
+]

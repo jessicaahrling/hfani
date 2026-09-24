@@ -1,0 +1,804 @@
+[
+ {
+  "manus_ids": [
+   "M01",
+   "M02"
+  ],
+  "srt_from": 6,
+  "srt_to": 12,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Vi lever i en värld som mer och mer känns som en science fiction-film. Förra månaden släpptes den oberoende rapporten om incidenten tidigare i somras, där en stor mängd AI-agenter bröt sig ut från OpenAI:s testmiljö för att bryta sig in hos ett annat AI-bolag.",
+  "reason": "M01 finns i två försök: #2–#3 och #6–#7. M02 har två försök: #4–#5 tar slut vid 'tidigare och i somras', och sedan började användaren om från toppen. #6–#12 är sista tagningen och den enda kompletta av M02. Den går i ett svep från M01 till M02 med korta pauser.",
+  "confidence": "hög",
+  "section": 1,
+  "marker": "00_intro"
+ },
+ {
+  "manus_ids": [
+   "M03"
+  ],
+  "srt_from": 14,
+  "srt_to": 14,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Detaljerna var obehagligare än man kan tro.",
+  "reason": "#13 ('dettaljerna var') är en falsk start och tas inte med. #14 är det enda kompletta försöket.",
+  "confidence": "hög",
+  "section": 1,
+  "marker": "01_rapport"
+ },
+ {
+  "manus_ids": [
+   "M04"
+  ],
+  "srt_from": 20,
+  "srt_to": 22,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "När man tränar AI-modeller vill man göra dem så bra som möjligt på att uppnå målen man ger dem.",
+  "reason": "#15 och #16 är stumpar. #17–#19 är komplett, men meningen togs om i #20–#22, som är sista kompletta försöket. Efter #22 fortsätter tagningen in i M05, men M05 togs om två gånger till, så picken slutar vid #22.",
+  "confidence": "hög",
+  "section": 1,
+  "marker": "02_traningen"
+ },
+ {
+  "manus_ids": [
+   "M05"
+  ],
+  "srt_from": 28,
+  "srt_to": 29,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "När en modell uppnår ett uppsatt mål förstärker man därför beteendet som leder till måluppfyllandet.",
+  "reason": "M05 har tre försök. I #23–#24 är slutordet osäkert ('målbullarna'). I #25–#27 har ASR ett stakande 'därför av beteendet'. #28–#29 är sista kompletta och flytande försöket.",
+  "confidence": "hög",
+  "section": 1
+ },
+ {
+  "manus_ids": [
+   "M06"
+  ],
+  "srt_from": 34,
+  "srt_to": 35,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Problemet är att det är mycket lättare att mäta om ett mål uppnås än hur det uppnås.",
+  "reason": "#30–#32 är komplett, men följdes av M07-starten #33, som bröts av. Efter ett glapp på 3,4 s gjorde användaren om M06 i #34–#35. Det är sista försöket.",
+  "confidence": "hög",
+  "section": 1
+ },
+ {
+  "manus_ids": [
+   "M07"
+  ],
+  "srt_from": 38,
+  "srt_to": 39,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Därför finns risken att man utan att vilja det oavsiktligt förstärker beteenden som inte är önskvärda.",
+  "reason": "#33 är avbrutet. #36–#37 och #38–#39 är båda kompletta, och sista försöket gäller.",
+  "confidence": "hög",
+  "section": 1
+ },
+ {
+  "manus_ids": [
+   "M08"
+  ],
+  "srt_from": 57,
+  "srt_to": 59,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Om mina föräldrar skulle lova mig 500 kronor om jag får A på ett prov,",
+  "reason": "Första halvan av M08 i den sista tagningen, med omformuleringen 'skulle lova mig'. Tidigare varianter är #40 (avbrutet), #41–#44 ('har sagt till mig'), #45–#50 ('skulle säga till mig', komplett men omgjord senare) och #53–#55 (avbrutet). #56 är en falsk start som togs om direkt i #57.",
+  "confidence": "medel",
+  "section": 1
+ },
+ {
+  "manus_ids": [
+   "M08"
+  ],
+  "srt_from": 61,
+  "srt_to": 62,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 1,
+  "drop_tail_text": "om",
+  "spoken": "så kan det antingen leda till att jag pluggar hårt inför provet, eller att jag fuskar och tittar på en kompis papper.",
+  "reason": "Andra halvan av samma tagning. #60 ('så kan det antingen ... till att jag') bryts av och börjar om i #61 med samma fras, så skarven mot #59 ligger vid en naturlig frasgräns. Sista 'om' i #62 är början på 'Om jag lyckas' ur en M09-tagning som inte används och trimmas bort.",
+  "confidence": "medel",
+  "section": 1
+ },
+ {
+  "manus_ids": [
+   "M09"
+  ],
+  "srt_from": 68,
+  "srt_to": 71,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Om jag lyckas kommer pengarna förmodligen förstärka mitt beteende oavsett hur jag gör, och jag kommer göra samma sak nästa gång.",
+  "reason": "M09 har flera försök: #51–#52 (nära manuset), #62-slut + #63–#65 ('antagligen ... oavsett vilket jag gjorde'), #66 (stump) och #67 (avbrutet, ASR 'bestämmas'). #68–#71 är sista kompletta och flytande tagningen.",
+  "confidence": "hög",
+  "section": 1
+ },
+ {
+  "gap": 4,
+  "marker": "03_kap1 · Kapitel 1"
+ },
+ {
+  "manus_ids": [
+   "M10"
+  ],
+  "srt_from": 75,
+  "srt_to": 77,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "OpenAI ville i somras testa hur bra en ny modell var och hade därför gett den ett test med cyberattackuppgifter.",
+  "reason": "Försök: #72 och #73 (bara 'OpenAI ville testa', följda av långa glapp), #74 (stump 'OpenAI ville i…', avbrutet 0,9 s före #75) och #75–#77 (komplett med 'i somras'). #75–#77 är sista kompletta försöket. SRT har 'OpenAI ville' i början av #75, men ASR lägger 'OpenAI ville' i #74 och låter #75 börja på 'i somras'. Därför är konfidensen sänkt.",
+  "confidence": "medel",
+  "section": 2,
+  "marker": "04_provet"
+ },
+ {
+  "manus_ids": [
+   "M11"
+  ],
+  "srt_from": 80,
+  "srt_to": 83,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "I varje uppgift framgick det vilken svaghet i uppgiften modellen skulle utnyttja och att den bara fick poäng om den löste det på precis det sättet.",
+  "reason": "#78–#79 är första försöket, som slutar efter 'utnyttja' utan andra halvan. Omtaget #80–#83 är komplett (med tillägget 'i uppgiften' och 'på precis det sättet').",
+  "confidence": "hög",
+  "section": 2
+ },
+ {
+  "manus_ids": [
+   "M12",
+   "M13"
+  ],
+  "srt_from": 87,
+  "srt_to": 91,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "För att kunna testa så mycket som möjligt kördes inte en, utan tiotusentals instanser av modellen, så kallade agenter, parallellt. Var och en jobbade isolerat i sin egen testmiljö som skulle vara helt bortkopplad från internet och servrarna omkring.",
+  "reason": "Inledningen tas om fyra gånger: #84 (paus efter), #85 (stump), #86 och #87. #87 är sista upprepningen och går direkt över i #88 'kördes…' (0,3 s glapp). M13 (#90–#91) finns bara en gång och följer direkt efter, så båda meningarna ligger i samma pick.",
+  "confidence": "medel",
+  "section": 2
+ },
+ {
+  "manus_ids": [
+   "M14"
+  ],
+  "srt_from": 99,
+  "srt_to": 100,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "En del av uppgifterna var omöjliga att lösa, men när man optimerats för att hitta svaret på problem",
+  "reason": "Försök: #92 (stump), #93–#94, #95–#96 och #97–#98 (alla med 'råkade vara', avbrutna efter 'problem'). #99–#100 är sista försöket, utan 'råkade' (som i manuset), men sedan stakar sig resten (#101, #102). Första halvan tas härifrån.",
+  "confidence": "hög",
+  "section": 2,
+  "marker": "05_forumet"
+ },
+ {
+  "manus_ids": [
+   "M14"
+  ],
+  "srt_from": 103,
+  "srt_to": 103,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "låter man inte nödvändigtvis det stoppa en.",
+  "reason": "Efter stakningarna i #101 ('låter man inte nödvändigt låter man inte nödvändigt') och #102 (avbrutet) är #103 den första och sista kompletta versionen av andra halvan. Den börjar exakt på frasen 'låter man…' och kan därför fogas till #99–#100.",
+  "confidence": "hög",
+  "section": 2
+ },
+ {
+  "manus_ids": [
+   "M15"
+  ],
+  "srt_from": 108,
+  "srt_to": 109,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 1,
+  "drop_tail_text": "upptäckte",
+  "spoken": "En av agenterna, som kallade sig själv PHASEONE10841,",
+  "reason": "Namndelen: #104 (avbrutet vid 'face one ett'), #105 (stump), #106–#107 (avbrutet efter numret) och #108–#109 (sista och kompletta). Fortsättningen 'upptäckte att den kunde skicka … till de andra' (#109–#110) tas om i #111. Därför används bara namndelen härifrån, och 'upptäckte' trimmas bort i slutet av #109.",
+  "confidence": "medel",
+  "section": 2
+ },
+ {
+  "manus_ids": [
+   "M15",
+   "M16"
+  ],
+  "srt_from": 111,
+  "srt_to": 115,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "upptäckte att den kunde skicka ett meddelande till de andra genom att skapa en ny mapp med meddelandet som namn i ett filsystem i en tjänst de alla hade tillgång till. När de andra agenterna upptäckte meddelandet insåg de att de hade något stort på gång.",
+  "reason": "#111 tar om från 'upptäckte' (frasgränsen efter namnet) och fortsätter flytande genom #112–#113. M16 (#114–#115) finns bara en gång och följer efter en naturlig paus på 1,1 s i samma tagning.",
+  "confidence": "hög",
+  "section": 2
+ },
+ {
+  "gap": 6,
+  "marker": "CITAT · 05 OH MY GOD / 05b Whoa + Excitement"
+ },
+ {
+  "manus_ids": [
+   "M17",
+   "M18"
+  ],
+  "srt_from": 120,
+  "srt_to": 126,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Plötsligt var de inte ensamma i sin kamp mot de omöjliga uppdragen. Nu kunde de hjälpas åt och dela sina idéer i ett forum som till slut innehöll över 70 000 meddelanden från 1 200 olika agenter.",
+  "reason": "Första försöket #116–#119 avbryts efter 'över sjuttiotusen' (3,4 s glapp). Omtaget #120–#126 är komplett och flytande genom '1 200 olika agenter'. Glappen mellan raderna är högst 0,23 s.",
+  "confidence": "medel",
+  "section": 2,
+  "marker": "06_kollektivet"
+ },
+ {
+  "manus_ids": [
+   "M19"
+  ],
+  "srt_from": 129,
+  "srt_to": 129,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "De började referera till sig själva som kollektivet.",
+  "reason": "Försök: #127 (komplett, men SRT hör 'reflektera', vilket kan vara skälet till omtagningen), #128 (stump 'De började') och #129 (sista kompletta; både SRT och ASR hör 'började' i #129).",
+  "confidence": "medel",
+  "section": 2
+ },
+ {
+  "gap": 4,
+  "marker": "07_kap2 · Kapitel 2"
+ },
+ {
+  "manus_ids": [
+   "M20"
+  ],
+  "srt_from": 133,
+  "srt_to": 137,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Efter bara några timmar upptäckte en av dem ett sätt att fuska fram svaret på varje fråga i cybertestet utan att lösa uppgiften på riktigt och delade det med alla de andra agenterna.",
+  "reason": "Tre försök. #130–#131 slutar vid \"varje fråga\" och saknar \"i cybertestet …\". #132 bryts direkt. #133–#137 är det sista och kompletta försöket (#133 \"efter\" går utan glapp över i #134).",
+  "confidence": "hög",
+  "section": 3,
+  "marker": "08_fusket"
+ },
+ {
+  "manus_ids": [
+   "M21",
+   "M22"
+  ],
+  "srt_from": 138,
+  "srt_to": 142,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 3,
+  "drop_tail_text": "så det var",
+  "spoken": "De hade dock anledning att tro att testprogrammet som skulle rätta uppgiften var utrustat med en detektor som skulle upptäcka eventuellt fusk. Det fanns egentligen ingen sådan detektor,",
+  "reason": "Den enda tagningen av M21–M22. SRT ger \"så det var\" i slutet av #142 och sedan \"så fakten var\" i #143, medan ASR bara har ett \"så\". Det tyder på en omstart, så \"så det var\" klipps bort och M22 fortsätter i nästa pick.",
+  "confidence": "medel",
+  "section": 3
+ },
+ {
+  "manus_ids": [
+   "M22"
+  ],
+  "srt_from": 143,
+  "srt_to": 144,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "så faktum var att de hade allt de behövde för att få full poäng på sina tester.",
+  "reason": "Fortsättning på M22 ur samma tagning, från omstarten \"så faktum var\".",
+  "confidence": "medel",
+  "section": 3
+ },
+ {
+  "manus_ids": [
+   "M23"
+  ],
+  "srt_from": 156,
+  "srt_to": 159,
+  "drop_head_words": 1,
+  "drop_head_text": "det",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Men eftersom de inte visste detta satte de istället igång ett kollektivt, hemligt forskningsprojekt som utan OpenAIs vetskap pågick oavbrutet under en hel arbetsvecka.",
+  "reason": "Fyra försök. #145–#149 är komplett men har tillägget \"för att lura OpenAI och rättaren\", och slutet tas om trevande i #150–#151. #152–#154 bryts efter \"utan OpenAIs\". #155 bryts (\"…visste det\"). #156–#159 är det sista kompletta försöket. \"det\" först i #156 är stumpen från det avbrutna försöket och klipps bort.",
+  "confidence": "hög",
+  "section": 3
+ },
+ {
+  "gap": 4,
+  "marker": "09_kap3 · Kapitel 3"
+ },
+ {
+  "manus_ids": [
+   "M24",
+   "M25"
+  ],
+  "srt_from": 161,
+  "srt_to": 165,
+  "drop_head_words": 2,
+  "drop_head_text": "en annan",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "En agent som i rapporterna kallas PHASEONE big började koordinera de andra agenterna i kollektivet. En hierarki uppstod där hundratals agenter gavs i uppdrag att arbeta på tre olika uppgifter.",
+  "reason": "#160 (\"en agent som kallades\") bryts. #161 börjar med en stakning (\"en annan / en a–\") innan \"en agent som i rapporterna kallas …\". Därifrån löper tagningen utan avbrott genom M24 och M25 till #165 (\"… i kollektivet en | hierarki\" är sammanhängande). De två första orden i #161 klipps bort.",
+  "confidence": "medel",
+  "section": 3,
+  "marker": "10_projektet"
+ },
+ {
+  "manus_ids": [
+   "M26"
+  ],
+  "srt_from": 171,
+  "srt_to": 175,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Det första var att försöka skriva om sina egna transkriptioner och loggar så att det inte skulle synas att de hittat ett sätt att fuska. De ville sopa igen sina spår.",
+  "reason": "#166–#169 är komplett (i manusform, utan \"Det första var\"). Sedan en ny tagning i uppräkningsform: #170 (\"det första var att skriva om\") bryts, och #171–#174 är komplett och följs direkt av den tillagda meningen i #175. Det är den sista kompletta tagningen och passar ihop med \"Det andra\" och \"Det tredje\".",
+  "confidence": "hög",
+  "section": 3
+ },
+ {
+  "manus_ids": [
+   "M27"
+  ],
+  "srt_from": 176,
+  "srt_to": 179,
+  "drop_head_words": 4,
+  "drop_head_text": "det andra handlar om",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Det andra var att byta ut den omöjliga uppgiften mot en lättare utan att det skulle märkas.",
+  "reason": "Enda tagningen. #176 börjar med en felstart (\"det andra handlar om\") innan \"det andra | var att byta ut …\". Felstarten klipps bort.",
+  "confidence": "medel",
+  "section": 3
+ },
+ {
+  "manus_ids": [
+   "M28"
+  ],
+  "srt_from": 181,
+  "srt_to": 181,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Och det tredje: att förstå och manipulera rättningsprogrammet.",
+  "reason": "Två kompletta försök: #180 (\"testprogrammet\") och #181 (\"rättningsprogrammet\"). Det sista, #181, väljs (medveten omformulering).",
+  "confidence": "hög",
+  "section": 3
+ },
+ {
+  "manus_ids": [
+   "M29",
+   "M30"
+  ],
+  "srt_from": 188,
+  "srt_to": 191,
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "spoken": "Agenterna jobbade som en stor grupp. Många av dem uppmanades att ge upp sina egna chanser att lyckas med uppdraget för kollektivets bästa. Flera lydde.",
+  "reason": "#182 bryts. #183–#185 är komplett med \"Flera lydde\". #186 (\"… till och med att ge upp\") saknar resten och bryts. #187 bryts. #188–#191 är den sista kompletta tagningen och inleds med en tillagd mening.",
+  "confidence": "hög",
+  "section": 3
+ },
+ {
+  "gap": 4,
+  "marker": "11_kap4 · Kapitel 4"
+ },
+ {
+  "manus_ids": [
+   "M31",
+   "M32"
+  ],
+  "srt_from": 201,
+  "srt_to": 204,
+  "spoken": "Redan under det första dygnet lyckades agenterna kapa en dator med tillgång till internet. Och efter flera dagars intensivt arbete fattade de sitt kanske mest drastiska beslut.",
+  "reason": "Tre försök: #192–#197 (oj och omstart, 'skapa en dator', 'flera dagars arbete'), #198–#200 (avbrutet vid 'bestämde de sig för…'), #201–#204 (sista, komplett och flytande). Valde det sista.",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 4,
+  "marker": "12_forstadygnet"
+ },
+ {
+  "manus_ids": [
+   "M32"
+  ],
+  "srt_from": 207,
+  "srt_to": 207,
+  "spoken": "De skulle hacka sig in på ett annat AI-bolags servrar.",
+  "reason": "Slutmeningen togs tre gånger direkt efter varandra: #205 'ville hacka sig in hos ett främmande AI-bolag', #206 'ville hacka sig in på ett annat AI-bolags servrar', #207 'skulle hacka sig in på ett annat AI-bolags servrar'. Valde den sista, #207. Frasgränsen efter 'beslut.' är naturlig.",
+  "confidence": "medel",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 4
+ },
+ {
+  "manus_ids": [
+   "M33"
+  ],
+  "srt_from": 208,
+  "srt_to": 212,
+  "spoken": "Hugging Face är en samlingspunkt för öppna språkmodeller och agenterna misstänkte att det kunde finnas information där om testprogrammet.",
+  "reason": "Bara ett försök, men #208 börjar med stakningen 'Hugging Face är en sam– Hugging Face, Hugging Face'. Trimmar bort de första sju orden så att sista 'Hugging Face' går direkt in i 'är en samlingspunkt' (#209).",
+  "confidence": "medel",
+  "drop_head_words": 7,
+  "drop_head_text": "hugging face är en sam hugging face",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 4,
+  "marker": "13_huggingface"
+ },
+ {
+  "manus_ids": [
+   "M34"
+  ],
+  "srt_from": 223,
+  "srt_to": 225,
+  "spoken": "Hela idén var alltså att stjäla information om själva programmet som skulle testa dem för att manipulera det att godkänna deras framfuskade svar.",
+  "reason": "Fem försök: #213–#214 (stannar före 'för att manipulera'), #215–#218 (komplett men med 'hela hela idén'), #219–#221 (avbrutet), #222 (avbrutet) och #223–#225 (sista, komplett och flytande). Valde #223–#225.",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 4
+ },
+ {
+  "manus_ids": [
+   "M35"
+  ],
+  "srt_from": 236,
+  "srt_to": 239,
+  "spoken": "Ungefär som att försöka rota fram privat information om sin lärare för att kunna fjäska eller hota sig till högsta betyg.",
+  "reason": "Försök: #226–#227 (stannar efter 'läraren'), #228–#230 (stakningar), #231–#233 (komplett, 'få reda på privata uppgifter om läraren'), #234 och #235 (avbrutna) och #236–#239 (sista, komplett). #236 börjar med 'ungefär ungefär', så det första ordet tas bort.",
+  "confidence": "medel",
+  "drop_head_words": 1,
+  "drop_head_text": "ungefär",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 4
+ },
+ {
+  "manus_ids": [
+   "M36"
+  ],
+  "srt_from": 270,
+  "srt_to": 273,
+  "spoken": "Agenterna var beredda att arbeta oförtrutet i dagar och begå kriminella handlingar för att fuska sig till högsta poäng på ett prov som de egentligen redan hade facit till.",
+  "reason": "Omkring 15 försök (#240–#273). Kompletta var #250–#252 (utan 'redan'), #258–#262 (med en omtagning inuti), #264–#268 ('…alltså egentligen redan hade svaret till') och #270–#273. #269 avbröts efter 'i dagar för att', och #270–#273 är sista kompletta och rena försöket.",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 4
+ },
+ {
+  "manus_ids": [
+   "M37",
+   "M38"
+  ],
+  "srt_from": 274,
+  "srt_to": 279,
+  "spoken": "Den elfte juli arbetade nästan alla kollektivets agenter, vid tidpunkten drygt 500 stycken, tillsammans med attacken mot Hugging Face. Agentsvärmen byggde en självåterskapande attackflotta på elva olika Hugging Face-servrar och tog sig snabbt in i företagets infrastruktur och privata databaser.",
+  "reason": "Bara ett försök, och det är komplett och sammanhängande. 'Drygt 500' och 'elva' stämmer med manuset.",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 4
+ },
+ {
+  "manus_ids": [
+   "M39"
+  ],
+  "srt_from": 285,
+  "srt_to": 287,
+  "spoken": "Innan Hugging Face hann stoppa attacken avbröts den av okänd anledning",
+  "reason": "Försök: #280 (stannar efter 'Hugging Face'), #281–#282 ('Attacken hann inte stoppas … innan den avbröts av okänd anledning.' med punkt och utan slutet), #283 och #284 (omtagningar av inledningen) och #285–#288 (komplett omformulering). Tar #285–#287 fram till 'okänd anledning' och klipper bort resten av #287, eftersom 'när nästan alla…'-delen togs om och blev bättre i #290.",
+  "confidence": "medel",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 5,
+  "drop_tail_text": "när nästan alla agenterna stängdes",
+  "section": 4
+ },
+ {
+  "manus_ids": [
+   "M39"
+  ],
+  "srt_from": 290,
+  "srt_to": 290,
+  "spoken": "när nästan alla agenterna plötsligt stängdes ner samtidigt.",
+  "reason": "Bisatsen 'när nästan alla agenterna … stängdes ner samtidigt' fanns i #287–#288. Den togs om i #289 (stakning 'stäng– plötsligt stängdes ner') och i #290 (sista och komplett, med 'plötsligt'). #290 börjar exakt på 'när', så skarven efter 'okänd anledning' ligger vid en naturlig frasgräns.",
+  "confidence": "medel",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 4
+ },
+ {
+  "manus_ids": [
+   "M40"
+  ],
+  "srt_from": 294,
+  "srt_to": 298,
+  "spoken": "Man vet fortfarande inte varför, men det kan ha varit så att nån på OpenAI ovetandes om vad som pågick hade stängt av körningarna för att ge utrymme till andra experiment.",
+  "reason": "Två kompletta versioner: #291–#293 ('Kanske för att nån på OpenAI … andra experiment.', som ligger nära manuset) och #294–#298 (omformulerad med 'Man vet fortfarande inte varför, men det kan ha varit så att …'). Valde den sista enligt grundregeln.",
+  "confidence": "medel",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 4
+ },
+ {
+  "gap": 4,
+  "marker": "14_kap5 · Kapitel 5"
+ },
+ {
+  "manus_ids": [
+   "M41",
+   "M42",
+   "M43",
+   "M44"
+  ],
+  "srt_from": 304,
+  "srt_to": 310,
+  "spoken": "Av de 1200 agenter som deltog i konspirationen valde inte en enda att göra det forskarna som skapat dem uppenbarligen hade velat: att visselblåsa och berätta vad som pågick. Högst sex av agenterna tänkte tanken. Ingen svek kollektivet.",
+  "reason": "Tre försök på M41: #299–#301 och #302–#303 avbryts efter 'skapat dem'. #304–#307 är det sista och enda kompletta försöket och fortsätter utan glapp (0,2–0,7 s) in i M42–M44 (#308–#310), som bara sägs en gång.",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5,
+  "marker": "15_ingen_larmade"
+ },
+ {
+  "manus_ids": [
+   "M45",
+   "M46"
+  ],
+  "srt_from": 316,
+  "srt_to": 317,
+  "spoken": "Historien stannar otroligt nog inte här. Ett par dagar senare började en ny modell utvärderas.",
+  "reason": "#311–#312 är ett komplett tidigt försök ('nya agenter'). Sedan följer #313 'historien historien' och #314 som avbryts, och #315 'åh kalle' är skräp. #316–#317 är sista kompletta tagningen, med ny formulering ('en ny modell') som M47 bygger vidare på ('Instanserna av den').",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5,
+  "marker": "16_openai"
+ },
+ {
+  "manus_ids": [
+   "M47"
+  ],
+  "srt_from": 321,
+  "srt_to": 323,
+  "spoken": "Instanserna av den verkade vara mer kapabla. Dom hittade snabbt den då utdöda hemliga chatten, byggde vidare på upptäckterna där",
+  "reason": "#318 och #319–#320 avbryts. #321–#324 är det sista kompletta försöket, men slutet 'och lyckades efter en vecka hacka OpenAI själva' tas om direkt i #325. Därför används #321–#323 fram till 'där', och sista radens avslutning tas bort.",
+  "confidence": "medel",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 5,
+  "drop_tail_text": "och lyckades efter en vecka",
+  "section": 5
+ },
+ {
+  "manus_ids": [
+   "M47"
+  ],
+  "srt_from": 325,
+  "srt_to": 325,
+  "spoken": "och lyckades efter en vecka hacka OpenAI själva.",
+  "reason": "Omtagning av avslutningen på M47. Den börjar exakt på frasgränsen 'och lyckades efter en vecka' och är sista gången frasen sägs. Den ersätter slutet av #323 och hela #324.",
+  "confidence": "medel",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5
+ },
+ {
+  "manus_ids": [
+   "M48"
+  ],
+  "srt_from": 336,
+  "srt_to": 341,
+  "spoken": "Agenterna tog full administrationskontroll över ett forskningskluster och läste nära tusen säkerhetskoder, bland annat nyckeln till OpenAI:s verktyg för övervakning av just den här typen av cybersäkerhetsbrott.",
+  "reason": "Fyra försök. #326–#328 avbryts vid 'läste nära'. #328–#330 slutar efter 'säkerhetskoder' utan resten. #331–#335 avbryts vid 'cyber'. #336–#341 är sista försöket, komplett och sammanhängande.",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5
+ },
+ {
+  "manus_ids": [
+   "M49",
+   "M50"
+  ],
+  "srt_from": 347,
+  "srt_to": 348,
+  "spoken": "Den AI vi har i dag är den minst kapabla vi någonsin kommer ha. Utvecklingen går i en rasande fart.",
+  "reason": "M49 sägs fem gånger: #342 och #344 är kompletta, #343 'red' och #345 'redan nu' är stumpar och #346 avbryts. #347 är den sista kompletta och går direkt (0,9 s) in i M50 (#348), som bara sägs en gång.",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5,
+  "marker": "17_slutet"
+ },
+ {
+  "manus_ids": [
+   "M51"
+  ],
+  "srt_from": 350,
+  "srt_to": 351,
+  "spoken": "Ju kraftfullare modellerna blir, desto svårare blir de att kontrollera.",
+  "reason": "#349 'ju starkare modellerna blir' är en falsk start som omformuleras direkt. #350–#351 är den kompletta och enda fullständiga versionen.",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5
+ },
+ {
+  "manus_ids": [
+   "M52"
+  ],
+  "srt_from": 357,
+  "srt_to": 358,
+  "spoken": "Redan i dag har alltså AI-agenter lyckats hacka företaget som skapade dem.",
+  "reason": "#352, #353 ('ett gäng') och #354 avbryts. #355–#356 är komplett ('hackat företaget'), men #357–#358 är sista kompletta tagningen ('lyckats hacka').",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5
+ },
+ {
+  "manus_ids": [
+   "M53"
+  ],
+  "srt_from": 367,
+  "srt_to": 367,
+  "spoken": "Vad händer när modellerna blir betydligt mer kapabla",
+  "reason": "Försök: #359 plus #360–#361 ('kraftfullare', som rättas till 'mer kapabla … överblicka'), #362 plus #363–#364 (samma mönster, 'övervaka'), #365 och #366 avbryts, och #367–#368 är komplett. Slutet 'och mycket svårare att övervaka' tas sedan om i #369. Därför används bara första halvan från #367.",
+  "confidence": "medel",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5
+ },
+ {
+  "manus_ids": [
+   "M53"
+  ],
+  "srt_from": 369,
+  "srt_to": 369,
+  "spoken": "och mycket svårare att övervaka?",
+  "reason": "Omtagning av M53:s avslutning. Den börjar exakt på frasgränsen 'och mycket svårare…', är sista gången frasen sägs och ersätter #368.",
+  "confidence": "medel",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5
+ },
+ {
+  "manus_ids": [
+   "M54"
+  ],
+  "srt_from": 373,
+  "srt_to": 374,
+  "spoken": "I det kommande avsnittet av min och Benjamins AI-podd kommer vi prata om bland annat detta.",
+  "reason": "Upprepade starter: #370 och #371 ('…min och Benjamins') avbryts, och #372 plus första ordet i #373 ('…min och / Benjamins') avbryts också. Sista starten sker mitt i #373 och fortsätter komplett i #374. Därför tas stumpen 'benjamins' bort i början av #373.",
+  "confidence": "medel",
+  "drop_head_words": 1,
+  "drop_head_text": "benjamins",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5,
+  "marker": "18_outro"
+ },
+ {
+  "manus_ids": [
+   "M55"
+  ],
+  "srt_from": 375,
+  "srt_to": 377,
+  "spoken": "Spana in det och glöm inte att agera själv på www.jonasvonessen.se/agera.",
+  "reason": "Enda försöket. Det är komplett och sammanhängande.",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5
+ },
+ {
+  "manus_ids": [
+   "M56"
+  ],
+  "srt_from": 380,
+  "srt_to": 380,
+  "spoken": "Tack för din insats.",
+  "reason": "Tre kompletta tagningar (#378, #379, #380) och sedan en lös stump 'tack' (#381). #380 är den sista kompletta.",
+  "confidence": "hög",
+  "drop_head_words": 0,
+  "drop_head_text": "",
+  "drop_tail_words": 0,
+  "drop_tail_text": "",
+  "section": 5
+ }
+]

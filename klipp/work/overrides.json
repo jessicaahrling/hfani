@@ -1,0 +1,56 @@
+{
+ "_kommentar": "Handbestämda klipppunkter (sekunder i källan) för trimningar mitt i en SRT-rad, satta i pausen mellan orden enligt ljudnivå och ordtider. Nyckel = första manus-id + ':' + srt_from.",
+ "M08:61": {
+  "cut_in": 294.62,
+  "cut_out": 301.9,
+  "varför": "in före det mjuka 's' i 'Så kan' (stiger från 294.72); ut efter 'papper', före 'Om jag lyckas' (tystnad 301.75–302.61)"
+ },
+ "M15:108": {
+  "cut_out": 453.12,
+  "varför": "efter 'PHASEONE10841', före 'upptäckte' (tystnad 452.96–453.34)"
+ },
+ "M21:138": {
+  "cut_out": 564.3,
+  "varför": "efter 'detektor', före 'så det var' (tystnad 564.13–564.47)"
+ },
+ "M22:143": {
+  "spoken": "Faktum var att de hade allt de behövde för att få full poäng på sina tester.",
+  "varför": "'så' ligger 0,8 s före med tystnad emellan; klippet börjar på 'Faktum'"
+ },
+ "M23:156": {
+  "cut_in": 616.44,
+  "varför": "efter stumpen 'det', före 'Men eftersom' (paus 616.37–616.49)"
+ },
+ "M24:161": {
+  "cut_in": 640.15,
+  "varför": "efter felstarten 'en annan', före 'En agent' (tystnad 639.65–640.27)"
+ },
+ "M27:176": {
+  "cut_in": 682.25,
+  "varför": "efter 'det andra handlar om', före 'Det andra var' (tystnad 682.06–682.35)"
+ },
+ "M33:208": {
+  "cut_in": 822.47,
+  "varför": "före sista 'Hugging Face' (tystnad 822.39–822.56)"
+ },
+ "M35:236": {
+  "cut_in": 899.46,
+  "varför": "efter första 'ungefär' (paus 899.42–899.50)"
+ },
+ "M39:285": {
+  "cut_out": 1054.64,
+  "varför": "efter 'okänd anledning', före 'när nästan' (kort paus 1054.62–1054.66)"
+ },
+ "M47:321": {
+  "cut_out": 1186.52,
+  "varför": "efter 'där', före 'och lyckades' (tystnad 1186.35–1186.63)"
+ },
+ "M54:373": {
+  "cut_in": 1382.25,
+  "varför": "efter stumpen 'benjamins', före 'I det kommande' (tystnad 1382.16–1382.30)"
+ },
+ "M17:120": {
+  "cut_out": 504.84,
+  "varför": "'agenter' klingar ut till 504.65; tystnad till 505.37"
+ }
+}

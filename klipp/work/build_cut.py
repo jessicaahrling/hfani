@@ -8,7 +8,7 @@ asr=json.load(open('asr_full.json'));W=[w for s in asr for w in s['words']]
 for w in W:w['m']=(w['s']+w['e'])/2
 db=np.load('energy.npy');FR=0.01;NF=len(db);DUR=NF*FR
 manus={m['id']:m for m in json.load(open('manus_meningar.json'))}
-P=json.load(open('picks_final.json'))
+P=json.load(open('picks_final.json'));OV=json.load(open('overrides.json'))
 norm=lambda s:re.sub(r'[^a-zåäö0-9]','',s.lower())
 
 def words_in(t0,t1):return [w for w in W if t0-.3<=w['m']<=t1+.3]
@@ -46,26 +46,53 @@ def silent_runs(t0,t1,thr,minlen):
             k=j
         else:k+=1
     return runs
-def refine(t_in,t_out):
-    notes=[];thr=thr_at((t_in+t_out)/2)
-    # in: sista tystnaden (>=100 ms) som slutar nära t_in
-    r=[x for x in silent_runs(t_in-.8,t_in+.35,thr,.10) if x[1]<=t_in+.35]
-    if r:onset=r[-1][1];cin=max(r[-1][0]+.02,onset-.12)
-    else:onset=t_in;cin=t_in-.05;notes.append('in utan tystnad')
-    # ut: första tystnaden (>=150 ms) som börjar efter t_out-0.3
-    r=[x for x in silent_runs(t_out-.3,t_out+1.0,thr,.15) if x[0]>=t_out-.3]
-    if r:off=r[0][0];cout=min(r[0][1]-.03,off+.2)
-    else:off=t_out;cout=t_out+.05;notes.append('ut utan tystnad')
-    return cin,cout,onset,off,notes
-
+def is_sil(k,thr):return db[k]<thr
+def refine_in(t,thr):
+    k=int(round(t/FR))
+    if is_sil(k,thr):   # tystnad vid t: gå framåt till talstart
+        j=k
+        while j<min(NF,k+60) and is_sil(j,thr):j+=1
+        on=j;s0=k
+        while s0>max(0,k-150) and is_sil(s0-1,thr):s0-=1
+    else:               # tal vid t: gå bakåt till en tystnad >= 60 ms
+        j=k;on=None
+        while j>max(0,k-50):
+            if is_sil(j-1,thr):
+                e=j;s0=j-1
+                while s0>0 and is_sil(s0-1,thr):s0-=1
+                if (e-s0)>=6:on=e;break
+                j=s0
+            else:j-=1
+        if on is None:return t-.03,['in utan tystnad']
+    return max((s0+3)*FR,on*FR-.12),[]
+def refine_out(t,thr):
+    k=int(round(t/FR))
+    if is_sil(k,thr):   # tystnad vid t: gå bakåt till sista talet
+        j=k
+        while j>max(0,k-60) and is_sil(j-1,thr):j-=1
+        off=j;e=k
+        while e<min(NF,k+150) and is_sil(e,thr):e+=1
+    else:               # tal vid t: gå framåt till en tystnad >= 120 ms
+        j=k;off=None
+        while j<min(NF,k+100):
+            if is_sil(j,thr):
+                s0=j;e=j
+                while e<NF and is_sil(e,thr):e+=1
+                if (e-s0)>=12:off=s0;break
+                j=e
+            else:j+=1
+        if off is None:return t+.03,['ut utan tystnad']
+    return min((e-3)*FR,off*FR+.2),[]
 items=[];flags=[]
 for p in P:
     if p.get('gap'):items.append({'gap':p['gap'],'marker':p.get('marker','')});continue
-    if p.get('asr_only_start'):t0,t1,how=p['asr_only_start'],p['asr_only_end'],['asr-only']
-    else:
-        t0,t1=srt[p['srt_from']]['s'],srt[p['srt_to']]['e']
-        t0,t1,how=boundary(p,t0,t1)
-    cin,cout,on,off,notes=refine(t0,t1)
+    ov=OV.get(f"{p['manus_ids'][0]}:{p['srt_from']}",{})
+    if 'spoken' in ov:p['spoken']=ov['spoken']
+    t0,t1=srt[p['srt_from']]['s'],srt[p['srt_to']]['e'];how=[];thr=thr_at((t0+t1)/2);notes=[]
+    if 'cut_in' in ov:cin=ov['cut_in'];how.append('in:fast')
+    else:cin,n1=refine_in(t0,thr);notes+=n1
+    if 'cut_out' in ov:cout=ov['cut_out'];how.append('ut:fast')
+    else:cout,n2=refine_out(t1,thr);notes+=n2
     if cout-cin<.3:flags.append(f"kort klipp {p['manus_ids']}");
     items.append({'in':round(cin,3),'out':round(cout,3),'manus':p['manus_ids'],'spoken':p['spoken'],'srt':[p.get('srt_from'),p.get('srt_to')],'how':how,'notes':notes,'marker':p.get('marker','')})
 # överlapp mellan klipp i källan (samma ljud två gånger)?
@@ -133,4 +160,4 @@ open('filter.txt','w').write(';\n'.join(fl))
 subprocess.run(['ffmpeg','-y','-loglevel','error','-i',src,'-filter_complex_script','filter.txt','-map','[o]','-c:a','libmp3lame','-b:a','128k','grovklipp_lyssna.mp3'],check=True)
 print(f"{n} klipp, {pos/60:.1f} min, flaggor: {len(flags)}");[print(' !',x) for x in flags]
 for x in cl:
-    if x['notes'] or 'andel' in ' '.join(x['how']):print(' ~',x['manus'],x['how'],x['notes'])
+    if x['notes']:print(' ~',x['manus'],x['how'],x['notes'])
