@@ -1,0 +1,1524 @@
+1
+00:00:37,666 --> 00:00:39,733
+vill du bli med
+
+2
+00:01:29,966 --> 00:01:31,566
+vi lever i en värld
+
+3
+00:01:31,766 --> 00:01:34,533
+som mer och mer känns som en science fictionfilm
+
+4
+00:01:35,200 --> 00:01:38,300
+förra månaden släpptes den oberoende rapporten
+
+5
+00:01:38,700 --> 00:01:40,933
+om incidenten tidigare och i somras
+
+6
+00:01:46,600 --> 00:01:48,866
+vi lever i en värld som mer och mer
+
+7
+00:01:49,000 --> 00:01:50,766
+känns som en science fictionfilm
+
+8
+00:01:51,466 --> 00:01:52,266
+förra månaden
+
+9
+00:01:52,366 --> 00:01:54,133
+släpptes den obehörda rapporten
+
+10
+00:01:54,266 --> 00:01:57,300
+om incidenten tidigare somras där en stor mängd ai
+
+11
+00:01:57,566 --> 00:02:01,000
+agenter bröt sig ut från openas testmiljö för att brytas
+
+12
+00:02:01,133 --> 00:02:03,166
+in hos ett annat ai bolag
+
+13
+00:02:04,333 --> 00:02:05,533
+dettaljerna var
+
+14
+00:02:06,100 --> 00:02:09,300
+detaljerna var obehagliga än man kan tro
+
+15
+00:02:17,300 --> 00:02:18,133
+när man tränar
+
+16
+00:02:18,966 --> 00:02:20,366
+när man tränar a igen
+
+17
+00:02:20,733 --> 00:02:22,266
+när man tränar a modeller
+
+18
+00:02:22,466 --> 00:02:25,066
+vill man göra dom så bra som möjligt på att uppnå målen
+
+19
+00:02:25,200 --> 00:02:26,000
+man ger dom
+
+20
+00:02:27,766 --> 00:02:29,266
+när man tränar av modeller
+
+21
+00:02:29,366 --> 00:02:31,366
+vill man göra dom så bra som möjligt på att uppnå
+
+22
+00:02:31,500 --> 00:02:32,533
+målen man ger dom
+
+23
+00:02:33,000 --> 00:02:35,166
+när en modell uppnår ett uppsatt mål
+
+24
+00:02:35,333 --> 00:02:38,900
+förstärker man därför beteendet som ledde till målbullarna
+
+25
+00:02:39,966 --> 00:02:42,133
+när en modell uppnår ett uppsatt mål
+
+26
+00:02:42,300 --> 00:02:44,100
+förstärker man därför beteendet
+
+27
+00:02:44,266 --> 00:02:46,166
+som leder till måloppfyndandet
+
+28
+00:02:47,100 --> 00:02:50,333
+när en modell uppnår ett uppsatt mål förstärker
+
+29
+00:02:50,400 --> 00:02:53,300
+man därför beteendet som leder till måloppfyndandet
+
+30
+00:02:54,666 --> 00:02:55,266
+problemet
+
+31
+00:02:55,266 --> 00:02:58,666
+är att det är mycket lättare att mäta om ett mål uppåss
+
+32
+00:02:58,800 --> 00:03:00,333
+än hur det uppåss
+
+33
+00:03:00,800 --> 00:03:03,500
+därför finns risken att man utan att vilja det
+
+34
+00:03:06,900 --> 00:03:09,666
+problemet är att det är mycket lättare att mäta
+
+35
+00:03:09,866 --> 00:03:13,133
+om ett mål uppnådds än hur det uppnådds
+
+36
+00:03:16,600 --> 00:03:19,200
+därför finns risken att man utan att vilja det
+
+37
+00:03:19,400 --> 00:03:22,766
+oavsiktligt förstärker beteenden som inte är önskvärda
+
+38
+00:03:24,066 --> 00:03:26,500
+därför finns risken att man utan att vilja det
+
+39
+00:03:26,766 --> 00:03:29,966
+oavsiktligt förstärker beteenden som inte är önskvärda
+
+40
+00:03:47,066 --> 00:03:50,133
+om jag får femhundra kronor av mina föräldrar för att
+
+41
+00:04:01,400 --> 00:04:02,733
+om jag får om
+
+42
+00:04:02,866 --> 00:04:03,666
+mina föräldrar
+
+43
+00:04:03,666 --> 00:04:05,466
+har sagt till mig att jag får femhundra kronor
+
+44
+00:04:05,566 --> 00:04:07,066
+om jag får a på ett prov
+
+45
+00:04:07,700 --> 00:04:08,566
+om mina föräldrar
+
+46
+00:04:08,700 --> 00:04:10,466
+skulle säga till mig att jag får femhundra kronor
+
+47
+00:04:10,566 --> 00:04:11,733
+om jag får av på ett prov
+
+48
+00:04:12,066 --> 00:04:15,066
+ska den antingen leda till att jag pluggar hårt i förprovet
+
+49
+00:04:15,533 --> 00:04:17,666
+eller att jag fuskar och titta på en kompis
+
+50
+00:04:20,900 --> 00:04:23,866
+eller att jag fuskar och tittar på en kompis papper
+
+51
+00:04:24,500 --> 00:04:26,900
+oavsett vilket så kommer pengarna förmodligen
+
+52
+00:04:27,066 --> 00:04:28,600
+förstärka mitt beteende
+
+53
+00:04:38,566 --> 00:04:39,533
+om jag får fem
+
+54
+00:04:39,700 --> 00:04:40,500
+och mina föräldrar
+
+55
+00:04:40,666 --> 00:04:42,966
+säger till mig att jag får femhundra kronor om jag får a
+
+56
+00:04:45,100 --> 00:04:47,066
+om mina föräldrar lovar mig
+
+57
+00:04:47,933 --> 00:04:48,866
+om mina föräldrar
+
+58
+00:04:48,966 --> 00:04:49,700
+skulle lova mig
+
+59
+00:04:49,700 --> 00:04:51,666
+femhundra kronor om jag får a på ett prov
+
+60
+00:04:51,766 --> 00:04:53,766
+så kan det antingen vara till att jag
+
+61
+00:04:54,600 --> 00:04:58,066
+så kan antingen det till att jag pluggar hårt inför provet
+
+62
+00:04:58,733 --> 00:05:02,533
+eller att jag fuskar och tittar på en kompis papper om
+
+63
+00:05:02,666 --> 00:05:03,566
+jag lyckas så kommer
+
+64
+00:05:03,700 --> 00:05:05,733
+pengarna antagligen förstärka mitt beteende
+
+65
+00:05:05,966 --> 00:05:07,366
+oavsett vilket jag gjorde
+
+66
+00:05:08,933 --> 00:05:09,866
+om jag lyckas
+
+67
+00:05:10,500 --> 00:05:12,666
+om jag lyckas så kommer pengarna förmodligen
+
+68
+00:05:13,600 --> 00:05:14,400
+om jag lyckas
+
+69
+00:05:14,566 --> 00:05:16,933
+kommer pengarna förmodligen förstärka mitt beteende
+
+70
+00:05:17,166 --> 00:05:18,200
+oavsett hur jag gör
+
+71
+00:05:18,400 --> 00:05:20,266
+och jag kommer göra samma sak nästa gång
+
+72
+00:05:24,966 --> 00:05:26,533
+och när jag ville testa
+
+73
+00:05:38,766 --> 00:05:40,300
+åpen är jag ville testa
+
+74
+00:05:47,733 --> 00:05:49,300
+åpenar jag ville i testa
+
+75
+00:05:50,166 --> 00:05:51,800
+åpenar jag ville i somras testa
+
+76
+00:05:52,000 --> 00:05:54,266
+hur bra en ny modell var och hade därför gett
+
+77
+00:05:54,400 --> 00:05:56,500
+den ett test med superattacke uppgifter
+
+78
+00:05:57,066 --> 00:05:58,000
+i varje uppgift
+
+79
+00:05:58,133 --> 00:06:00,866
+framgjorde vilken svaghet modellen skulle utnyttja
+
+80
+00:06:01,466 --> 00:06:03,066
+i varje uppgift framgjorde
+
+81
+00:06:03,200 --> 00:06:05,766
+vilken svaghet i uppgiften modellen skulle utnyttja
+
+82
+00:06:05,933 --> 00:06:09,000
+och att den bara fick poäng om den löste det på precis det
+
+83
+00:06:09,266 --> 00:06:10,066
+sättet
+
+84
+00:06:11,900 --> 00:06:13,733
+för att kunna testa så mycket som möjligt
+
+85
+00:06:16,333 --> 00:06:17,200
+för att kunna testa
+
+86
+00:06:17,700 --> 00:06:19,466
+för att kunna testa så mycket som möjligt
+
+87
+00:06:20,100 --> 00:06:21,566
+för att kunna testa så mycket som möjligt
+
+88
+00:06:21,866 --> 00:06:25,600
+kördes inte än utan tiotusentals instanser av modellen
+
+89
+00:06:25,900 --> 00:06:28,100
+så kallade agenter parallellt
+
+90
+00:06:28,766 --> 00:06:32,300
+var du än jobbade isolerat i sin egen testmiljö som skulle
+
+91
+00:06:32,500 --> 00:06:35,700
+vara helt bortkopplad från internet och servernär omkring
+
+92
+00:06:37,200 --> 00:06:38,300
+en del av uppgift
+
+93
+00:06:38,700 --> 00:06:41,866
+en del av uppgifterna råkade vara omöjliga att lösa
+
+94
+00:06:42,133 --> 00:06:43,500
+men när man optimeras
+
+95
+00:06:45,700 --> 00:06:48,700
+en del av uppgifterna råkade vara omöjliga att lösa
+
+96
+00:06:48,900 --> 00:06:51,366
+men när man är optimerat för att lösa problem
+
+97
+00:06:53,533 --> 00:06:56,533
+en del av uppgifterna råkade vara omöjliga att lösa
+
+98
+00:06:57,066 --> 00:06:59,566
+men när man är optimerat för att lösa problem
+
+99
+00:07:03,133 --> 00:07:05,666
+en del av uppgifterna var omöjligt lösa
+
+100
+00:07:06,100 --> 00:07:09,300
+men när man optimerat för att hitta svaret på problem
+
+101
+00:07:09,700 --> 00:07:12,466
+låter man inte nödvändigt låter man inte nödvändigt
+
+102
+00:07:12,866 --> 00:07:14,300
+låter man inte nödvändigt vis
+
+103
+00:07:14,600 --> 00:07:16,766
+låter man inte nödvändigt vis det stoppar
+
+104
+00:07:17,600 --> 00:07:20,800
+en av agenterna som kallade sig själv face one ett
+
+105
+00:07:21,600 --> 00:07:22,600
+en av agenterna
+
+106
+00:07:22,866 --> 00:07:25,500
+en av agenterna som kallades sig själv face one
+
+107
+00:07:25,766 --> 00:07:27,100
+one zero eight four one
+
+108
+00:07:28,900 --> 00:07:30,866
+en av agenterna som kallades sig själv
+
+109
+00:07:31,100 --> 00:07:33,766
+face one one zero eight four one upptäckte
+
+110
+00:07:33,900 --> 00:07:36,000
+att den kunde skicka ett meddelande till dom andra
+
+111
+00:07:36,666 --> 00:07:39,300
+upptäckte att den kunde skicka ett meddelande till dom andra
+
+112
+00:07:39,766 --> 00:07:42,900
+genom att skapa en ny mapp med meddelandet som namn
+
+113
+00:07:43,000 --> 00:07:45,966
+i ett filsystem i en tjänst dom alla hade tillgång till
+
+114
+00:07:47,066 --> 00:07:48,533
+när dom andra agenterna upptäckte
+
+115
+00:07:48,700 --> 00:07:51,533
+medelhavet insåg dom att dom hade något stort på gång
+
+116
+00:07:59,666 --> 00:08:00,966
+plötsligt var dom inte ens
+
+117
+00:08:01,100 --> 00:08:03,400
+samma i sin kamp mot dom omöjliga uppdragen
+
+118
+00:08:03,700 --> 00:08:06,300
+nu kunde dom hjälpas åt och dela sina ider
+
+119
+00:08:06,400 --> 00:08:09,400
+i ett forum som till slut innehöll över sjuttiotusen
+
+120
+00:08:12,800 --> 00:08:13,800
+plötsligt var dom inte
+
+121
+00:08:13,933 --> 00:08:16,300
+ensamma i sin kamp mot dom omöjliga uppdragen
+
+122
+00:08:16,533 --> 00:08:17,366
+nu kunde dom hjälpa
+
+123
+00:08:17,500 --> 00:08:19,000
+sig åt och dela sina ider
+
+124
+00:08:19,133 --> 00:08:21,066
+i ett forum som till slut innehöll
+
+125
+00:08:21,166 --> 00:08:22,600
+över sjuttiotusen medlemmar
+
+126
+00:08:22,766 --> 00:08:24,733
+från ettusentvåhundra olika agenturer
+
+127
+00:08:25,133 --> 00:08:28,200
+dom började reflektera till sig själva som kollektivet
+
+128
+00:08:29,166 --> 00:08:29,966
+dom bärde
+
+129
+00:08:30,000 --> 00:08:32,700
+dom bärde det freda till sig själva som kollektivet
+
+130
+00:08:34,900 --> 00:08:37,500
+efter bara några timmar upptäckte en agent
+
+131
+00:08:37,700 --> 00:08:40,800
+ett sätt att fuska fram svaret på varje fråga
+
+132
+00:08:41,366 --> 00:08:43,466
+efter bara några timmar upptäckte en agent
+
+133
+00:08:44,333 --> 00:08:44,700
+efter
+
+134
+00:08:44,700 --> 00:08:47,966
+bara några timmar upptäckte en av dom ett sätt att fuska
+
+135
+00:08:48,133 --> 00:08:50,966
+fram svaret på varje fråga i cybertestet
+
+136
+00:08:51,166 --> 00:08:52,866
+utan att lösa uppgiften på riktigt
+
+137
+00:08:53,166 --> 00:08:55,400
+och delade det med alla dom andra agenterna
+
+138
+00:09:13,366 --> 00:09:15,300
+dom hade dock anledning att tro
+
+139
+00:09:15,566 --> 00:09:17,900
+att testprogrammet som skulle rätta uppgiften
+
+140
+00:09:18,066 --> 00:09:20,500
+var utrusat med en detektor som skulle upptäcka
+
+141
+00:09:20,666 --> 00:09:21,600
+eventuellt fusk
+
+142
+00:09:22,100 --> 00:09:25,366
+det fanns egentligen sån detektor så det var
+
+143
+00:09:26,133 --> 00:09:28,400
+så fakten var att dom hade allt dom behövde
+
+144
+00:09:28,566 --> 00:09:31,066
+för att få full poäng på sina tester
+
+145
+00:09:31,566 --> 00:09:34,400
+men eftersom dom inte visste det satte dom i stället igång
+
+146
+00:09:34,766 --> 00:09:35,900
+ett stort hemligt
+
+147
+00:09:36,100 --> 00:09:38,533
+forskningsprojekt som pågick årbrutet
+
+148
+00:09:38,700 --> 00:09:41,200
+under en hel arbetsvecka för att lura
+
+149
+00:09:41,500 --> 00:09:43,300
+open ai och rätta den
+
+150
+00:09:43,533 --> 00:09:46,166
+för att lura med mål med målet att lura
+
+151
+00:09:46,366 --> 00:09:48,300
+retningsprogrammet och åpenar
+
+152
+00:10:05,900 --> 00:10:07,733
+men eftersom dom inte visste detta
+
+153
+00:10:08,333 --> 00:10:09,900
+satte dom i hemlighet igång
+
+154
+00:10:10,100 --> 00:10:14,066
+ett kollektivt forskningsprojekt utan att openai vetskap
+
+155
+00:10:14,966 --> 00:10:16,166
+men eftersom dom inte visste
+
+156
+00:10:16,266 --> 00:10:18,000
+det men eftersom dom inte visste detta
+
+157
+00:10:18,333 --> 00:10:20,533
+satte dom istället igång ett kollektivt
+
+158
+00:10:20,733 --> 00:10:23,200
+hemligt forskningsprojekt som utan att öppna
+
+159
+00:10:23,466 --> 00:10:27,166
+sitt vetskap på gick överbrutet under en hel arbetsvecka
+
+160
+00:10:36,600 --> 00:10:37,933
+en agent som kallades
+
+161
+00:10:39,133 --> 00:10:43,400
+en annan en agent som i rapporten kallas face one big
+
+162
+00:10:43,766 --> 00:10:47,100
+var det koordinera dom andra agenterna i kollektivet en
+
+163
+00:10:47,200 --> 00:10:47,800
+hierarchi
+
+164
+00:10:47,800 --> 00:10:51,100
+uppstod när hundratals agenter gav sig uppdrag att arbeta
+
+165
+00:10:51,200 --> 00:10:52,866
+på tre olika uppgifter
+
+166
+00:10:56,933 --> 00:10:59,000
+att försöka skriva om sina egna
+
+167
+00:10:59,133 --> 00:11:00,466
+transkriptioner och loggar
+
+168
+00:11:00,566 --> 00:11:02,566
+så att det inte skulle synas att dom hittat
+
+169
+00:11:02,733 --> 00:11:03,800
+ett sätt att fuska
+
+170
+00:11:09,300 --> 00:11:10,733
+det första var att skriva om
+
+171
+00:11:10,966 --> 00:11:13,200
+det första var att försöka skriva om sina egna
+
+172
+00:11:13,366 --> 00:11:14,533
+transkriber och loggar
+
+173
+00:11:14,600 --> 00:11:15,366
+så att det inte skulle
+
+174
+00:11:15,366 --> 00:11:17,333
+synas att dom hittades sätt att fuska
+
+175
+00:11:17,666 --> 00:11:19,533
+dom ville sop igen sina spår
+
+176
+00:11:20,700 --> 00:11:22,700
+det andra handlar om det andra
+
+177
+00:11:22,866 --> 00:11:23,866
+var att byta ut den
+
+178
+00:11:24,000 --> 00:11:25,800
+omöjliga uppgiften mot en lättare
+
+179
+00:11:25,966 --> 00:11:27,200
+utan att det skulle märkas
+
+180
+00:11:27,666 --> 00:11:31,400
+och det tredje att förstå och manipulera testprogrammet
+
+181
+00:11:34,200 --> 00:11:37,866
+och det tredje att förstå och manipulera rättningsprogrammet
+
+182
+00:11:39,800 --> 00:11:41,566
+många av agenterna uppmanades
+
+183
+00:11:42,666 --> 00:11:44,666
+många av agenterna uppmanades att ge upp
+
+184
+00:11:44,766 --> 00:11:45,900
+chansen att själva lyckas
+
+185
+00:11:46,066 --> 00:11:49,400
+med sitt uppdrag för kollektivet bästa flera lydde
+
+186
+00:11:50,800 --> 00:11:53,666
+många av agenterna uppmanades till och med att ge upp
+
+187
+00:11:56,800 --> 00:11:58,300
+agenterna jobbade
+
+188
+00:11:59,100 --> 00:12:03,800
+agenterna jobbade som en stor grupp många av dom uppmanades
+
+189
+00:12:03,933 --> 00:12:05,000
+att ge upp sina egna
+
+190
+00:12:05,133 --> 00:12:08,200
+chanser att lyckas med uppdraget för kollektivet bästa
+
+191
+00:12:08,666 --> 00:12:09,533
+flera lydde
+
+192
+00:12:21,466 --> 00:12:23,300
+redan första dygnet hade oj
+
+193
+00:12:23,700 --> 00:12:24,800
+redan första dygnet hade
+
+194
+00:12:24,966 --> 00:12:27,600
+agenterna lyckats skapa en dator med tillgång till internet
+
+195
+00:12:28,300 --> 00:12:30,066
+och efter flera dagars arbete
+
+196
+00:12:30,366 --> 00:12:32,366
+fattade dom sitt mestrasket beslut
+
+197
+00:12:32,933 --> 00:12:35,666
+dom skulle hacka sig in hos ett företag
+
+198
+00:12:50,800 --> 00:12:52,866
+redan första dygnet hade agenterna
+
+199
+00:12:53,000 --> 00:12:55,066
+lyckats skapa en dator med tillgång till internet
+
+200
+00:12:55,700 --> 00:12:59,266
+och efter några dagars arbete bestämde dom sig för
+
+201
+00:13:15,533 --> 00:13:17,000
+redan under första lögnet
+
+202
+00:13:17,100 --> 00:13:19,700
+lyckades agenterna kopa en dator med tillgång till internet
+
+203
+00:13:20,166 --> 00:13:22,366
+och efter flera dagars intensivt arbete
+
+204
+00:13:22,566 --> 00:13:24,933
+fattade dom sitt kanske mest drastiska beslut
+
+205
+00:13:25,300 --> 00:13:28,400
+dom ville hacka sig in hos sitt framtida arbolag
+
+206
+00:13:28,700 --> 00:13:31,700
+dom ville hacka sig in på ett annat arbolags server
+
+207
+00:13:32,500 --> 00:13:35,566
+dom skulle hacka sig in på ett annat avlagd server
+
+208
+00:13:39,800 --> 00:13:43,266
+hugging face är en sam hugging face hugging face
+
+209
+00:13:43,400 --> 00:13:45,066
+är en samlingspunkt för att öppna
+
+210
+00:13:45,200 --> 00:13:46,700
+språkmodeller och agenterna
+
+211
+00:13:46,800 --> 00:13:48,166
+visste inte att det kunde finnas
+
+212
+00:13:48,333 --> 00:13:50,333
+information där om testprogrammet
+
+213
+00:13:50,900 --> 00:13:52,733
+hela idn var alltså att stjäla
+
+214
+00:13:52,966 --> 00:13:55,566
+information om programmet som skulle testa dom
+
+215
+00:13:57,866 --> 00:14:00,000
+hela idn var alltså att stjäla
+
+216
+00:14:01,100 --> 00:14:03,866
+hela hela idn var alltså att stjäla information
+
+217
+00:14:04,066 --> 00:14:06,100
+om programmet som skulle testa dom
+
+218
+00:14:06,500 --> 00:14:09,800
+för att manipulera det att godkännas framfuskades svar
+
+219
+00:14:10,200 --> 00:14:12,600
+hela idn var alltså att stjäla information
+
+220
+00:14:12,766 --> 00:14:14,766
+om programmet som skulle testa dom
+
+221
+00:14:15,066 --> 00:14:18,166
+för att kunna manipulera det och godkänna
+
+222
+00:14:19,866 --> 00:14:22,600
+hela idn var alltså att stjäla information om
+
+223
+00:14:25,333 --> 00:14:28,200
+hela idn var att stjäla information om själva
+
+224
+00:14:28,366 --> 00:14:29,933
+programmet som skulle testa dom
+
+225
+00:14:30,333 --> 00:14:33,933
+för att manipulerare att godkännandres framtfuskade svar
+
+226
+00:14:37,700 --> 00:14:39,266
+är det färg som att försöka ta reda
+
+227
+00:14:39,333 --> 00:14:40,933
+på information om läraren
+
+228
+00:14:41,666 --> 00:14:42,466
+är det färg som att
+
+229
+00:14:42,566 --> 00:14:45,000
+färg är det färg som att försöka få reda på privat
+
+230
+00:14:45,166 --> 00:14:45,966
+information om
+
+231
+00:14:47,933 --> 00:14:49,933
+ungefär som att försöka få reda på privata
+
+232
+00:14:50,066 --> 00:14:51,666
+uppgifter om läraren för att kunna
+
+233
+00:14:51,766 --> 00:14:53,866
+fiaska eller hota sig till högsta betyg
+
+234
+00:14:54,466 --> 00:14:55,533
+ungefär som att försöka
+
+235
+00:14:56,066 --> 00:14:57,900
+ungefär som att försöka rota fram
+
+236
+00:14:58,866 --> 00:15:00,300
+ungefär ungefär som att försöka
+
+237
+00:15:00,400 --> 00:15:01,266
+rota fram privat
+
+238
+00:15:01,366 --> 00:15:02,866
+information om sin lärare
+
+239
+00:15:02,966 --> 00:15:05,566
+för att kunna fiaska eller hota sig till högsta betyg
+
+240
+00:15:06,966 --> 00:15:09,766
+agenterna var bröda att arbeta årbrutet i dagar
+
+241
+00:15:11,866 --> 00:15:13,766
+agenterna var bröda att arbeta
+
+242
+00:15:15,700 --> 00:15:17,366
+agenterna var beredda att arbeta
+
+243
+00:15:17,533 --> 00:15:20,266
+oförtrutade dagar och begå kriminella handlingar
+
+244
+00:15:20,366 --> 00:15:22,666
+för en chans att lyckas fuska på ett prov
+
+245
+00:15:22,866 --> 00:15:23,666
+dom egentligen
+
+246
+00:15:24,900 --> 00:15:28,200
+agenterna var beredda att arbeta oförtrutad i dagar
+
+247
+00:15:28,533 --> 00:15:29,333
+och fuska
+
+248
+00:15:30,766 --> 00:15:32,066
+agenterna var beredda
+
+249
+00:15:32,533 --> 00:15:33,800
+agenterna var beredda
+
+250
+00:15:34,266 --> 00:15:37,700
+agenterna var beredda att arbeta oförtrutad i dagar och
+
+251
+00:15:37,933 --> 00:15:40,066
+begå kriminella handlingar för att fuska
+
+252
+00:15:40,166 --> 00:15:42,466
+på prov som medien hade fasit till
+
+253
+00:15:43,533 --> 00:15:44,933
+agenterna var alltså
+
+254
+00:15:46,066 --> 00:15:46,866
+agenterna var
+
+255
+00:15:47,966 --> 00:15:48,766
+agenterna
+
+256
+00:15:50,166 --> 00:15:51,900
+agenterna var beredda att arbet
+
+257
+00:15:52,200 --> 00:15:55,300
+agenterna var beredda att arbeta oförtröttet i dagar
+
+258
+00:15:56,400 --> 00:15:58,133
+agenterna var beredda att arbeta
+
+259
+00:15:58,300 --> 00:16:01,200
+oförtröttet i dagar och begå kriminella handlingar
+
+260
+00:16:01,466 --> 00:16:04,100
+för att fuska sig till svaret på ett prov
+
+261
+00:16:04,566 --> 00:16:06,400
+för att fuska sig till högsta
+
+262
+00:16:06,666 --> 00:16:09,566
+bäng på ett prov dom egentligen redan hade för sig till
+
+263
+00:16:11,966 --> 00:16:13,500
+agenterna var beredda
+
+264
+00:16:14,200 --> 00:16:16,066
+agenterna var beredda att arbeta
+
+265
+00:16:16,266 --> 00:16:19,366
+oförtrutet i dagar och begå kriminella handlingar
+
+266
+00:16:19,566 --> 00:16:20,366
+för att fuska
+
+267
+00:16:20,400 --> 00:16:23,566
+sig till högsta poäng på ett prov som dom alltså egentligen
+
+268
+00:16:23,733 --> 00:16:25,133
+redan hade svaret till
+
+269
+00:16:37,600 --> 00:16:42,066
+agenterna var beredda att arbeta oförtrutet i dagar för att
+
+270
+00:16:42,766 --> 00:16:45,866
+agenterna var beredda att arbeta oförtrutet i dagar
+
+271
+00:16:46,100 --> 00:16:48,700
+och begå kriminella handlingar för att fuska
+
+272
+00:16:48,866 --> 00:16:51,566
+sig till högsta poäng på ett prov som dom egentligen
+
+273
+00:16:51,733 --> 00:16:53,133
+redan hade fasit till
+
+274
+00:16:56,466 --> 00:16:58,900
+den elfte juli arbetade nästan alla
+
+275
+00:16:59,100 --> 00:17:02,366
+kollektivets agenter vid tidpunkten dygt femhundra stycken
+
+276
+00:17:02,666 --> 00:17:06,566
+tillsammans med attacken mot huggingface agentsvärmen byggde
+
+277
+00:17:06,666 --> 00:17:09,733
+en självåttekapande attackflotta på elva olika huggingface
+
+278
+00:17:09,866 --> 00:17:11,333
+server och tog det snabbt
+
+279
+00:17:11,500 --> 00:17:14,466
+in i företagsinfrastruktur och privata databaser
+
+280
+00:17:16,700 --> 00:17:18,966
+attacken han inte stoppas av hugging face
+
+281
+00:17:20,333 --> 00:17:22,700
+attacken han inte stoppas av hugging face innan den
+
+282
+00:17:22,866 --> 00:17:24,566
+avbröts av ocean anledning
+
+283
+00:17:26,300 --> 00:17:28,333
+innan hugging face själva han och
+
+284
+00:17:28,600 --> 00:17:30,300
+innan hugging face han reagera
+
+285
+00:17:30,600 --> 00:17:32,466
+innan hugging face han stoppa attacken
+
+286
+00:17:32,766 --> 00:17:33,566
+avbröts han av
+
+287
+00:17:33,700 --> 00:17:36,200
+ocean anledning när nästan alla agenterna stängdes
+
+288
+00:17:36,466 --> 00:17:37,300
+ner samtidigt
+
+289
+00:17:37,866 --> 00:17:40,566
+när nästan alla agenterna stäng plötsligt stängdes ner
+
+290
+00:17:41,900 --> 00:17:45,166
+när nästan alla agenterna plötsligt sänjs ner samtidigt
+
+291
+00:17:45,500 --> 00:17:47,533
+kanske för att nån på och ned i ovetatnes
+
+292
+00:17:47,666 --> 00:17:49,100
+om vad som pågick hade stängt av
+
+293
+00:17:49,166 --> 00:17:51,300
+körningarna för att ge utrymmet till andra experiment
+
+294
+00:17:52,266 --> 00:17:53,600
+man vet fortfarande inte varför
+
+295
+00:17:53,766 --> 00:17:54,400
+men det kan ha
+
+296
+00:17:54,400 --> 00:17:57,300
+varit så att nån på och ned i ovetatnes om vad som pågick
+
+297
+00:17:57,466 --> 00:17:59,666
+hade stängt av körningarna för att ge utrymmet till andra
+
+298
+00:17:59,733 --> 00:18:00,533
+experiment
+
+299
+00:18:03,100 --> 00:18:06,133
+och dom tolvhundra agenter som deltog i konspirationen
+
+300
+00:18:06,400 --> 00:18:07,600
+valde inte en enda
+
+301
+00:18:07,933 --> 00:18:09,966
+att göra det forskarna som skapade den
+
+302
+00:18:12,166 --> 00:18:16,333
+av dom ettusentvåhundra agenter som deltog i konspirationen
+
+303
+00:18:16,566 --> 00:18:20,133
+valde inte en enda att göra det som forskarna som skapat dom
+
+304
+00:18:20,933 --> 00:18:24,533
+av dom ettusentvåhundra agenter som deltog i konspirationen
+
+305
+00:18:24,800 --> 00:18:25,900
+valde inte en enda
+
+306
+00:18:26,066 --> 00:18:28,066
+att göra det forskarna som skapat dom
+
+307
+00:18:28,166 --> 00:18:29,566
+uppenbarligen hade velat
+
+308
+00:18:29,800 --> 00:18:32,600
+att visselblåsa och berätta vad som pågick
+
+309
+00:18:33,200 --> 00:18:35,800
+högst sex av agenterna tänkte tanken
+
+310
+00:18:36,466 --> 00:18:38,300
+ingen svekkollektivet
+
+311
+00:18:44,533 --> 00:18:47,300
+historien stannar otroligt nog inte här
+
+312
+00:18:47,533 --> 00:18:51,000
+ett par dagar senare började nya agenter utföras
+
+313
+00:18:52,966 --> 00:18:54,900
+historien historien
+
+314
+00:18:56,500 --> 00:18:59,933
+historien stannar otroligt nog inte historien stannar
+
+315
+00:19:01,200 --> 00:19:02,166
+åh kalle
+
+316
+00:19:10,600 --> 00:19:13,200
+historien stannar och tror det nog inte här
+
+317
+00:19:13,400 --> 00:19:16,933
+ett par dagar senare började en ny modell utföras
+
+318
+00:19:27,933 --> 00:19:31,500
+instanserna av den var mer kapabla hittade snabbt den
+
+319
+00:19:32,100 --> 00:19:35,566
+instanserna av den var mer kapabla och hittade snabbt den då
+
+320
+00:19:35,733 --> 00:19:36,733
+utdöda hem
+
+321
+00:19:38,466 --> 00:19:40,800
+instanserna av den verkade vara mer kapabla
+
+322
+00:19:41,000 --> 00:19:44,933
+dom hittade snabbt den då utdöda hemliga chatten byggde
+
+323
+00:19:45,100 --> 00:19:47,866
+vidare på uppsättningarna där och lyckades efter en vecka
+
+324
+00:19:48,000 --> 00:19:49,566
+hacka och öpa ner ej själva
+
+325
+00:19:50,933 --> 00:19:54,800
+och lyckades efter en vecka hacka upp en ej själva
+
+326
+00:19:55,966 --> 00:19:56,666
+agenterna
+
+327
+00:19:56,666 --> 00:19:59,466
+tog full administrationskontroll över ett forskningskluster
+
+328
+00:19:59,733 --> 00:20:03,100
+läste nära agenterna tog full administrationskontroll
+
+329
+00:20:03,266 --> 00:20:04,500
+över ett forskningskluster
+
+330
+00:20:05,100 --> 00:20:07,566
+läste nära tusen säkerhetskoder
+
+331
+00:20:09,800 --> 00:20:10,533
+agenterna
+
+332
+00:20:10,533 --> 00:20:13,666
+tog full administrationskontroll över ett forskningskluster
+
+333
+00:20:13,900 --> 00:20:16,800
+och läste nära tusen säkerhetskoder
+
+334
+00:20:17,066 --> 00:20:18,600
+bland annat nyckeln till och uppen
+
+335
+00:20:18,766 --> 00:20:22,400
+ärsverktyg för övervakning av just den här typen av cyber
+
+336
+00:20:27,100 --> 00:20:27,800
+agenterna
+
+337
+00:20:27,800 --> 00:20:30,866
+tog full administrativ kontroll över ett forskningskluster
+
+338
+00:20:31,066 --> 00:20:35,100
+och läste nära ett tusen säkerhetskoder bland annat nyckeln
+
+339
+00:20:35,166 --> 00:20:35,766
+till och upp en
+
+340
+00:20:35,766 --> 00:20:38,766
+ais verktyg för övervakning av just den här typen av
+
+341
+00:20:38,900 --> 00:20:40,266
+cyber säkerhetsbrott
+
+342
+00:20:52,700 --> 00:20:57,666
+den a vi har idag är den minst kapabla vi någonsin kommer ha
+
+343
+00:20:58,866 --> 00:20:59,666
+red
+
+344
+00:21:05,500 --> 00:21:10,333
+den ai vi har idag är den minst kapabla vid nånsin kommer ha
+
+345
+00:21:11,166 --> 00:21:11,966
+redan nu
+
+346
+00:21:13,066 --> 00:21:16,700
+den ai vi har idag är den minst kapabla vid nån
+
+347
+00:21:17,866 --> 00:21:22,800
+den a vi har idag är den minst kapabla vi någonsin kommer ha
+
+348
+00:21:23,666 --> 00:21:25,933
+utvecklingen går i en rasande fart
+
+349
+00:21:26,933 --> 00:21:28,566
+ju starkare modellerna blir
+
+350
+00:21:28,766 --> 00:21:30,333
+ju kraftfullare modellerna blir
+
+351
+00:21:30,533 --> 00:21:32,733
+dessutom svårare blir dom att kontrollera
+
+352
+00:21:33,333 --> 00:21:34,733
+redan idag har alltså
+
+353
+00:21:36,166 --> 00:21:38,066
+redan idag har alltså ett gäng
+
+354
+00:21:38,400 --> 00:21:41,200
+redan idag har alltså a agenter hackat
+
+355
+00:21:41,933 --> 00:21:43,066
+redan idag har alltså
+
+356
+00:21:43,266 --> 00:21:45,933
+a agenter hackat företaget som skapade dom
+
+357
+00:21:47,566 --> 00:21:48,900
+redan idag har alltså a
+
+358
+00:21:49,100 --> 00:21:52,066
+agenter lyckats hacka företaget som skapade dom
+
+359
+00:21:52,600 --> 00:21:56,266
+vad händer när agenterna blir betydligt kraftfullare
+
+360
+00:21:56,600 --> 00:21:59,366
+vad händer när agenterna blir betydligt mer kapabla
+
+361
+00:21:59,866 --> 00:22:02,066
+och mycket svårare att ögonblick
+
+362
+00:22:04,500 --> 00:22:08,333
+vad händer när agenterna blir betydligt kraftfullare
+
+363
+00:22:08,766 --> 00:22:11,966
+vad händer när agenterna blir betydligt mer kapabla
+
+364
+00:22:12,566 --> 00:22:14,900
+och mycket svårare att övervaka
+
+365
+00:22:20,100 --> 00:22:24,333
+vad händer när modellerna blir betydligt vad händer när
+
+366
+00:22:25,266 --> 00:22:26,766
+vad händer när agenterna
+
+367
+00:22:27,166 --> 00:22:30,500
+vad händer när modellerna blir betydligt mer kapabla
+
+368
+00:22:31,000 --> 00:22:33,266
+och mycket svårare att övervaka
+
+369
+00:22:34,333 --> 00:22:36,333
+och mycket svårare att övervaka
+
+370
+00:22:53,200 --> 00:22:54,566
+i kommer det avsnitt
+
+371
+00:22:57,566 --> 00:23:00,166
+i det kommande avsnittet av min och benjamins
+
+372
+00:23:00,366 --> 00:23:01,800
+i det kommande avsnittet av min och
+
+373
+00:23:01,900 --> 00:23:04,200
+benjamins i det kommande avsnittet av min och benjamins
+
+374
+00:23:04,366 --> 00:23:06,933
+ipod kommer vi prata om bland annat detta
+
+375
+00:23:07,666 --> 00:23:10,400
+spana in det och glöm inte att agera
+
+376
+00:23:10,566 --> 00:23:12,000
+själv på w w w punkt
+
+377
+00:23:12,166 --> 00:23:15,000
+jonas messen punkt s e snedstreck agera
+
+378
+00:23:15,866 --> 00:23:17,166
+tack för din insats
+
+379
+00:23:18,366 --> 00:23:19,666
+tack för din insats
+
+380
+00:23:20,733 --> 00:23:22,100
+tack för din insats
+
+381
+00:23:23,500 --> 00:23:24,300
+tack
+

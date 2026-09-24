@@ -8,3 +8,10 @@ portrait/out/
 work_*/
 __pycache__/
 .DS_Store
+# klipp: ljud och mellanfiler hålls utanför git
+klipp/work/*.wav
+klipp/work/*.npy
+klipp/work/*.mp3
+klipp/work/test60*
+klipp/work/asr.log
+klipp/work/filter.txt
