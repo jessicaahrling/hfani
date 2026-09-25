@@ -3,7 +3,7 @@
 //  (port of portrait s01–s04, recomposed for 1920x1080)
 //  All top-level identifiers are prefixed Y2.
 // ============================================================
-const Y2S={noQuote:false};
+const Y2S={noQuote:false,synk:false};
 // maze geometry inside cell (0,0) — same as the portrait
 const Y2_MZ={walls:[[[-46,10],[-14,10]],[[-14,10],[-14,-24]],[[4,46],[4,18]]],ch:[22,-20,30],A:[-30,30],
   p1:[[-30,30],[-6,30],[-6,2],[22,2],[22,-4]],
@@ -86,7 +86,7 @@ function Y2_provet(t,ta=t){
 // ============================================================
 function Y2_forumet(t){
   const c=Y2_camKeys(t,[{t:0,cx:0,cy:0,z:5,sx:820,sy:540,hold:.2},{t:1.4,cx:0,cy:0,z:5.5,sx:960,sy:540,hold:8.4},{t:9.8,cx:0,cy:-100,z:1.9,hold:10.2},
-    {t:11.0,cx:-40,cy:-215,z:3.0,hold:12.3},{t:13.1,cx:0,cy:-100,z:1.9,hold:15.8},{t:17.0,cx:100,cy:0,z:3.6,sx:520,sy:620}]);
+    {t:11.0,cx:-40,cy:-215,z:3.0,hold:12.3},{t:13.1,cx:0,cy:-100,z:1.9,hold:15.8},Y2S.synk?{t:17.0,cx:100,cy:10,z:2.5,sx:450,sy:600}:{t:17.0,cx:100,cy:0,z:3.6,sx:520,sy:620}]);
   setCam(c.cx,c.cy,c.z,c.sx,c.sy);
   const dim=1-.9*E.io(seg(t,15.6,16.6));
   const joinT=(i,j)=>{if(i===0&&j===0)return 10.4;const q=Y2_J3.find(v=>v.i===i&&v.j===j);return q?q.t0+1.6:1e9;};
@@ -132,16 +132,19 @@ function Y2_forumet(t){
   // message traffic on joined routes
   const all=[{i:0,j:0,tj:10.4}].concat(Y2_J3.map(q=>({i:q.i,j:q.j,tj:q.t0+1.6})));
   all.forEach((q,k)=>{if(t<q.tj+.8)return;const r=route(q.i,q.j),P=1.5+k*.23,f=((t-q.tj)/P)%1,h=polyAt(r,f);dot(h[0],h[1],px(4.2),{c:HOT,a:dim*Math.sin(f*Math.PI)*.95});});
-  all.forEach(q=>{if(t<q.tj)return;const foc=(q.i===1&&q.j===0)?1:dim;const pop=E.ob(seg(t,q.tj,q.tj+.45));
+  all.forEach(q=>{if(t<q.tj)return;const foc=((q.i===1||(Y2S.synk&&q.i>=0&&q.i<=2))&&q.j===0)?1:dim;const pop=E.ob(seg(t,q.tj,q.tj+.45));
     dot(q.i*100,q.j*100,14*lerp(.6,1,pop)*(1+.05*Math.sin(t*3+q.i)),{c:OR,a:foc});ringPulse(q.i*100,q.j*100,t,q.tj,.9,14,44,px(2.4),{c:OR,a:foc});});
   // the hero stays white until it has posted
   if(t<10.4){const m2=E.io(seg(t,8.8,10.0));dot(lerp(ax,0,m2),lerp(ay,0,m2),lerp(ar,14,m2),{a:lerp(.82,1,mv),e:.3});}
   // ---- quote phase
   let top=null;
-  if(t>15.6){const foc=E.io(seg(t,15.6,16.6));rrect(100,0,92,92,5,px(3),{a:foc*.9,e:.2});top=w2s(100,-46);}
+  if(t>15.6){const foc=E.io(seg(t,15.6,16.6));rrect(100,0,92,92,5,px(3),{a:foc*.9,e:.2});top=w2s(100,-46);
+    if(Y2S.synk)[0,1,2].forEach(i=>{const la=E.io(seg(t,17.3+i*2.4,17.8+i*2.4));if(i!==1)rrect(i*100,0,92,92,5,px(3),{a:foc*.9,e:.2});
+      dot(i*100-30,33,3,{c:OR,a:la});text('agent '+(i+1),i*100-24,36.5,10,{c:OR,a:la,font:'GeistMono',wt:700,ls:.4,e:.8});});}
   resetCam();
   Y2_cutLink(1-E.io(seg(t,0,.8)));
-  if(t>16.4){const cp=E.io(seg(t,16.4,17.2));poly([[top[0],top[1]],[top[0],330],[940,330],[940,Y2S.noQuote?930:690]],3,{c:OR,a:.95,p:cp});
+  if(Y2S.synk){if(t>16.6)Y6_forumQuotes(t);}
+  else if(t>16.4){const cp=E.io(seg(t,16.4,17.2));poly([[top[0],top[1]],[top[0],330],[940,330],[940,Y2S.noQuote?930:690]],3,{c:OR,a:.95,p:cp});
     const la=E.io(seg(t,16.8,17.4));text('Äkta citat ur rapporten:',1000,400,46,{a:la*.72,wt:400,ls:1.5,e:0});
     if(!Y2S.noQuote)typed(Y2_QUOTE,1000,490,54,82,seg(t,17.2,21.4),t,{c:WH,a:la});}
 }

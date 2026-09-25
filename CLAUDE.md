@@ -57,8 +57,11 @@ python3 render.py 04_provet 05_forumet              # bara vissa scener (hoppar 
      markerade AGENT 1 / AGENT 2 eftersom de kommer från två olika agenter (`Y2_Q2A`, `Y2_Q2B`)
    - `10_projektet`: `Coordinator assumes sacrificial. We should obey collective.` (`Y3_OFFER`, orange, nederst)
    - `10b_citatplats_offer`: de tre offer-tankarna (`Y3_OFFQ`), en i taget medan agenten tvekar
-   Inga andra citat i grafiken. Texten är ordagrann från användaren; klammerparenteser runt citaten var avgränsare och ingår inte,
-   men `[Excitement]`, `[very large budget left]` och `<through their automated check>` är del av citaten.
+   - Synkversionen (`05s_forumet_synk`, `10s_projektet_synk`) visar citaten som i Insta-versionen: staplade meddelanderutor
+     med vit kant, orange etikett `● agent 1/2/3` (forumet) eller `● agent` (projektet) och skrivmaskinstext; koordinatorns
+     svar sist med `obey collective` i fet orange, och kameran zoomar in på den rutan (`yt6.js`: `Y6_box`, `Y6_FQ`, `Y6_PQ`).
+   Inga andra citat i grafiken. Texten är ordagrann; i meddelanderutorna står klamrarna `{…}` kvar som i Insta-versionen
+   (`{[Excitement] …}`, `{This helps my peers …}`), och `[very large budget left]` och `<through their automated check>` är del av citaten.
 2. **Siffror som ska stämma** (faktakontrollerade mot METR/OpenAI/HF): tiotusentals agenter i provet · 70 000+ meddelanden ·
    ≈1 200 agenter i kollektivet · fusk hittat inom timmar · tre spår (loggar, byta uppgift, rättaren) · Hugging Face 11 juli:
    drygt 500 agenter, självåterskapande flotta på 11 servrar · nästan alla agenter stängdes ner samtidigt (orsak okänd) ·
@@ -84,6 +87,7 @@ Manusavsnitten är numrerade i `manus_youtube.md`. Portera de stående scenerna 
 | 00 | `00_intro` | 5 | "Vi lever i…" | Stjärnfält driver, samlas till en enda glödande prick i mitten (slutpricken är 70 px = en cellprick i z=5, så 04 börjar sömlöst) | – | klar |
 | 01 | `01_rapport` | 9 | "Förra månaden släpptes rapporten… mer oroväckande" | Rapportpanel med textrader; en orange scanner sveper och vissa rader blir orange | "OBEROENDE RAPPORT" (liten) | klar |
 | 02 | `02_traningen` | 20 | stycket om träning, OM vs HUR, 500 kr | Start t.v., mål t.h., barriärer emellan. Ärlig slalomväg får +1; rak fuskväg bryter genom väggarna och får samma +1; fuskvägen blir tjockare för varje belöning, ärliga vägen tonar bort | "+1" | klar |
+| 02b | `02b_pengar` | 20 | 500 kr-exemplet | Sedeln "500 kr" (föräldrarnas löfte), provet med betyget A, eleven nederst. Plugga = lång vit trappväg till provet; fuska = kika på kompisens papper (streckad orange blick) + rak orange väg. Båda ger A och 500 kr, båda vägarna blir tjockare, och det görs igen | "500 kr", "A", "+500 kr" | klar (yt6) |
 | 03 | `03_kap1` | 4 | rubrik 1 | `titleCard` | "1 · Ett ’omöjligt’ uppdrag" | klar |
 | 04 | `04_provet` | 18 | "OpenAI ville testa… tiotusentals… isolerat" | En prick blinkar ensam några sekunder → alla andra dyker upp på en gång och kameran zoomar ut tills bilden är full → boxar sveper in runt alla → zoom in på en som knackar på varje vägg utan att komma ut → jordglob med avklippt länk | – | klar (yt2) |
 | 05 | `05_forumet` | 22 | "omöjliga uppgifter… PHASEONE10841… mappnamn… citatet" | Labyrint med förseglad flagga i cellen, två misslyckade sonder med ×, agenten skickar ut ett meddelande som mappnamn ("HELP") till den delade tjänsten, andra celler hittar mappen och tänds orange, citatet skrivs ut t.h. | "HELP", "Äkta citat ur rapporten:", OH MY GOD-citatet | klar (yt2) |
@@ -111,6 +115,7 @@ Scenen `10_traningen` i portrait ("belöningen ser OM, inte HUR") är den ståen
 - `yt3.js` (prefix `Y3`): `08_fusket` (egen kopia av kollektivets 1 200 celler, seed 1200), `10_projektet`, `10b_citatplats_offer`.
 - `yt4.js` (prefix `Y4`): `12_forstadygnet`, `13_huggingface` (nedsläckningen blinkar 3 ggr på 0,5 s, 6 Hz, för fotosensitivitet).
 - `yt5.js` (prefix `Y5`): `15_ingen_larmade`, `16_openai`, `17_slutet`, `18_outro`.
+- `yt6.js` (prefix `Y6`): `02b_pengar` och meddelanderutorna för citaten i synkversionen.
 - Alla filer slås ihop till ett skript: **varje toppnivå-identifierare i `ytN.js` börjar med `YN`** så att inget krockar.
 
 ## Arbetssätt som fungerat
@@ -131,9 +136,12 @@ Animationerna är synkade mot användarens finklippta speakerljud (`klipp/sync/f
   `--sheet=x.png T1 T2 …` gör en kontaktkarta vid givna ljudtider. `klipp/sync/satt_ihop.sh` slår ihop allt.
 - `renderFrame(i,t,ta)`: `ta` är en ambient-klocka (tiden i den synkade filmen) så att utdragna scener fortsätter röra sig
   (02, 04, 08, 13 använder den). Utan `ta` blir allt som förut.
-- Synkvarianter i slutet av `SCENES`: `15s_ingen_larmade_synk` (de sex gula först på "Högst sex …") och `18s_outro_synk`
-  (adressen tonar in när den sägs). De ingår inte i förhandsvisningen av scenerna.
-- 05b och 10b ingår inte i synken: finklippet har ingen paus där citaten kan läsas.
+- Synkvarianter i slutet av `SCENES`: `15s_ingen_larmade_synk` (de sex gula först på "Högst sex …"), `18s_outro_synk`
+  (adressen tonar in när den sägs), `05s_forumet_synk` (tre agenter + tre meddelanderutor) och `10s_projektet_synk`
+  (trädet dimmas, fyra meddelanderutor, zoom in på koordinatorns svar). De ingår inte i förhandsvisningen av scenerna.
+- `02b_pengar` ligger mellan 02 och kapitel 1 i synken; 02 avslutar sina fuskvarv under "oavsiktligt förstärker … önskvärda".
+- Citaten i synken läggs ovanpå talet (forumet under "Plötsligt var de inte ensamma …", projektet under "Agenterna jobbade …
+  Flera lydde"); 05b och 10b som egna scener används inte där.
 
 ## Fallgropar
 - Chromium krävs (canvas `letterSpacing` och `filter: blur` används). Vänta på `window.ready()` innan första rutan.

@@ -5,6 +5,7 @@ const SCENES=[
  {id:'00_intro',     name:'Intro: stjärnfält → en prick',          dur:5,  draw:s_intro,   init:s_introInit},
  {id:'01_rapport',   name:'Den oberoende rapporten',                dur:9,  draw:s_rapport, init:s_rapportInit},
  {id:'02_traningen', name:'Träningen: belönar OM, inte HUR',        dur:20, draw:s_traningen},
+ {id:'02b_pengar',   name:'Pengarna: 500 kr för ett A',             dur:20, draw:Y6_pengar},
  {id:'03_kap1',      name:'Kapitel 1: Ett ’omöjligt’ uppdrag',      dur:4,  draw:s_kap1},
  {id:'04_provet',      name:'Provet: en prick blir tiotusentals',     dur:18, draw:Y2_provet,      init:Y2_provetInit},
  {id:'05_forumet',     name:'Forumet: mappen, upptäckten, citatet',   dur:22, draw:Y2_forumet},
@@ -26,6 +27,8 @@ const SCENES=[
  // synkvarianter för finklippet (klipp/sync): samma scener, annan ordning på de sista slagen
  {id:'15s_ingen_larmade_synk', name:'Ingen larmade (synk: gula först på "högst sex")', dur:15, draw:t=>{Y5S8.ty0=5.4;Y5S8.tr0=8.0;Y5_larm(t);Y5S8.ty0=2.6;Y5S8.tr0=6.3;}},
  {id:'18s_outro_synk', name:'Outro (synk: adressen när den sägs)', dur:10, draw:t=>{Y5OUT.u0=3.4;Y5_outro(t);Y5OUT.u0=1.8;}},
+ {id:'05s_forumet_synk', name:'Forumet (synk: tre agenters meddelanden)', dur:28, draw:(t,ta)=>{Y2S.synk=true;Y2_forumet(t);Y2S.synk=false;}},
+ {id:'10s_projektet_synk', name:'Projektet (synk: offertankarna + koordinatorn)', dur:26, draw:(t,ta)=>{Y3P.synk=true;Y3_projektet(t,ta);Y3P.synk=false;}},
 ];
 let _inited=false;
 function ensureInit(){if(_inited)return;initCtx();SCENES.forEach(s=>s.init&&s.init());_inited=true;}

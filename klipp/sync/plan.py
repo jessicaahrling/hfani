@@ -18,16 +18,19 @@ t=w('Förra',0)-.2;S('01_rapport',t,[(t,0),(w('rapporten',t),1.4),(w('Detaljerna
 # 02 träningen
 t=w('När',19)-.15
 S('02_traningen',t,[(t,0),(w('vill',t),.9),(w('förstärker',w('När',24)),5.0),(w('Problemet',t),5.4),(w('Därför',30),5.9),
-   (w('oavsiktligt',37),6.2),(w('beteenden',38),7.45),(w('Om',43),7.6),(w('fuskar',43),7.8),(w('Om',54),8.7),
-   (w('förstärka',54),9.95),(w('samma',55),11.4),(w('gång',59,True),12.4)])
+   (w('oavsiktligt',37),6.2),(w('beteenden',38),7.45),(w('önskvärda',41,True)+.2,12.4)])
+# 02b pengarna: 500 kr för ett A, plugga (vit väg) eller fuska (orange), båda belönas och görs igen
+t=w('Om',43)-.2
+S('02b_pengar',t,[(t,0),(w('kr',45,True),1.2),(w('A',45.5),2.4),(w('pluggar',48),4.4),(w('provet',49.5)+.5,7.0),(w('eller',50.5),7.4),
+   (w('fuskar',51.5),8.2),(w('kompis',53),9.1),(w('Om',54),11.4),(w('förstärka',56),12.8),(w('gör',58.5,True),14.6),(w('samma',59.5),16.8),(w('gång',60.5,True),19.0)])
 # kapitel 1
 k1=w('OpenAI',61)-.3;K('03_kap1',k1)
 S('04_provet',k1,[(k1+CARD,0),(w('tiotusentals',77),3.0),(w('parallellt',80,True),6.418),(w('Var',85),6.9),(w('testmiljö',86,True),11.1),(w('omkring',90,True)+.2,14.7)])
 t=w('En',92.5)-.2
-S('05_forumet',t,[(t,0),(w('lösa',93,True),2.9),(w('hitta',95),5.2),(w('låter',98),7.2),(w('stoppa',99,True)+.2,8.8),(w('En',101.5),9.2),
+S('05s_forumet_synk',t,[(t,0),(w('lösa',93,True),2.9),(w('hitta',95),5.2),(w('låter',98),7.2),(w('stoppa',99,True)+.2,8.8),(w('En',101.5),9.2),
    (w('upptäckte',105),10.0),(w('mapp',109),10.4),(w('meddelandet',110),11.2),(w('namn',111,True),11.7),(w('När',115),12.6),
-   (w('insåg',116),15.6),(w('gång',118,True),16.6),(w('gång',118,True)+.5,17.2)])
-t=w('dela',124);S('06_kollektivet',t,[(t,0),(w('innehöll',127),3.2),(w('70',127),3.4),(w('meddelanden',128,True),6.0),(w('1200',130),6.6),
+   (w('insåg',116),15.6),(w('gång',118,True),16.6),(w('gång',118,True)+.3,17.2)])
+t=w('slut',128)-.1;S('06_kollektivet',t,[(t,.4),(w('70',127),3.4),(w('meddelanden',128,True),6.0),(w('1200',130),6.6),
    (w('agenter',131,True),7.2),(w('kollektivet',133),8.2)])
 # kapitel 2
 k2=w('Efter',136)-.25;K('07_kap2',k2)
@@ -36,8 +39,8 @@ S('08_fusket',k2,[(k2+CARD,.9),(w('fuska',139,True),2.3),(w('cybertestet',140,Tr
    (w('detektor',157,True),13.0),(w('full',160),14.4),(w('Men',163),15.0),(w('pågick',170),15.1),(w('arbetsvecka',172,True),16.9)])
 # kapitel 3
 k3=w('En',174)-.25;K('09_kap3',k3)
-S('10_projektet',k3,[(k3+CARD,0),(w('koordinera',178),.9),(w('hierarki',181),1.8),(w('uppgifter',185,True),3.6),(w('Det',187),4.4),
-   (w('Det',196),7.0),(w('Det',201),9.6),(w('Agenterna',205),12.4),(w('uppmanades',208),12.6),(w('chanser',210),13.4),(w('bästa',212,True),16.4)])
+S('10s_projektet_synk',k3,[(k3+CARD,0),(w('koordinera',178),.9),(w('hierarki',181),1.8),(w('uppgifter',185,True),3.6),(w('Det',187),4.4),
+   (w('Det',196),7.0),(w('Det',201),9.6),(w('Agenterna',205),12.4),(w('jobbade',205.5),13.4),(w('lydde',215,True),24.2)])
 # kapitel 4
 k4=w('Flera',214,True)+.08;K('11_kap4',k4)
 S('12_forstadygnet',k4,[(k4+CARD,1.0),(w('tillgång',218),2.8),(w('internet',219,True)+.1,4.9)])

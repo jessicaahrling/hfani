@@ -128,6 +128,7 @@ function Y3_projektet(t,ta=t){
     if(g===2){const loc=t-9.9,inn=E.io(seg(loc,.2,1.2));icon('eye',x-10,y-10,116,3.4,{a:ia,e:.1});ring(x-10,y-10,16,3.4,{c:inn>0?OR:WH,a:ia});if(inn>0)dot(x-10,y-10,16*inn,{c:OR,a:ia});
       line(x+30,y+28,x+2,y,3,{c:OR,a:ia,p:inn});
       poly(shift(gearPts(8,15,22),x+44,y+42,1,ta*1.2),3.2,{c:OR,a:ia,closed:true,fill:'rgba(0,0,0,1)'});dot(x+44,y+42,6,{c:OR,a:ia});}}
+  if(Y3P.synk){const dq=E.io(seg(t,13.0,13.6));if(dq>0){const g=GA;GA=1;M.save();M.setTransform(1,0,0,1,0,0);M.globalAlpha=.82*dq;M.fillStyle='#000';M.fillRect(0,0,W,H);M.restore();B.save();B.setTransform(1,0,0,1,0,0);B.globalAlpha=.9*dq;B.globalCompositeOperation='destination-out';B.fillStyle='#000';B.fillRect(0,0,W/2,H/2);B.restore();GA=g;Y6_projQuotes(t);}return;}
   const L=Y3_OFFER,nch=L.reduce((s,l)=>s+l.length,0),tp=seg(t,13.4,13.4+Math.max(.9,nch/20));if(tp>0&&L.length)typed(L,960,960-(L.length-1)*58,48,58,tp,ta,{c:OR,al:'center',wt:700});
 }
 // 10b  Alternativt slut: zoom in på en agent som tvekar; dess tre tankar skrivs ut; sedan offrar den sig   (26 s)
