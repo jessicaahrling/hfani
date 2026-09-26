@@ -3,6 +3,7 @@
 // init körs en gång (seedad slump); draw(t) ritar rutan vid tiden t (sekunder).
 const SCENES=[
  {id:'19_nodnat', name:'Bakgrundsnät (uppbyggnad 0–12 s + loop 12–42 s)', dur:42, draw:Y6_nodnat, init:Y6_natInit},
+ {id:'00t_titel_1rad', name:'Titel på en rad (överlägg)', dur:6, vig:0, draw:t=>Y6_titel(t,Y6TT1)},
  {id:'00t_titel',    name:'Titel: Hugging Face-incidenten (överlägg)', dur:6, vig:0, draw:Y6_titel},
  {id:'00_intro',     name:'Intro: stjärnfält → en prick',          dur:5,  draw:s_intro,   init:s_introInit},
  {id:'01_rapport',   name:'Den oberoende rapporten',                dur:9,  draw:s_rapport, init:s_rapportInit},

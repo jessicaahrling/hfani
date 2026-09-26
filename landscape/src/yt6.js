@@ -88,16 +88,17 @@ function Y6_pengar(t,ta=t){
 //      Samma beteende som Insta-titeln: blinkande markör, tecken som skramlar innan de faller på plats, linje under.
 // ============================================================
 const Y6TT={L:['Hugging Face-','incidenten'],x:160,y:500,sz:84,lh:96,t0:1.0,t1:3.0,G:'#%&<>*0123456789|/@$?!'};
-function Y6_titel(t){const {L,x,y,sz,lh,t0,t1,G}=Y6TT,cw=textW('M',sz,'GeistMono',700),N=L[0].length+L[1].length;
-  let k=0,cx=x,cy=y,typing=false;
+const Y6TT1={...Y6TT,L:['Hugging Face-incidenten'],x:null,y:330,sz:96};   // en rad, centrerad, ovanför introns mittprick
+function Y6_titel(t,C=Y6TT){const {L,y,sz,lh,t0,t1,G}=C,cw=textW('M',sz,'GeistMono',700),N=L.reduce((a,l)=>a+l.length,0),
+    wmax=Math.max(...L.map(l=>l.length))*cw,x=C.x??Math.round((W-wmax)/2);
+  let k=0,cx=x,cy=y;
   L.forEach((l,i)=>{for(let j=0;j<l.length;j++,k++){const ti=t0+k*(t1-t0)/N;if(t<ti)return;const X=x+j*cw,Y=y+i*lh;
-      let ch=l[j];if(t<ti+.2&&ch!==' '){ch=G[Math.floor(hash2(k,Math.floor(t*22))*G.length)];typing=true;}
+      let ch=l[j];if(t<ti+.2&&ch!==' ')ch=G[Math.floor(hash2(k,Math.floor(t*22))*G.length)];
       text(ch,X,Y,sz,{c:WH,font:'GeistMono',wt:700,e:.28});cx=X+cw;cy=Y;}});
   if(t<t0){cx=x;cy=y;}
   const done=t>=t1+.2,blink=(t<t0||done)?((t*1.6)%1<.55?1:0):1;
   if(blink)D(OR,1,1,q=>{q.fillStyle=OR;q.fillRect(cx+sz*.06,cy-sz*.8,sz*.5,sz*1.0);});
-  // understrykningen, lika lång som första raden
-  const u=E.io(seg(t,3.1,3.9)),ly=y+lh+34,lx1=x+L[0].length*cw;
+  const u=E.io(seg(t,3.1,3.9)),ly=y+(L.length-1)*lh+34,lx1=x+L[0].length*cw;
   if(u>0){line(x,ly,lerp(x,lx1,u),ly,3,{c:OR,a:.95});dot(x,ly,4.5,{c:HOT});dot(lerp(x,lx1,u),ly,4.5,{c:HOT});}
 }
 
