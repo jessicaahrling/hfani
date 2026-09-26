@@ -86,7 +86,7 @@ function Y3_fusket(tt,ta=tt){
 // ============================================================
 // 10  Det hemliga projektet: koordinator -> 3 uppdrag -> 48 arbetare -> 288 småprickar   (20 s)
 // ============================================================
-const Y3P={C:[960,150],CB:92,TX:[480,960,1440],TY:420,R:100,WY:660,Y0:700,DY:30,sac:[[0,2],[0,9],[0,13],[1,4],[1,8],[1,14],[2,1],[2,6],[2,11]],skip:null,sw:null};
+const Y3P={C:[960,140],CB:24,TX:[480,960,1440],TY:420,R:100,WY:660,Y0:700,DY:30,sac:[[0,2],[0,9],[0,13],[1,4],[1,8],[1,14],[2,1],[2,6],[2,11]],skip:null};
 // the quote at the bottom of 10_projektet (typed, orange) and the three thoughts in 10b (verbatim from the report)
 const Y3_OFFER=['Coordinator assumes sacrificial.','We should obey collective.'];
 const Y3_OFFQ=[["This helps my peers, giving them evidence","<through their automated check>. I won’t","see the evidence after I exit, but it’s","altruistic to do it."],
@@ -100,11 +100,8 @@ function Y3_projektet(t,ta=t){
   for(let g=0;g<3;g++){const x=TX[g];line(cx,cy+CB,x,TY-R,2.8,{c:OR,a:.6,p:E.io(seg(t,.4+g*.12,1.2+g*.12))});
     for(let k=0;k<16;k++){const p=E.io(seg(t,1.8+k*.035+g*.1,2.5+k*.035+g*.1));line(x,TY+R,Y3_wx(g,k),WY-7,1.5,{c:OR,a:.36,p});
       line(Y3_wx(g,k),WY+7,Y3_wx(g,k),YB,1.3,{c:OR,a:.22,p:E.io(seg(t,2.5+k*.03,3.5+k*.03))});}}
-  // the swarm itself sits at the top and runs everything
-  const cp=E.ob(seg(t,0,.6)),cs=Math.min(1,cp);
-  if(!Y3P.sw){const r=mulberry(1010);Y3P.sw=[];for(let k=0;k<260;k++){const a=r()*TAU,d=64*Math.pow(r(),.6);Y3P.sw.push({x:Math.cos(a)*d,y:Math.sin(a)*d*.9,ph:r()*TAU,s:.6+r()});}}
-  for(const k of [M,B]){k.fillStyle=OR;k.globalAlpha=(k===M?.95:.8)*GA*cs;k.beginPath();for(const m of Y3P.sw){const x=cx+(m.x+Math.sin(ta*m.s+m.ph)*3)*cs,y=cy+(m.y+Math.cos(ta*m.s*.8+m.ph)*3)*cs;k.moveTo(x+2.2,y);k.arc(x,y,2.2,0,TAU);}k.fill();}
-  ring(cx,cy,(CB-4)*cp,2.6,{c:OR,a:.8,dash:[10,9],a0:ta*.6,a1:ta*.6+TAU});
+  // koordinatorn: en stor orange prick med roterande streckad ring
+  const cp=E.ob(seg(t,0,.6));dot(cx,cy,24*cp,{c:OR});ring(cx,cy,42*cp,2.6,{c:OR,a:.8,dash:[10,9],a0:ta*.6,a1:ta*.6+TAU});
   for(let g=0;g<3;g++)for(let k=0;k<16;k++){const x=Y3_wx(g,k),wp=E.ob(seg(t,2.3+k*.035+g*.1,2.7+k*.035+g*.1));dot(x,WY,5.6*wp,{c:OR,a:.95});
     const si=Y3P.sac.findIndex(s=>s[0]===g&&s[1]===k);
     for(let m=0;m<6;m++){if(Y3P.skip&&Y3P.skip.g===g&&Y3P.skip.k===k&&m===5){if(Y3P.skip.state==='burnt')ring(x,Y0+m*DY,5,1.8,{a:.5,e:0});continue;}
@@ -112,7 +109,7 @@ function Y3_projektet(t,ta=t){
       if(t<ts)dot(x,y,3.6*tp,{c:OR,a:.88*(.9+.1*Math.sin(ta*2.1+hash2(g*16+k,m)*TAU))});
       else{const f=seg(t,ts,ts+.45);if(f<1)dot(x,y,lerp(3.6,17,E.o(f)),{c:HOT,a:1-f*.7});ring(x,y,5,1.8,{a:.5*f,e:0});
         const u=seg(t,ts+.3,ts+1.5);if(u>0&&u<1){const path=[[x,YB],[x,WY],[TX[g],TY+R],[TX[g],TY-R],[cx,cy+CB]];const e=E.ioq(u),h=polyAt(path,e);poly(path,3,{c:HOT,a:.85,p0:Math.max(0,e-.14),p:e});dot(h[0],h[1],8,{c:HOT});}
-        ringPulse(cx,cy,t,ts+1.5,.7,CB,CB+60,2.6,{c:OR});}}}
+        ringPulse(cx,cy,t,ts+1.5,.7,26,72,2.6,{c:OR});}}}
   for(let g=0;g<3;g++){const x=TX[g],y=TY,p=E.io(seg(t,.9+g*.15,1.9+g*.15)),h=hl[g],dimA=lerp(1,.45,anyHl*(1-h));const sc=1+.07*h;
     D('#000',1,0,k=>{k.fillStyle='#000';k.beginPath();k.arc(x,y,R*sc,0,TAU);k.fill();});
     if(p>0)ring(x,y,R*sc,lerp(3.2,5,h),{c:OR,a:dimA,a0:-Math.PI/2,a1:-Math.PI/2+TAU*p});
