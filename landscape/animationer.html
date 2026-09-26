@@ -1072,10 +1072,70 @@ function Y6_titel(t){const {L,x,y,sz,lh,t0,t1,G}=Y6TT,cw=textW('M',sz,'GeistMono
   if(u>0){line(x,ly,lerp(x,lx1,u),ly,3,{c:OR,a:.95});dot(x,ly,4.5,{c:HOT});dot(lerp(x,lx1,u),ly,4.5,{c:HOT});}
 }
 
+// ---------- 19_nodnat: bakgrundsnät för skärmarna i bild (växer från nere t.v., sedan sömlös 30 s-loop) ----------
+// Klocka g: 0–12 s = uppbyggnad, 12–42 s = loop. Allt i loopen är periodiskt med 30 s, så g=42 ≡ g=12.
+const Y6N={TI:12,P:30,N:[],E:[],adj:[],pk:[],fl:[]};
+function Y6_natInit(){const S=Y6N,R=mulberry(1930),cs=118,nx=Math.ceil((W+160)/cs),ny=Math.ceil((H+160)/cs);
+  for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){if(R()<.22)continue;
+    const x=-80+(i+.5)*cs+(R()-.5)*cs*.8,y=-80+(j+.5)*cs+(R()-.5)*cs*.8;
+    S.N.push({x,y,r:R()<.07?9:lerp(3,5.2,R()),hub:false,ph:R()*TAU,ph2:R()*TAU,n1:1+Math.floor(R()*2),born:0});}
+  S.N.forEach(n=>{if(n.r===9)n.hub=true;});S.adj=S.N.map(()=>[]);const key=new Set();
+  S.N.forEach((a,i)=>{const d=S.N.map((b,j)=>[Math.hypot(a.x-b.x,a.y-b.y),j]).filter(q=>q[1]!==i).sort((p,q)=>p[0]-q[0]);
+    const k=a.hub?4:2+(R()<.4?1:0);for(let m=0;m<k;m++){const j=d[m][1],kk=Math.min(i,j)+'_'+Math.max(i,j);
+      if(d[m][0]>cs*2.1||key.has(kk))continue;key.add(kk);S.adj[i].push([j,S.E.length]);S.adj[j].push([i,S.E.length]);S.E.push({a:i,b:j,t0:0,t1:0,from:i});}});
+  // tillväxt: kortaste väg (Dijkstra) från noden närmast nedre vänstra hörnet
+  let s0=0;S.N.forEach((n,i)=>{if(Math.hypot(n.x-120,n.y-(H-120))<Math.hypot(S.N[s0].x-120,S.N[s0].y-(H-120)))s0=i;});
+  const dist=S.N.map(()=>Infinity),par=S.N.map(()=>-1),done=S.N.map(()=>false);dist[s0]=0;
+  for(;;){let u=-1;dist.forEach((d,i)=>{if(!done[i]&&d<Infinity&&(u<0||d<dist[u]))u=i;});if(u<0)break;done[u]=true;
+    for(const [v] of S.adj[u]){const w=Math.hypot(S.N[u].x-S.N[v].x,S.N[u].y-S.N[v].y)*(1+R()*.6);if(dist[u]+w<dist[v]){dist[v]=dist[u]+w;par[v]=u;}}}
+  const dm=Math.max(...dist.filter(d=>d<Infinity)),tb=d=>1.2+9.3*Math.pow(d/dm,.8);   // snabbare mot slutet
+  S.N.forEach((n,i)=>{n.born=dist[i]<Infinity?tb(dist[i]):10.5+R();});
+  S.E.forEach(e=>{const [p,q]=S.N[e.a].born<=S.N[e.b].born?[e.a,e.b]:[e.b,e.a];e.from=p;e.t0=S.N[p].born;
+    e.t1=par[q]===p?S.N[q].born:Math.max(S.N[q].born,e.t0)+.5+R()*.8;});
+  S.s0=s0;
+  // meddelanden: slumpvandringar, starttider i [0,30); drar ut en orange puls längs vägen
+  for(let k=0;k<60;k++){let u=Math.floor(R()*S.N.length);const path=[u];let prev=-1;
+    for(let m=0,L=2+Math.floor(R()*4);m<L;m++){const nb=S.adj[u].filter(q=>q[0]!==prev);if(!nb.length)break;const [v,ei]=nb[Math.floor(R()*nb.length)];path.push(v);prev=u;u=v;}
+    if(path.length<2){k--;continue;}const v=150+R()*110,st=R()*S.P,arr=[0];
+    for(let m=1;m<path.length;m++){const a=S.N[path[m-1]],b=S.N[path[m]];arr.push(arr[m-1]+Math.hypot(a.x-b.x,a.y-b.y)/v);}
+    S.pk.push({path,st,arr});}
+  S.fl=S.N.map(()=>[]);S.pk.forEach(p=>p.path.forEach((u,m)=>{if(m>0)S.fl[u].push((p.st+p.arr[m])%S.P);}));
+}
+function Y6_npos(n,g){const w=TAU/Y6N.P;return [n.x+7*Math.sin(w*n.n1*g+n.ph),n.y+6*Math.cos(w*(3-n.n1)*g+n.ph2)];}
+function Y6_nodnat(t,ta=t){const S=Y6N,g=t,P=S.P,m=v=>((v%P)+P)%P,Q=S.N.map(n=>Y6_npos(n,g));
+  const bp=n=>seg(g,n.born,n.born+.6);
+  // färdiga ledningar i en path, växande separat
+  D(WH,.24,.06,k=>{k.strokeStyle=WH;k.lineWidth=2;k.beginPath();
+    for(const e of S.E)if(g>=e.t1+.01){const [a,b]=[Q[e.a],Q[e.b]];k.moveTo(a[0],a[1]);k.lineTo(b[0],b[1]);}k.stroke();});
+  for(const e of S.E)if(g>e.t0&&g<e.t1+.01){const u=E.io(seg(g,e.t0,e.t1)),o=e.from===e.a?[Q[e.a],Q[e.b]]:[Q[e.b],Q[e.a]];
+    const x=lerp(o[0][0],o[1][0],u),y=lerp(o[0][1],o[1][1],u);line(o[0][0],o[0][1],x,y,2,{a:.24+.5*(1-u),e:.1});
+    if(u<1)dot(x,y,3.4,{c:OR,a:.9,e:1});}
+  // meddelanden (bara där båda ändar finns)
+  for(const p of S.pk){const tp=m(g-p.st),L=p.arr[p.arr.length-1];if(tp>L+.6)continue;
+    for(let s=1;s<p.path.length;s++){if(tp<p.arr[s-1]||tp>p.arr[s]+.6)continue;const a=S.N[p.path[s-1]],b=S.N[p.path[s]];
+      if(g<Math.max(a.born,b.born)+.8)break;const A=Q[p.path[s-1]],B=Q[p.path[s]],u=clamp((tp-p.arr[s-1])/(p.arr[s]-p.arr[s-1]),0,1),tail=.28;
+      const u0=Math.max(0,u-tail),fade=tp>p.arr[s]?1-(tp-p.arr[s])/.6:1;
+      line(lerp(A[0],B[0],u0),lerp(A[1],B[1],u0),lerp(A[0],B[0],u),lerp(A[1],B[1],u),2.8,{c:OR,a:.8*fade,e:.8});
+      if(tp<=p.arr[s])dot(lerp(A[0],B[0],u),lerp(A[1],B[1],u),3.8,{c:HOT,a:.95,e:1});}}
+  // noder: vita, blinkar svagt orange när ett meddelande kommer fram
+  const Wp=[],Op=[];S.N.forEach((n,i)=>{const b=bp(n);if(b<=0)return;const [x,y]=Q[i];let f=0;
+    for(const ta of S.fl[i]){const d=m(g-ta);if(d<1.6)f=Math.max(f,Math.pow(1-d/1.6,2));}
+    if(g<Math.max(n.born+.8,0))f=0;
+    const r=n.r*E.ob(b);(f>.05?Op:Wp).push([x,y,r,f,b]);
+    if(b<1)ringPulse(x,y,g,n.born,.9,r,r+16,1.2,{a:.5});
+    if(n.hub&&b>0){const a0=TAU*g/P*(i%2?1:-1)+n.ph;ring(x,y,r+11,1.8,{a:.4*b,dash:[5,6],a0,a1:a0+TAU,e:.1});}
+    if(f>.05)ring(x,y,r+5+12*(1-f),1.6,{c:OR,a:.55*f,e:.6});});
+  D(WH,.7,.16,k=>{k.fillStyle=WH;k.beginPath();for(const [x,y,r] of Wp){k.moveTo(x+r,y);k.arc(x,y,r,0,TAU);}k.fill();});
+  for(const [x,y,r,f] of Op){dot(x,y,r,{c:WH,a:.7*(1-f)});dot(x,y,r,{c:OR,a:f,e:.9*f});}
+  // första noden: startpuls nere t.v.
+  const s=S.N[S.s0];if(g<3){const [x,y]=Q[S.s0];dot(x,y,5*E.ob(seg(g,.3,1)),{c:OR,a:1-seg(g,1.2,2.6),e:1});ringPulse(x,y,g,.4,1.4,4,40,1.5,{c:OR});}
+}
+
 // ---------- scentabell ----------
 // Lägg till nya scener här i den ordning de ska ligga i förhandsvisningen.
 // init körs en gång (seedad slump); draw(t) ritar rutan vid tiden t (sekunder).
 const SCENES=[
+ {id:'19_nodnat', name:'Bakgrundsnät (uppbyggnad 0–12 s + loop 12–42 s)', dur:42, draw:Y6_nodnat, init:Y6_natInit},
  {id:'00t_titel',    name:'Titel: Hugging Face-incidenten (överlägg)', dur:6, vig:0, draw:Y6_titel},
  {id:'00_intro',     name:'Intro: stjärnfält → en prick',          dur:5,  draw:s_intro,   init:s_introInit},
  {id:'01_rapport',   name:'Den oberoende rapporten',                dur:9,  draw:s_rapport, init:s_rapportInit},
