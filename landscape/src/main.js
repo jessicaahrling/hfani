@@ -2,6 +2,7 @@
 // Lägg till nya scener här i den ordning de ska ligga i förhandsvisningen.
 // init körs en gång (seedad slump); draw(t) ritar rutan vid tiden t (sekunder).
 const SCENES=[
+ {id:'00t_titel',    name:'Titel: Hugging Face-incidenten (överlägg)', dur:6, vig:0, draw:Y6_titel},
  {id:'00_intro',     name:'Intro: stjärnfält → en prick',          dur:5,  draw:s_intro,   init:s_introInit},
  {id:'01_rapport',   name:'Den oberoende rapporten',                dur:9,  draw:s_rapport, init:s_rapportInit},
  {id:'02_traningen', name:'Träningen: belönar OM, inte HUR',        dur:20, draw:s_traningen},
@@ -35,7 +36,7 @@ let _inited=false;
 function ensureInit(){if(_inited)return;initCtx();SCENES.forEach(s=>s.init&&s.init());_inited=true;}
 window.SCENES_META=()=>SCENES.map(s=>({id:s.id,name:s.name,dur:s.dur}));
 // ta = valfri 'ambient'-klocka (t.ex. tiden i den synkade filmen) så att en utdragen scen ändå lever
-window.renderFrame=(i,t,ta)=>{ensureInit();begin();SCENES[i].draw(t,ta===undefined?t:ta);finish();};
+window.renderFrame=(i,t,ta)=>{ensureInit();begin();VIG=SCENES[i].vig??0.5;SCENES[i].draw(t,ta===undefined?t:ta);finish();};   // vig:0 = ingen vinjett (överlägg)
 window.ready=async()=>{await Promise.all([document.fonts.load('700 100px BigShoulders'),document.fonts.load('400 100px BigShoulders'),document.fonts.load('400 50px GeistMono'),document.fonts.load('700 50px GeistMono')]);await document.fonts.ready;ensureInit();return true;};
 
 // ---------- förhandsvisning (visas inte i #render-läge) ----------

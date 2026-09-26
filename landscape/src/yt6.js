@@ -82,3 +82,21 @@ function Y6_pengar(t,ta=t){
   run(H,16.8,19.0,WH,12);run(C,16.9,17.4,HOT,12);run(C,17.9,18.4,HOT,12);
   if(t>19.4){const P=2.6,k=Math.floor((ta-19.4)/P),u0=19.4+k*P+(t-ta);run(C,u0,u0+.5,HOT,12);}
 }
+
+// ============================================================
+// 00t  Titel: "Hugging Face-incidenten" – skrivs med glitch, orange understrykning (6 s, ska ligga ovanpå introt)
+//      Samma beteende som Insta-titeln: blinkande markör, tecken som skramlar innan de faller på plats, linje under.
+// ============================================================
+const Y6TT={L:['Hugging Face-','incidenten'],x:160,y:500,sz:84,lh:96,t0:1.0,t1:3.0,G:'#%&<>*0123456789|/@$?!'};
+function Y6_titel(t){const {L,x,y,sz,lh,t0,t1,G}=Y6TT,cw=textW('M',sz,'GeistMono',700),N=L[0].length+L[1].length;
+  let k=0,cx=x,cy=y,typing=false;
+  L.forEach((l,i)=>{for(let j=0;j<l.length;j++,k++){const ti=t0+k*(t1-t0)/N;if(t<ti)return;const X=x+j*cw,Y=y+i*lh;
+      let ch=l[j];if(t<ti+.2&&ch!==' '){ch=G[Math.floor(hash2(k,Math.floor(t*22))*G.length)];typing=true;}
+      text(ch,X,Y,sz,{c:WH,font:'GeistMono',wt:700,e:.28});cx=X+cw;cy=Y;}});
+  if(t<t0){cx=x;cy=y;}
+  const done=t>=t1+.2,blink=(t<t0||done)?((t*1.6)%1<.55?1:0):1;
+  if(blink)D(OR,1,1,q=>{q.fillStyle=OR;q.fillRect(cx+sz*.06,cy-sz*.8,sz*.5,sz*1.0);});
+  // understrykningen, lika lång som första raden
+  const u=E.io(seg(t,3.1,3.9)),ly=y+lh+34,lx1=x+L[0].length*cw;
+  if(u>0){line(x,ly,lerp(x,lx1,u),ly,3,{c:OR,a:.95});dot(x,ly,4.5,{c:HOT});dot(lerp(x,lx1,u),ly,4.5,{c:HOT});}
+}

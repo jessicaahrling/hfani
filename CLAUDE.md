@@ -115,7 +115,7 @@ Scenen `10_traningen` i portrait ("belöningen ser OM, inte HUR") är den ståen
 - `yt3.js` (prefix `Y3`): `08_fusket` (egen kopia av kollektivets 1 200 celler, seed 1200), `10_projektet`, `10b_citatplats_offer`.
 - `yt4.js` (prefix `Y4`): `12_forstadygnet`, `13_huggingface` (nedsläckningen blinkar 3 ggr på 0,5 s, 6 Hz, för fotosensitivitet).
 - `yt5.js` (prefix `Y5`): `15_ingen_larmade`, `16_openai`, `17_slutet`, `18_outro`.
-- `yt6.js` (prefix `Y6`): `02b_pengar` och meddelanderutorna för citaten i synkversionen.
+- `yt6.js` (prefix `Y6`): `02b_pengar` och meddelanderutorna för citaten i synkversionen, samt titelöverlägget `00t_titel` (`Y6_titel`, "Hugging Face-incidenten" med skrivmaskinseffekt som i Insta-titeln, 6 s, `vig:0` = ingen vinjett). Renderas med `klipp/sync/titel/plan_titel.json` till `titel_16x9_svart.mp4` (för blandläget Skärm) och `titel_16x9_alfa.mov` (qtrle med alfa); titeln ligger t.v. så att den inte krockar med introns mittprick.
 - Alla filer slås ihop till ett skript: **varje toppnivå-identifierare i `ytN.js` börjar med `YN`** så att inget krockar.
 
 ## Arbetssätt som fungerat
