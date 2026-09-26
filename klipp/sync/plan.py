@@ -8,6 +8,7 @@ def w(word,after,end=False):
         if x['s']>=after-.05 and n(x['w']).startswith(n(word)):return x['e'] if end else x['s']
     raise SystemExit(f'hittar inte "{word}" efter {after}')
 DUR=381.53;CARD=2.8
+f=lambda t:f"{int(t//60)}:{t%60:05.2f}"
 seg=[];cards=[]
 def S(scene,start,anchors):seg.append({'scene':scene,'start':round(start,3),'anchors':[[round(a,3),round(b,3)] for a,b in anchors]})
 def K(scene,start):cards.append({'scene':scene,'start':round(start,3),'dur':CARD})
@@ -56,12 +57,21 @@ S('16_openai',t,[(t,.3),(w('Ett',316),1.0),(w('Instanserna',319),2.5),(w('hittad
    (w('hacka',329),8.5),(w('själva',330,True),9.8),(w('forskningskluster',333,True),11.2),(w('läste',334),11.6),(w('säkerhetskoder',337,True),14.6),
    (w('Bland',338.5),15.0),(w('OpenAI',339),15.8),(w('övervakning',340),17.2),(w('den',341.5),18.4),(w('cybersäkerhetsbrott',342,True),19.4)])
 t=w('Den',345)-.2
-S('17_slutet',t,[(t,1.0),(w('idag',345),3.4),(w('kapabla',346),5.0),(w('ha',349,True),5.8),(w('Utvecklingen',350),6.4),(w('fart',352,True),8.9),
-   (w('Ju',353),9.0),(w('dem',361,True),13.0),(w('övervaka',366,True),16.0)])
+# kurvan fälls ut helt (med pilen) på 'Utvecklingen går i en rasande fart', nätverket börjar växa 1,4 s (scentid) senare
+S('17_slutet',t,[(t,1.0),(w('idag',345),3.4),(w('kapabla',346),5.0),(w('ha',349,True),5.8),(w('Utvecklingen',350),6.4),(w('fart',352,True),9.1),
+   (w('Ju',353),9.6),(w('kontrollera',356,True),13.0),(w('dem',361,True),15.0),(w('övervaka',366,True),17.4)])
 t=w('I',367.5)-.2
 S('18s_outro_synk',t,[(t,0),(w('podd',369),1.3),(w('prata',370),2.2),(w('agera',375),3.4),(w('agera',378),4.2)])
 json.dump({'fps':25,'dur':DUR,'crf':18,'segments':seg,'cards':cards},open('plan.json','w'),ensure_ascii=False,indent=1)
-f=lambda t:f"{int(t//60)}:{t%60:05.2f}"
+# ---------- fristående klipp för redigering (bara animation, utan kapitelkort) ----------
+g={x['scene']:x for x in seg};clips={}
+def C(name,scene,t0,t1,anchors):
+    clips[name]={'fps':25,'t0':round(t0,3),'dur':round(t1-t0,3),'crf':16,'segments':[{'scene':scene,'start':round(t0,3),'anchors':anchors}],'cards':[]}
+A=g['10s_projektet_synk']['anchors'];C('10_projektet_obey_collective','10s_projektet_synk',A[0][0],A[-1][0]+4.0,A)          # börjar när scenen syns, slutbilden hålls 4 s
+A=g['15s_ingen_larmade_synk']['anchors'];C('15_ingen_larmade','15s_ingen_larmade_synk',k5,A[-1][0]+4.0,[[k5,0]]+A)        # hela delen från noll + 4 s
+A=g['16_openai']['anchors'];C('16_openai_ogat','16s_openai_oga',g['16_openai']['start'],A[-1][0]+(28.4-A[-1][1]),A)       # ögat längre, zoom in helt (24–26.8), håll till 28.4
+A=g['17_slutet']['anchors'];C('17_slutet','17_slutet',g['17_slutet']['start'],A[-1][0]+3.0,A)
+for n,c in clips.items():json.dump(c,open(f'klipp_{n}.json','w'),ensure_ascii=False,indent=1);print(f"klipp {n}: börjar {f(c['t0'])} i filmen, {c['dur']:.1f} s")
 for s in seg:
     A=s['anchors'];bad=[i for i in range(1,len(A)) if not(A[i][0]>A[i-1][0] and A[i][1]>=A[i-1][1])]
     sp=[round((A[i][1]-A[i-1][1])/(A[i][0]-A[i-1][0]),2) for i in range(1,len(A))]

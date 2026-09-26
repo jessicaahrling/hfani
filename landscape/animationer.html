@@ -836,7 +836,7 @@ function Y5_larm(t){const S=Y5S8,hx=330,hy=400,R0=5.5;
 // ============================================================
 // 16  Nästa våg: det övergivna forumet -> OpenAI:s kluster        (23 s)
 // ============================================================
-const Y5S9={};
+const Y5S9={fz:0};   // fz: scentid då kameran zoomar in helt på ögat (0 = ingen slutzoom)
 function Y5_openaiInit(){const S=Y5S9,r=mulberry(956);S.C=[1240,540];S.R=240;S.F=[360,820,440,190];
   S.ring=[];for(let k=0;k<12;k++){const a=-Math.PI/2+k/12*TAU;S.ring.push({x:S.C[0]+S.R*Math.cos(a),y:S.C[1]+S.R*Math.sin(a),T:8.9+k*.2});}
   S.slots=[];for(let q=0;q<2;q++)for(let c=0;c<4;c++)S.slots.push([360+(c-1.5)*98,793+q*72]);
@@ -846,7 +846,8 @@ function Y5_openaiInit(){const S=Y5S9,r=mulberry(956);S.C=[1240,540];S.R=240;S.F
   S.dust=[];for(let k=0;k<50;k++)S.dust.push({x:110+r()*520,y:640+r()*330,ph:r()*TAU,s:.4+r()});
   S.keys=[];for(let k=0;k<64;k++){const n=S.ring[(k*5)%12];S.keys.push({n,sp:11.6+4.3*Math.pow(k/64,.9),j:(r()-.5)*90,rot:-.5+(r()-.5)*.8});}}
 function Y5_openai(t){const S=Y5S9,[cx,cy]=S.C,[fx,fy,fw,fh]=S.F;
-  const zk=E.io(seg(t,16.6,18.0));if(zk>0)setCam(lerp(960,1620,zk),lerp(540,200,zk),lerp(1,2.6,zk),960,lerp(540,500,zk));
+  const zk=E.io(seg(t,16.6,18.0)),fz=S.fz?E.io(seg(t,S.fz,S.fz+2.8)):0;
+  if(zk>0)setCam(lerp(960,1620,zk),lerp(540,200,zk),lerp(1,2.6,zk)*Math.exp(Math.log(9.5/2.6)*fz),960,lerp(lerp(540,500,zk),540,fz));
   // the abandoned forum: dead links, dust
   const fa=E.io(seg(t,0,.8));
   D(OR,fa*.07,0,k=>{k.strokeStyle=OR;k.lineWidth=1.4;k.beginPath();for(const q of S.old){k.moveTo(fx,fy);k.lineTo(q[0],q[1]);}k.stroke();});
@@ -897,7 +898,7 @@ function Y5_openai(t){const S=Y5S9,[cx,cy]=S.C,[fx,fy,fw,fh]=S.F;
 // ============================================================
 // 17  I dag är de som minst kapabla (utan sköld)                  (18 s)
 // ============================================================
-const Y5S11={};
+const Y5S11={nd:1.4};   // nd: hur länge efter att kurvan fällts ut som nätverket börjar växa
 function Y5_slutInit(){const S=Y5S11,r=mulberry(2026);S.mini=[];for(let k=0;k<46;k++){const a=r()*TAU,d=44+Math.sqrt(r())*170;S.mini.push({x:Math.cos(a)*d,y:Math.sin(a)*d*.92,ph:r()*TAU});}
   const K=Math.exp(3.4)-1;S.cv=u=>[200+1500*u,940-780*(Math.exp(3.4*u)-1)/K];S.u0=.22;S.P0=S.cv(.22);
   S.curve=[];for(let k=0;k<=100;k++)S.curve.push(S.cv(k/100));S.p0=polyLen(S.curve.slice(0,23))/polyLen(S.curve);
@@ -912,7 +913,7 @@ function Y5_slutInit(){const S=Y5S11,r=mulberry(2026);S.mini=[];for(let k=0;k<46
       thin.push([nd,hub]);if(mine.length&&r()<.6){let best=mine[0],bd=1e9;for(const m of mine){const dd=Math.hypot(m.x-nd.x,m.y-nd.y);if(dd<bd){bd=dd;best=m;}}thin.push([nd,best]);}
       mine.push(nd);nodes.push(nd);}});
   S.nodes=nodes;S.edges=thin;S.thick=thick;}
-function Y5_slut(t){const S=Y5S11,[px0,py0]=S.P0;
+function Y5_slut(t){const S=Y5S11,[px0,py0]=S.P0,tn=t-S.nd;   // tn: nätverkets klocka, S.nd s efter kurvan
   // a test environment: a small orange network in a white box, shrinking onto "today"
   const sh=E.io(seg(t,3.4,4.9)),sc=lerp(1,.03,sh),bx=lerp(960,px0,sh),by=lerp(540,py0,sh);
   if(sh<1){const ba=1-seg(sh,.85,1);rrect(bx,by,520*sc,520*sc,26*sc,3.2,{a:.9*ba,p:E.io(seg(t,0,.9)),e:.15});
@@ -920,7 +921,7 @@ function Y5_slut(t){const S=Y5S11,[px0,py0]=S.P0;
     D(OR,ma*.3,.5,k=>{k.strokeStyle=OR;k.lineWidth=1.4;k.beginPath();for(const m of S.mini){k.moveTo(bx,by);k.lineTo(bx+m.x*sc,by+m.y*sc);}k.stroke();});
     for(const m of S.mini)dot(bx+(m.x+Math.sin(t+m.ph)*4)*sc,by+(m.y+Math.cos(t*.8+m.ph)*4)*sc,Math.max(1.2,7*sc),{c:OR,a:ma});dot(bx,by,Math.max(2,15*sc),{c:HOT,a:ma});}
   // the curve
-  const dim=lerp(1,.3,E.io(seg(t,10.5,13.5)));
+  const dim=lerp(1,.3,E.io(seg(tn,10.5,13.5)));
   const ax=E.io(seg(t,3.8,4.8));line(200,940,1700,940,2.2,{a:.45*dim,p:ax,e:0});line(200,940,200,140,2.2,{a:.45*dim,p:ax,e:0});
   const c1=E.io(seg(t,4.4,5.4)),c2=E.i(seg(t,6.4,8.9));
   poly(S.curve,4,{a:.95*dim,p:S.p0*c1,e:.2});
@@ -929,21 +930,21 @@ function Y5_slut(t){const S=Y5S11,[px0,py0]=S.P0;
       const arm=an=>[h[0]-(ux*Math.cos(an)-uy*Math.sin(an))*al,h[1]-(ux*Math.sin(an)+uy*Math.cos(an))*al];
       poly([arm(.45),h,arm(-.45)],3.6,{a:.9*dim*hp,e:.2});}}
   // the tangle that follows
-  if(t>8.7){for(const k of [M,B]){k.save();k.globalCompositeOperation='lighter';k.strokeStyle=OR;k.lineWidth=1.5;k.lineCap='round';k.setLineDash([]);k.globalAlpha=k===M?.3:.14;
-      for(let g=0;g<6;g++){k.beginPath();for(let q=g;q<S.edges.length;q+=6){const [a,b]=S.edges[q];if(a.tb>t)continue;const e=E.o(seg(t,a.tb,a.tb+.45));k.moveTo(b.x,b.y);k.lineTo(lerp(b.x,a.x,e),lerp(b.y,a.y,e));}k.stroke();}k.restore();}
-    for(const [a,b] of S.thick){if(a.tb>t+.6)continue;const e=E.io(seg(t,a.tb-.6,a.tb));line(b.x,b.y,a.x,a.y,2.8,{c:OR,a:.6,p:e});
+  if(tn>8.7){for(const k of [M,B]){k.save();k.globalCompositeOperation='lighter';k.strokeStyle=OR;k.lineWidth=1.5;k.lineCap='round';k.setLineDash([]);k.globalAlpha=k===M?.3:.14;
+      for(let g=0;g<6;g++){k.beginPath();for(let q=g;q<S.edges.length;q+=6){const [a,b]=S.edges[q];if(a.tb>tn)continue;const e=E.o(seg(tn,a.tb,a.tb+.45));k.moveTo(b.x,b.y);k.lineTo(lerp(b.x,a.x,e),lerp(b.y,a.y,e));}k.stroke();}k.restore();}
+    for(const [a,b] of S.thick){if(a.tb>tn+.6)continue;const e=E.io(seg(tn,a.tb-.6,a.tb));line(b.x,b.y,a.x,a.y,2.8,{c:OR,a:.6,p:e});
       if(e>=1){const f=((t*.45+a.ph)%1);dot(lerp(b.x,a.x,f),lerp(b.y,a.y,f),3.6,{c:HOT,a:Math.sin(f*Math.PI)});}}
     const settled=[];
-    for(const n of S.nodes){if(n.tb>t)continue;const f=seg(t,n.tb,n.tb+.4),w=1+.2*Math.sin(t*2.2+n.ph);
-      if(n.hub){D('#000',1,0,k=>{k.fillStyle='#000';k.beginPath();k.arc(n.x,n.y,n.rr+9,0,TAU);k.fill();});dot(n.x,n.y,n.rr*E.ob(f),{c:OR});ring(n.x,n.y,(n.rr+9)*w,2,{c:OR,a:.7});ringPulse(n.x,n.y,t,n.tb,.9,n.rr,n.rr+60,2.4,{c:OR});}
+    for(const n of S.nodes){if(n.tb>tn)continue;const f=seg(tn,n.tb,n.tb+.4),w=1+.2*Math.sin(t*2.2+n.ph);
+      if(n.hub){D('#000',1,0,k=>{k.fillStyle='#000';k.beginPath();k.arc(n.x,n.y,n.rr+9,0,TAU);k.fill();});dot(n.x,n.y,n.rr*E.ob(f),{c:OR});ring(n.x,n.y,(n.rr+9)*w,2,{c:OR,a:.7});ringPulse(n.x,n.y,tn,n.tb,.9,n.rr,n.rr+60,2.4,{c:OR});}
       else{const x=n.x+Math.sin(t*.5+n.ph)*3,y=n.y+Math.cos(t*.4+n.ph)*3,rr=(2.3+n.s*2.6);
         if(f<1)dot(x,y,rr*lerp(2.2,1,f),{c:HOT,a:.95});else settled.push([x,y,rr*w]);}}
     Y5_dots(settled,3,OR,.95,1);}
   // today
   const dp=E.ob(seg(t,4.6,5.2));
   if(dp>0){dot(px0,py0,13*dp,{c:OR});ring(px0,py0,24+3*Math.sin(t*3),2.4,{c:OR,a:.7*dp});
-    const la=E.io(seg(t,5.0,5.7))*lerp(1,0,seg(t,11.5,13));text('i dag',px0+2,py0-46,58,{a:la,al:'center',e:.12});
-    const ru=E.io(seg(t,8.9,12.0));if(ru>0&&ru<1){const h=S.cv(lerp(S.u0,1,ru));dot(h[0],h[1],lerp(13,34,ru),{c:OR});dot(h[0],h[1],lerp(6,16,ru),{c:HOT});}}
+    const la=E.io(seg(t,5.0,5.7))*lerp(1,0,seg(tn,11.5,13));text('i dag',px0+2,py0-46,58,{a:la,al:'center',e:.12});
+    const ru=E.io(seg(tn,8.9,12.0));if(ru>0&&ru<1){const h=S.cv(lerp(S.u0,1,ru));dot(h[0],h[1],lerp(13,34,ru),{c:OR});dot(h[0],h[1],lerp(6,16,ru),{c:HOT});}}
 }
 
 // ============================================================
@@ -1077,11 +1078,12 @@ const SCENES=[
  {id:'14_kap5',      name:'Kapitel 5: Hackandet av OpenAI självt',  dur:4,  draw:s_kap5},
  {id:'15_ingen_larmade', name:'Ingen larmade',                 dur:15, draw:Y5_larm,   init:Y5_larmInit},
  {id:'16_openai',     name:'Nästa våg tar OpenAI:s kluster',        dur:23, draw:Y5_openai, init:Y5_openaiInit},
- {id:'17_slutet',     name:'Minst kapabla i dag',                   dur:18, draw:Y5_slut,   init:Y5_slutInit},
+ {id:'17_slutet',     name:'Minst kapabla i dag',                   dur:19, draw:Y5_slut,   init:Y5_slutInit},
  {id:'18_outro',      name:'Podden + agera',                        dur:6,  draw:Y5_outro},
  // synkvarianter för finklippet (klipp/sync): samma scener, annan ordning på de sista slagen
  {id:'15s_ingen_larmade_synk', name:'Ingen larmade (synk: gula först på "högst sex")', dur:15, draw:t=>{Y5S8.ty0=5.4;Y5S8.tr0=8.0;Y5_larm(t);Y5S8.ty0=2.6;Y5S8.tr0=6.3;}},
  {id:'18s_outro_synk', name:'Outro (synk: adressen när den sägs)', dur:10, draw:t=>{Y5OUT.u0=3.4;Y5_outro(t);Y5OUT.u0=1.8;}},
+ {id:'16s_openai_oga', name:'OpenAI (klipp: ögat längre, zoom in helt)', dur:29, draw:t=>{Y5S9.fz=24;Y5_openai(t);Y5S9.fz=0;}},
  {id:'05s_forumet_synk', name:'Forumet (synk: tre agenters meddelanden)', dur:28, draw:(t,ta)=>{Y2S.synk=true;Y2_forumet(t);Y2S.synk=false;}},
  {id:'10s_projektet_synk', name:'Projektet (synk: offertankarna + koordinatorn)', dur:26, draw:(t,ta)=>{Y3P.synk=true;Y3_projektet(t,ta);Y3P.synk=false;}},
 ];

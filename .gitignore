@@ -24,3 +24,6 @@ klipp/sync/delar.txt
 klipp/sync/sync.log
 klipp/sync/asr.log
 klipp/sync/k[0-9].png
+klipp/sync/klipp_ut/
+klipp/sync/klipp.log
+klipp/sync/c[0-9]*.png

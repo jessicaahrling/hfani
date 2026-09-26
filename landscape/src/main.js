@@ -22,11 +22,12 @@ const SCENES=[
  {id:'14_kap5',      name:'Kapitel 5: Hackandet av OpenAI självt',  dur:4,  draw:s_kap5},
  {id:'15_ingen_larmade', name:'Ingen larmade',                 dur:15, draw:Y5_larm,   init:Y5_larmInit},
  {id:'16_openai',     name:'Nästa våg tar OpenAI:s kluster',        dur:23, draw:Y5_openai, init:Y5_openaiInit},
- {id:'17_slutet',     name:'Minst kapabla i dag',                   dur:18, draw:Y5_slut,   init:Y5_slutInit},
+ {id:'17_slutet',     name:'Minst kapabla i dag',                   dur:19, draw:Y5_slut,   init:Y5_slutInit},
  {id:'18_outro',      name:'Podden + agera',                        dur:6,  draw:Y5_outro},
  // synkvarianter för finklippet (klipp/sync): samma scener, annan ordning på de sista slagen
  {id:'15s_ingen_larmade_synk', name:'Ingen larmade (synk: gula först på "högst sex")', dur:15, draw:t=>{Y5S8.ty0=5.4;Y5S8.tr0=8.0;Y5_larm(t);Y5S8.ty0=2.6;Y5S8.tr0=6.3;}},
  {id:'18s_outro_synk', name:'Outro (synk: adressen när den sägs)', dur:10, draw:t=>{Y5OUT.u0=3.4;Y5_outro(t);Y5OUT.u0=1.8;}},
+ {id:'16s_openai_oga', name:'OpenAI (klipp: ögat längre, zoom in helt)', dur:29, draw:t=>{Y5S9.fz=24;Y5_openai(t);Y5S9.fz=0;}},
  {id:'05s_forumet_synk', name:'Forumet (synk: tre agenters meddelanden)', dur:28, draw:(t,ta)=>{Y2S.synk=true;Y2_forumet(t);Y2S.synk=false;}},
  {id:'10s_projektet_synk', name:'Projektet (synk: offertankarna + koordinatorn)', dur:26, draw:(t,ta)=>{Y3P.synk=true;Y3_projektet(t,ta);Y3P.synk=false;}},
 ];

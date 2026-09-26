@@ -7,7 +7,7 @@ import sys,os,json,base64,subprocess,time,bisect
 from playwright.sync_api import sync_playwright
 ROOT=os.path.dirname(os.path.abspath(__file__))
 plan=json.load(open(sys.argv[1]));OUT=sys.argv[2];os.makedirs(OUT,exist_ok=True)
-FPS=plan['fps'];N=int(round(plan['dur']*FPS))
+FPS=plan['fps'];N=int(round(plan['dur']*FPS));T0=plan.get('t0',0)   # t0: klippets starttid i filmen
 part=[a for a in sys.argv if a.startswith('--part=')];cards='--cards' in sys.argv
 def tau(seg,T):
     A=seg['anchors']
@@ -45,7 +45,7 @@ with sync_playwright() as p:
         f0,f1=N*k//n,N*(k+1)//n;dst=os.path.join(OUT,f'del_{k:02d}.mp4');ff=enc(dst);t0=time.time()
         segs=plan['segments'];starts=[s['start'] for s in segs]
         for f in range(f0,f1):
-            T=f/FPS;s=segs[max(0,bisect.bisect_right(starts,T)-1)]
+            T=T0+f/FPS;s=segs[max(0,bisect.bisect_right(starts,T)-1)]
             ff.stdin.write(grab(idx[s['scene']],tau(s,T),T))
             if (f-f0)%250==0:print(k,f'{f-f0}/{f1-f0}',f'{(time.time()-t0)/(f-f0+1)*1000:.0f} ms/ruta',flush=True)
         ff.stdin.close();ff.wait();print('klar',dst,f'{time.time()-t0:.0f}s',flush=True)
